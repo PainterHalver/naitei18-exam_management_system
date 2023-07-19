@@ -3,3 +3,5 @@ digit:
   length_10: 10
   length_30: 30
   length_255: 255
+pagination:
+  per_page_10: 10

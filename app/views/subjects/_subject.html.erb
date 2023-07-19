@@ -1,0 +1,24 @@
+<li id="subject-<%= subject.id %>" class="subjects item">
+    <div class="subjects row">
+      <%= image_tag("Cloud-IT-Infrastructure-Solutions-Banner.png", size: "300x250", class: "subjects col-md-4") %>
+      <div class="col-md-8 description">
+        <p class="subjects title"><%= subject.name %></p>
+        <p><%= subject.description %></p>
+        <div class="subjects infos">
+          <div class="info amount">
+            <%= t("subjects.index.amount", amount: subject.question_amount) %>
+          </div>
+          <div class="info duration">
+            <%= t("subjects.index.duration", duration: subject.test_duration)%>
+          </div>
+          <div class="info pass-score">
+            <%= t("subjects.index.pass_score", score: subject.pass_score)%>
+          </div>
+        </div>
+        <%= form_for(subject, remote: true, class: "create-test") do |f| %>
+          <div><%= hidden_field_tag :subject_id, subject.id %></div>
+          <%= f.submit t("subjects.index.button"), class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+</li>

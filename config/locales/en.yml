@@ -12,6 +12,13 @@ en:
     home:
       title: "Home"
       login_message: "You need to signup or login to continue!"
+  subjects:
+    index:
+      title: "Subjects"
+      pass_score: "Requirement: %{score}%"
+      button: "Do Test"
+      amount: "%{amount} questions"
+      duration: "%{duration} minutes"
   layouts:
     header:
       home: "Home"
@@ -22,6 +29,8 @@ en:
       login: "Login"
       subjects: "Subjects"
       signup: "Signup"
+      en: "English"
+      vn: "Vietnamese"
   base_title: "EMS"
   signup:
     title: "Signup"

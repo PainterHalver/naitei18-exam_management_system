@@ -13,6 +13,13 @@ vi:
     home:
       title: "Trang chủ"
       login_message: "Bạn cần phải đăng ký hoặc đăng nhập để tiếp tục!"
+  subjects:
+    index:
+      title: "Các chủ đề"
+      pass_score: "Yêu cầu: %{score}%"
+      button: "Làm test"
+      amount: "%{amount} câu"
+      duration: "%{duration} phút"
   layouts:
     header:
       home: "Trang chủ"
@@ -23,6 +30,8 @@ vi:
       login: "Đăng nhập"
       subjects: "Các chủ đề"
       signup: "Đăng ký"
+      en: "Tiếng Anh"
+      vn: "Tiếng Việt"
   base_title: "EMS"
   signup:
     title: "Đăng ký"

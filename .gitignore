@@ -6,7 +6,7 @@ capybara-*.html
 /db/*.sqlite3-[0-9]*
 /public/system
 /coverage/
-/spec/tmp
+/spec
 *.orig
 rerun.txt
 pickle-email-*.html

@@ -1,8 +1,17 @@
 en:
+  activerecord:
+    models:
+      user: "User"
+    attributes:
+      user:
+        name: "Name"
+        email: "Email"
+        password: "Password"
+        password_confirmation: "Password confirmation"
   static_pages:
     home:
       title: "Home"
-      login_message: "You need to login to continue!"
+      login_message: "You need to signup or login to continue!"
   layouts:
     header:
       home: "Home"
@@ -12,4 +21,12 @@ en:
       logout: "Logout"
       login: "Login"
       subjects: "Subjects"
+      signup: "Signup"
   base_title: "EMS"
+  signup:
+    title: "Signup"
+    create_account: "Create account"
+    success: "Signup success!"
+  errors:
+    the_form_contains: "The form contains"
+    error: "error"

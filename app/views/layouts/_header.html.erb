@@ -19,9 +19,10 @@
               </li>
             </ul>
           </li>
-        <% else %>
+      <% else %>
+          <li><%= link_to t(".signup"), signup_path %></li>
           <li><%= link_to t(".login"), "#" %></li>
-        <% end %>
+      <% end %>
       </ul>
     </nav>
   </div>

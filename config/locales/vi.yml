@@ -1,0 +1,15 @@
+vi:
+  static_pages:
+    home:
+      title: "Trang chủ"
+      login_message: "Bạn cần phải đăng nhập để tiếp tục!"
+  layouts:
+    header:
+      home: "Trang chủ"
+      account: "Tài khoản"
+      profile: "Hồ sơ"
+      settings: "Chỉnh sửa"
+      logout: "Đăng xuất"
+      login: "Đăng nhập"
+      subjects: "Các chủ đề"
+  base_title: "EMS"

@@ -1,0 +1,10 @@
+<% provide :title, t("signup.title") %>
+<% provide :form_url, signup_path %>
+<% provide :button_text, t("signup.create_account") %>
+
+<h1><%= t "signup.title" %></h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= render "users/form" %>
+  </div>
+</div>

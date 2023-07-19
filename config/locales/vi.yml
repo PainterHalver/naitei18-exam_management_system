@@ -1,8 +1,18 @@
 vi:
+  activerecord:
+    models:
+      user: "Người dùng"
+      micropost: "Bài đăng"
+    attributes:
+      user:
+        name: "Tên"
+        email: "Email"
+        password: "Mật khẩu"
+        confirmation: "Nhập lại mật khẩu"
   static_pages:
     home:
       title: "Trang chủ"
-      login_message: "Bạn cần phải đăng nhập để tiếp tục!"
+      login_message: "Bạn cần phải đăng ký hoặc đăng nhập để tiếp tục!"
   layouts:
     header:
       home: "Trang chủ"
@@ -12,4 +22,12 @@ vi:
       logout: "Đăng xuất"
       login: "Đăng nhập"
       subjects: "Các chủ đề"
+      signup: "Đăng ký"
   base_title: "EMS"
+  signup:
+    title: "Đăng ký"
+    create_account: "Tạo tài khoản"
+    success: "Đăng ký thành công!"
+  errors:
+    the_form_contains: "Form này có"
+    error: "lỗi"

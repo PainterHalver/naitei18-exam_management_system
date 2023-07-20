@@ -28,6 +28,17 @@ vi:
     title: "Đăng ký"
     create_account: "Tạo tài khoản"
     success: "Đăng ký thành công!"
+    mail_check: "Kiểm tra email để lấy link kích hoạt."
+    signup_failed: "Có lỗi xảy ra. Đăng ký thất bại!"
   errors:
     the_form_contains: "Form này có"
     error: "lỗi"
+  mail:
+    account_activation: "Kích hoạt tài khoản"
+    hi_message: "Xin chào"
+    welcome_sentence: "Chào mừng đến với EMS! Click vào link bên dưới để kích hoạt tài khoản:"
+    activate: "Kích hoạt"
+  app_name: "Hệ thống quản lý bài thi"
+  account_activation:
+    activated: "Kích hoạt tài khoản thành công!"
+    invalid: "Kích hoạt tài khoản thất bại: Invalid link!"

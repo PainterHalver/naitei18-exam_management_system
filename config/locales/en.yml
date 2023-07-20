@@ -27,6 +27,17 @@ en:
     title: "Signup"
     create_account: "Create account"
     success: "Signup success!"
+    mail_check: "Please check your email for activation link."
+    signup_failed: "An error occured. Signup failed!"
   errors:
     the_form_contains: "The form contains"
     error: "error"
+  mail:
+    account_activation: "Account activation"
+    hi_message: "Hi"
+    welcome_sentence: "Welcome to the EMS! Click on the link below to activate your account:"
+    activate: "Activate"
+  app_name: "Exam Management System"
+  account_activation:
+    activated: "Account activated successfully!"
+    invalid: "Account activation failed: Invalid link!"

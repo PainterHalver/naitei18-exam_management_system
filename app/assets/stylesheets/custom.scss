@@ -1,6 +1,22 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+@mixin title {
+  font-size: 1.5em;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-overflow: ellipsis;
+  white-space: pre-wrap;
+  overflow: hidden;
+  display: block;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.5;
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out
+}
+
 /* mixins, variables, etc. */
 @mixin box_sizing {
   box-sizing: border-box;
@@ -9,7 +25,7 @@
 
 /* universal */
 body {
-  padding-top: 60px;
+  padding-top: 50px;
 }
 
 section {
@@ -108,7 +124,13 @@ input {
 .subjects {
   .description {
     height: 200px;
-    padding-left: 2%
+    padding-left: 2%;
+    .btn {
+      width: 100%;
+    }
+  }
+  .content {
+    font-size: 16px !important;
   }
   &.col-md-4{
     padding: 0%;
@@ -123,20 +145,8 @@ input {
     margin-bottom: 5%;
   }
   &.title {
-    font-size: 1.5em;
-    font-weight: 600;
-    letter-spacing: 0;
+    @include title;
     color: #191D28;
-    text-overflow: ellipsis;
-    white-space: pre-wrap;
-    overflow: hidden;
-    display: block;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    line-height: 1.5;
-    -webkit-transition: 0.2s ease-in-out;
-    transition: 0.2s ease-in-out
   }
   &.infos {
     width: 50%;
@@ -167,5 +177,56 @@ input {
       }
     }
     margin-bottom: 3%;
+  }
+}
+
+.subject {
+  &.detail {
+    position: absolute;
+      /* Thiết lập các biên để thẻ con chiếm toàn bộ màn hình */
+    left: 0;
+    right: 0;
+  }
+  &.infos {
+    .image {
+
+    }
+    .course-content {
+      @include title;
+      white-space: normal;
+      margin-bottom: 3%;
+      border-bottom: 2px solid #cfd5db;
+    }
+    form {
+      .create-test {
+        width: 100px;
+        margin-top: 4%
+      }
+    }
+    padding-top: 2%;
+    .info {
+      font-size: 18px;
+      margin-top: 1%;
+    }
+    padding: 15px;
+    padding-top: 2%;
+    background-color: rgb(242, 245, 252);
+    height: 400px;
+  }
+  .description {
+    background-image: image-url("banner-course-detail.png");
+    height: 200px;
+    overflow: hidden;
+    .container {
+      .title {
+        @include title;
+        color: white;
+        margin-top: 2%;
+      }
+      .content{
+        color: #C4CFDD !important;
+        font-size: 16px !important;
+      }
+    }
   }
 }

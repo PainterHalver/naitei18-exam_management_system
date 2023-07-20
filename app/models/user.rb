@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :subjects, dependent: :destroy
   has_many :tests, dependent: :destroy
+  has_many :questions, dependent: :destroy
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   attr_accessor :remember_token, :activation_token, :reset_token

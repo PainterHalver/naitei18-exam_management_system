@@ -30,7 +30,7 @@ subjects.each do |subject|
                name: name,
                description: description,
                question_amount: 20,
-               pass_score: 16,
+               pass_score: 80,
                test_duration: 20)
 end
 

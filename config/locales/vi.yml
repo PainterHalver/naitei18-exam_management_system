@@ -17,9 +17,17 @@ vi:
     index:
       title: "Các chủ đề"
       pass_score: "Yêu cầu: %{score}%"
-      button: "Làm test"
+      button: "Chi tiết"
       amount: "%{amount} câu"
-      duration: "%{duration} phút"
+      duration: "%{duration}"
+    show:
+      not_found: "Không tìm thấy chủ đề này"
+      content: "Chủ đề này bao gồm:"
+      amount: "Số câu hỏi: %{amount} câu"
+      amount_for_test: "1 bài: %{amount} câu"
+      duration: "Thời gian làm bài: %{duration}"
+      requirement: "Yêu cầu: %{requirement}%"
+      button: "Làm bài"
   layouts:
     header:
       home: "Trang chủ"

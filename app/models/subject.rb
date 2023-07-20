@@ -3,4 +3,6 @@ class Subject < ApplicationRecord
   has_many :tests, dependent: :destroy
   has_many :questions, dependent: :destroy
   has_one_attached :image
+
+  scope :newest, ->{order created_at: :desc}
 end

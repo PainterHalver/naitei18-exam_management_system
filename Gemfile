@@ -4,6 +4,7 @@ git_source(:github){|repo| "https://github.com/#{repo}.git"}
 ruby "3.0.2"
 gem "bcrypt", "3.1.13"
 gem "bootsnap", ">= 1.4.4", require: false
+#gem 'bootstrap', '~> 5.3.0.alpha3'
 gem "bootstrap-sass", "3.4.1"
 gem "config"
 gem "figaro"
@@ -16,6 +17,8 @@ gem "rails-i18n", "~> 6.0"
 gem "sass-rails", ">= 6"
 gem "turbolinks", "~> 5"
 gem "webpacker", "~> 5.0"
+gem "image_processing", "1.12.2"
+gem "mini_magick", "4.9.5"
 
 group :development, :test do
   gem "rspec-rails", "~> 4.0.1"

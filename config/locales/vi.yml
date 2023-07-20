@@ -51,3 +51,9 @@ vi:
   account_activation:
     activated: "Kích hoạt tài khoản thành công!"
     invalid: "Kích hoạt tài khoản thất bại: Invalid link!"
+  login:
+    title: "Đăng nhập"
+    new_user?: "Chưa có tài khoản?"
+    signup_now: "Đăng ký"
+    invalid_email_password_combination: "Email hoặc mật khẩu không đúng"
+    not_activated: "Người dùng này chưa được kích hoạt!"

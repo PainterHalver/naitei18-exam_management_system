@@ -50,3 +50,9 @@ en:
   account_activation:
     activated: "Account activated successfully!"
     invalid: "Account activation failed: Invalid link!"
+  login:
+    title: "Login"
+    new_user?: "New user?"
+    signup_now: "Signup"
+    invalid_email_password_combination: "Invalid email or password"
+    not_activated: "This user is not activated yet!"

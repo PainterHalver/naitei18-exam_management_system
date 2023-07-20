@@ -4,8 +4,8 @@
     <nav>
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to t(".home"), root_path %></li>
-        <li><%= link_to t(".subjects"), subjects_path  %></li>
-        <% if false %>
+        <li><%= link_to t(".subjects"), subjects_path %></li>
+        <% if logged_in? %>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <%= t ".account" %> <b class="caret"></b>
@@ -15,16 +15,16 @@
               <li><%= link_to t(".settings"), "#" %></li>
               <li class="divider"></li>
               <li>
-                <%= link_to t(".logout"), "#", method: :delete %>
+                <%= link_to t(".logout"), logout_path, method: :delete %>
               </li>
             </ul>
           </li>
         <% else %>
           <li><%= link_to t(".signup"), signup_path %></li>
-          <li><%= link_to t(".login"), "#" %></li>
+          <li><%= link_to t(".login"), login_path %></li>
         <% end %>
-        <li><%= link_to t("header.english"), locale: :en %></li>
-        <li><%= link_to t("header.vietnamese"), locale: :vi %></li>
+        <li><%= link_to t(".en"), locale: :en %></li>
+        <li><%= link_to t(".vn"), locale: :vi %></li>
       </ul>
     </nav>
   </div>

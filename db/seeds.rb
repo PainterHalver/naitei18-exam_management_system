@@ -33,3 +33,15 @@ subjects.each do |subject|
                pass_score: 16,
                test_duration: 20)
 end
+
+5.times do |n|
+  name = "user#{n+1}"
+  email = "example-#{n+1}@railstutorial.org"
+  password = "foobar"
+  User.create!(name: name,
+    email: email,
+    password: password,
+    password_confirmation: password,
+    activated: true,
+    activated_at: Time.zone.now)
+end

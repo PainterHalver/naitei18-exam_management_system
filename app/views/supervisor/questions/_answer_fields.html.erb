@@ -1,0 +1,19 @@
+<div class="nested-fields">
+  <%= f.label :content, Answer.model_name.human %>
+  <div class="field row">
+    <div class="col-md-8">
+      <%= f.text_field :content, class: "form-control", required: true %>
+    </div>
+    <div class="col-md-4 vertical-center">
+      <div class="col-md-6">
+        <%= f.check_box :is_correct %>
+        <%= f.label :is_correct, Answer.human_attribute_name("is_correct") %>
+      </div>
+      <div class="col-md-6">
+        <%= link_to_remove_association t("remove_answer"), f, {class: "text-danger"} %>
+      </div>
+    </div>
+  </div>
+
+
+</div>

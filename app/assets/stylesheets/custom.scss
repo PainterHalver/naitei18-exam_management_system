@@ -40,6 +40,11 @@ textarea {
   text-align: center;
 }
 
+.vertical-center {
+  display: flex;
+  align-items: center;
+}
+
 .center h1 {
   margin-bottom: 10px;
 }
@@ -93,6 +98,14 @@ input, textarea, select, .uneditable-input {
   width: 100%;
   margin-bottom: 15px;
   @include box_sizing;
+}
+
+input[type=checkbox] {
+  width: auto;
+}
+
+textarea.form-control {
+  height: auto;
 }
 
 input {

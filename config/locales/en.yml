@@ -16,9 +16,17 @@ en:
     index:
       title: "Subjects"
       pass_score: "Requirement: %{score}%"
-      button: "Do Test"
+      button: "Detail"
       amount: "%{amount} questions"
-      duration: "%{duration} minutes"
+      duration: "%{duration}"
+    show:
+      not_found: "Subject not found"
+      content: "This subject includes:"
+      amount: "Question amount: %{amount} questions"
+      amount_for_test: "1 test: %{amount} questions"
+      duration: "Test duration: %{duration}"
+      requirement: "Requirement: %{requirement}%"
+      button: "Do Test"
   layouts:
     header:
       home: "Home"

@@ -1,0 +1,25 @@
+<%= form_for @question, url: supervisor_questions_path do |f| %>
+  <%= render "shared/error_messages", object: f.object %>
+
+  <%= f.label :subject, Question.human_attribute_name("subject") %>
+  <%= f.select :subject_id, Subject.all.collect{|s| [s.name, s.id]}, {}, {class: "form-control"} %>
+
+  <%= f.label :content, Question.human_attribute_name("content") %>
+  <%= f.text_area :content, class: "form-control", required: true, cols: 40, rows: 10 %>
+
+  <%= f.label :question_type, Question.human_attribute_name("question_type") %>
+  <%= f.select :question_type,
+               Question.question_types.collect{|t| [Question.human_attribute_name("question_type.#{t[0]}"), t[0]]},
+               {}, {class: "form-control"} %>
+
+  <div id="answers">
+    <%= f.fields_for :answers do |answer| %>
+      <%= render "answer_fields", f: answer %>
+    <% end %>
+    <div class="links">
+      <%= link_to_add_association t("add_answer"), f, :answers %>
+    </div>
+  </div>
+
+  <%= f.submit t("create"), class: "btn btn-primary" %>
+<% end %>

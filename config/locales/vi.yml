@@ -2,13 +2,25 @@ vi:
   activerecord:
     models:
       user: "Người dùng"
-      micropost: "Bài đăng"
+      question: "Câu hỏi"
+      answer: "Câu trả lời"
     attributes:
       user:
         name: "Tên"
         email: "Email"
         password: "Mật khẩu"
         confirmation: "Nhập lại mật khẩu"
+      question:
+        subject: "Chủ đề"
+        content: "Nội dung"
+        question_type: "Loại câu hỏi"
+        answers: "Các câu hỏi"
+      question/question_type:
+        single_choice: "Chọn một đáp án"
+        multiple_choice: "Chọn nhiều đáp án"
+      answer:
+        content: "Nội dung"
+        is_correct: "Là đúng"
   static_pages:
     home:
       title: "Trang chủ"
@@ -50,6 +62,10 @@ vi:
   errors:
     the_form_contains: "Form này có"
     error: "lỗi"
+    must_have_one_correct_answer: "Câu hỏi phải có ít nhất một câu trả lời đúng"
+    must_have_exactly_one_correct_answer: "Câu hỏi một đáp án chỉ được có một đáp án đúng"
+    must_have_at_least_two_correct_answers: "Câu hỏi nhiều đáp án cần có 2 hoặc nhiều hơn đáp án đúng"
+    minimum_answers: "Câu hỏi phải có ít nhất %{count} câu trả lời"
   mail:
     account_activation: "Kích hoạt tài khoản"
     hi_message: "Xin chào"
@@ -65,3 +81,14 @@ vi:
     signup_now: "Đăng ký"
     invalid_email_password_combination: "Email hoặc mật khẩu không đúng"
     not_activated: "Người dùng này chưa được kích hoạt!"
+  no_permission: "Bạn không có quyền."
+  require_login: "Bạn cần phải đăng nhập trước"
+  supervisor:
+    questions:
+      new:
+        title: "Tạo câu hỏi"
+      create_success: "Tạo câu hỏi thành công!"
+      create_failed: "Tạo câu hỏi thất bại"
+  create: "Tạo"
+  add_answer: "Thêm câu trả lời"
+  remove_answer: "Xóa"

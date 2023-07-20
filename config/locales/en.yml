@@ -2,12 +2,25 @@ en:
   activerecord:
     models:
       user: "User"
+      question: "Question"
+      answer: "Answer"
     attributes:
       user:
         name: "Name"
         email: "Email"
         password: "Password"
         password_confirmation: "Password confirmation"
+      question:
+        subject: "Subject"
+        content: "Content"
+        question_type: "Question type"
+        answers: "Answers"
+      question/question_type:
+        single_choice: "Single choice"
+        multiple_choice: "Multiple choice"
+      answer:
+        content: "Content"
+        is_correct: "Is correct"
   static_pages:
     home:
       title: "Home"
@@ -49,6 +62,10 @@ en:
   errors:
     the_form_contains: "The form contains"
     error: "error"
+    must_have_one_correct_answer: "Question must have one correct answer"
+    must_have_exactly_one_correct_answer: "Single choice questions can only have one correct answer"
+    must_have_at_least_two_correct_answers: "Multiple choice type must have 2 or more correct answers"
+    minimum_answers: "A question must have at least %{count} answers"
   mail:
     account_activation: "Account activation"
     hi_message: "Hi"
@@ -64,3 +81,14 @@ en:
     signup_now: "Signup"
     invalid_email_password_combination: "Invalid email or password"
     not_activated: "This user is not activated yet!"
+  no_permission: "You don't have permission."
+  require_login: "You need to log in first!"
+  supervisor:
+    questions:
+      new:
+        title: "Create question"
+      create_success: "Successfully created question!"
+      create_failed: "Failed to create question!"
+  create: "Create"
+  add_answer: "Add answer"
+  remove_answer: "Remove"

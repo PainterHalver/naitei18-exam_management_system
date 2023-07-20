@@ -8,5 +8,9 @@ Rails.application.routes.draw do
     delete "logout", to: "sessions#destroy"
     resources :account_activations, only: :edit
     resources :subjects
+
+    namespace :supervisor do
+      resources :questions, only: %i(new create)
+    end
   end
 end

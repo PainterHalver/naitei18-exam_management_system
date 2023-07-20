@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2023_07_20_031956) do
 
   create_table "questions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "content"
-    t.integer "type"
+    t.integer "question_type"
     t.bigint "subject_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

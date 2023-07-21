@@ -1,0 +1,29 @@
+<%= form_for @subject, url: supervisor_subjects_path do |f| %>
+  <%= render "shared/error_messages", object: f.object %>
+
+  <%= f.label :name, Subject.human_attribute_name("name") %>
+  <%= f.text_field :name, class: "form-control", required: true %>
+
+  <%= f.label :description, Subject.human_attribute_name("description") %>
+  <%= f.text_area :description, class: "form-control", required: true, cols: 40, rows: 8 %>
+
+  <div class="row">
+    <div class="col-md-4">
+      <%= f.label :question_amount, Subject.human_attribute_name("question_amount") %>
+      <%= f.number_field :question_amount, class: "form-control",
+                         required: true, min: 0 %>
+    </div>
+    <div class="col-md-4">
+      <%= f.label :pass_score, "#{Subject.human_attribute_name("pass_score")} (%)" %>
+      <%= f.number_field :pass_score, class: "form-control",
+                         required: true, min: 0, max: 100 %>
+    </div>
+    <div class="col-md-4">
+      <%= f.label :test_duration, "#{Subject.human_attribute_name("test_duration")} (#{t "minute"})" %>
+      <%= f.number_field :test_duration, class: "form-control",
+                         required: true, min: 0 %>
+    </div>
+  </div>
+
+  <%= f.submit t("create"), class: "btn btn-primary" %>
+<% end %>

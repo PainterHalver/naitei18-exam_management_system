@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :subjects
 
     namespace :supervisor do
+      resources :subjects, only: %i(index new create)
       resources :questions, only: %i(new create)
     end
   end

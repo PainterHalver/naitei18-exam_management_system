@@ -1,0 +1,16 @@
+vi:
+  pagy:
+    item_name:
+      one: "mục"
+      other: "mục"
+    nav:
+      prev: "&lsaquo;&nbsp;Trước"
+      next: "Sau&nbsp;&rsaquo;"
+      gap: "&hellip;"
+    info:
+      no_items: "Không tìm thấy %{item_name} nào"
+      single_page: "Hiển thị <b>%{count}</b> %{item_name}"
+      multiple_pages: "Hiển thị %{item_name} <b>%{from}-%{to}</b> trên tổng cộng <b>%{count}</b> mục"
+    combo_nav_js: "<label>Trang %{page_input} trên tổng số %{pages} trang</label>"
+    items_selector_js: "<label>Hiển thị %{items_input} %{item_name} mỗi trang</label>"
+  not_correct_user: "Bạn không được phép thực hiện hành động trên user này!"

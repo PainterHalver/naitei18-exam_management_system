@@ -4,6 +4,7 @@ en:
       user: "User"
       question: "Question"
       answer: "Answer"
+      subject: "Subject"
     attributes:
       user:
         name: "Name"
@@ -21,6 +22,12 @@ en:
       answer:
         content: "Content"
         is_correct: "Is correct"
+      subject:
+        name: "Name"
+        description: "Description"
+        pass_score: "Pass score"
+        test_duration: "Duration"
+        question_amount: "Question amount"
   static_pages:
     home:
       title: "Home"
@@ -52,6 +59,7 @@ en:
       signup: "Signup"
       en: "English"
       vn: "Vietnamese"
+      manage_subjects: "Manage subjects"
   base_title: "EMS"
   signup:
     title: "Signup"
@@ -89,6 +97,15 @@ en:
         title: "Create question"
       create_success: "Successfully created question!"
       create_failed: "Failed to create question!"
+    subjects:
+      index:
+        title: "Manage subjects"
+        subject_list: "Subject list"
+        create_subject: "Create new subject"
   create: "Create"
   add_answer: "Add answer"
   remove_answer: "Remove"
+  created_at: "Created at"
+  actions: "Actions"
+  edit: "Edit"
+  delete: "Delete"

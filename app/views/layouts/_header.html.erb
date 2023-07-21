@@ -1,10 +1,16 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
-    <%= link_to "EMS", root_path, id: "logo" %>
+    <%= link_to "EMS #{is_supervisor? && "admin"}", root_path, id: "logo" %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to t(".home"), root_path %></li>
+
+        <% if is_supervisor? %>
+          <li><%= link_to t(".manage_subjects"), supervisor_subjects_path %></li>
+          <% else %>
         <li><%= link_to t(".subjects"), subjects_path %></li>
+          <% end %>
+
         <% if logged_in? %>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -23,8 +29,12 @@
           <li><%= link_to t(".signup"), signup_path %></li>
           <li><%= link_to t(".login"), login_path %></li>
         <% end %>
-        <li><%= link_to t(".en"), locale: :en %></li>
-        <li><%= link_to t(".vn"), locale: :vi %></li>
+
+        <% if I18n.locale == :vi %>
+          <li><%= link_to t(".en"), locale: :en %></li>
+        <% else %>
+          <li><%= link_to t(".vn"), locale: :vi %></li>
+        <% end %>
       </ul>
     </nav>
   </div>

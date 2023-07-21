@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   include Pagy::Backend
   include SessionsHelper
+  before_action{@pagy_locale = params[:locale]}
   around_action :switch_locale
 
   private

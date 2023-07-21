@@ -4,6 +4,7 @@ vi:
       user: "Người dùng"
       question: "Câu hỏi"
       answer: "Câu trả lời"
+      subject: "Chủ đề"
     attributes:
       user:
         name: "Tên"
@@ -21,6 +22,12 @@ vi:
       answer:
         content: "Nội dung"
         is_correct: "Là đúng"
+      subject:
+        name: "Tên"
+        description: "Mô tả"
+        pass_score: "Điểm đỗ"
+        test_duration: "Thời gian"
+        question_amount: "Số câu hỏi"
   static_pages:
     home:
       title: "Trang chủ"
@@ -52,6 +59,7 @@ vi:
       signup: "Đăng ký"
       en: "Tiếng Anh"
       vn: "Tiếng Việt"
+      manage_subjects: "Quản lý chủ đề"
   base_title: "EMS"
   signup:
     title: "Đăng ký"
@@ -89,6 +97,15 @@ vi:
         title: "Tạo câu hỏi"
       create_success: "Tạo câu hỏi thành công!"
       create_failed: "Tạo câu hỏi thất bại"
+    subjects:
+      index:
+        title: "Quản lý chủ đề"
+        subject_list: "Danh sách chủ đề"
+        create_subject: "Tạo chủ đề"
   create: "Tạo"
   add_answer: "Thêm câu trả lời"
   remove_answer: "Xóa"
+  created_at: "Ngày tạo"
+  actions: "Hành động"
+  edit: "Sửa"
+  delete: "Xóa"

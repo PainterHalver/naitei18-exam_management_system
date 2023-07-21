@@ -102,6 +102,9 @@ vi:
         title: "Quản lý chủ đề"
         subject_list: "Danh sách chủ đề"
         create_subject: "Tạo chủ đề"
+      new:
+        title: "Tạo chủ đề"
+      create_success: "Tạo chủ đề thành công!"
   create: "Tạo"
   add_answer: "Thêm câu trả lời"
   remove_answer: "Xóa"
@@ -109,3 +112,4 @@ vi:
   actions: "Hành động"
   edit: "Sửa"
   delete: "Xóa"
+  minute: "phút"

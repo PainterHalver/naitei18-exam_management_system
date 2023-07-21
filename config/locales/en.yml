@@ -102,6 +102,9 @@ en:
         title: "Manage subjects"
         subject_list: "Subject list"
         create_subject: "Create new subject"
+      new:
+        title: "Create subject"
+      create_success: "Successfully created subject!"
   create: "Create"
   add_answer: "Add answer"
   remove_answer: "Remove"
@@ -109,3 +112,4 @@ en:
   actions: "Actions"
   edit: "Edit"
   delete: "Delete"
+  minute: "minutes"

@@ -1,8 +1,10 @@
 digit:
+  length_0: 0
   length_2: 2
   length_6: 6
   length_10: 10
   length_30: 30
+  length_100: 100
   length_255: 255
 pagination:
   per_page_10: 10

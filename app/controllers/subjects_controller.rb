@@ -6,7 +6,9 @@ class SubjectsController < ApplicationController
                             items: Settings.pagination.per_page_10)
   end
 
-  def show; end
+  def show
+    @test = @subject.tests.build
+  end
 
   private
 

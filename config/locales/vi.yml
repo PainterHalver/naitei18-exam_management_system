@@ -28,6 +28,8 @@ vi:
         pass_score: "Điểm đỗ"
         test_duration: "Thời gian"
         question_amount: "Số câu hỏi"
+      validates:
+        start_before_end: "Thời gian bắt đầu phải sớm hơn kết thúc"
   static_pages:
     home:
       title: "Trang chủ"
@@ -47,6 +49,20 @@ vi:
       duration: "Thời gian làm bài: %{duration}"
       requirement: "Yêu cầu: %{requirement}%"
       button: "Làm bài"
+  tests:
+    title: "Kiểm tra %{name}"
+    errors:
+      not_found: "Không tìm thấy bài test"
+      questions_fail: "Không thể thêm câu hỏi"
+    create:
+      success: "Bài test đã được tạo"
+    do:
+      success: "Hoàn thành"
+      fail: "Không thể lưu kết quả"
+    show:
+      not_authorized: "Bạn không thể xem bài test này"
+      answer_error: "Không thể cập nhật câu trả lời của bạn"
+      post_error: "Không thể xử lý dữ liệu được gửi"
   layouts:
     header:
       home: "Trang chủ"

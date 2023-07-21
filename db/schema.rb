@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_20_031956) do
+ActiveRecord::Schema.define(version: 2023_07_20_154852) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -95,12 +95,13 @@ ActiveRecord::Schema.define(version: 2023_07_20_031956) do
   create_table "tests", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "start_time"
     t.datetime "end_time"
-    t.integer "score"
-    t.integer "status"
+    t.integer "score", default: 0
+    t.integer "status", default: 0
     t.bigint "subject_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "remaining_time"
     t.index ["subject_id"], name: "index_tests_on_subject_id"
     t.index ["user_id"], name: "index_tests_on_user_id"
   end

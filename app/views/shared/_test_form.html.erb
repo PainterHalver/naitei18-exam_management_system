@@ -1,0 +1,7 @@
+<%=form_for @test, method: :patch  do |f|%>
+  <%= render "shared/error_messages", object: f.object %>
+  <div class="test form container">
+    <%= render partial: "questions/question", collection: @test.questions, locals: {form: f} %>
+  </div>
+  <%= f.submit "Submit", class: "btn btn-primary submit-test" %>
+<%end%>

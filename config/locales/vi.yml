@@ -105,6 +105,11 @@ vi:
       new:
         title: "Tạo chủ đề"
       create_success: "Tạo chủ đề thành công!"
+      edit:
+        title: "Chỉnh sửa chủ đề"
+      update_success: "Cập nhật chủ đề thành công"
+      destroy_success: "Xóa chủ đề thành công"
+      destroy_fail: "Có lỗi xảy ra khi xóa chủ đề"
   create: "Tạo"
   add_answer: "Thêm câu trả lời"
   remove_answer: "Xóa"

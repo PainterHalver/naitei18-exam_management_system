@@ -1,4 +1,4 @@
 <% provide :title, t(".title") %>
-<% provide :form_url, supervisor_subjects_path %>
+<% provide :form_url, supervisor_subject_url(@subject) %>
 <h1><%= t ".title" %></h1>
 <%= render "subject_form" %>

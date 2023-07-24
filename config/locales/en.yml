@@ -105,6 +105,11 @@ en:
       new:
         title: "Create subject"
       create_success: "Successfully created subject!"
+      edit:
+        title: "Edit subject"
+      update_success: "Successfully updated subject"
+      destroy_success: "Successfully deleted subject"
+      destroy_fail: "Error occured while trying to delete subject"
   create: "Create"
   add_answer: "Add answer"
   remove_answer: "Remove"

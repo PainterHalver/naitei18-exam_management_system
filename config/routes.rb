@@ -7,10 +7,10 @@ Rails.application.routes.draw do
     post "/login", to: "sessions#create"
     delete "logout", to: "sessions#destroy"
     resources :account_activations, only: :edit
-    resources :subjects
+    resources :subjects, only: %i(index show)
 
     namespace :supervisor do
-      resources :subjects, only: %i(index new create)
+      resources :subjects, only: %i(index new create edit update)
       resources :questions, only: %i(new create)
     end
   end

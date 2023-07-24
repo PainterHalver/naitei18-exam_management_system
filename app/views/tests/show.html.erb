@@ -1,0 +1,26 @@
+<% provide :title, t("tests.title", name: @test.subject.name) %>
+<div class="test detail">
+  <%@subject = @test.subject%>
+  <%= render partial: "shared/banner", locals: {subject: @subject} %>
+  <div class = "row infos">
+    <div class="test form col-md-8">
+      <%= render "shared/test_form" %>
+    </div>
+    <div class="col-md-4 result">
+      <div class="score info">
+        <%= t "tests.show.score" %><br>
+        <p id="score"><%= "#{@test.score} / #{@subject.question_amount}" %></p>
+        <% if @test.passed? %>
+          <span id="passed"><%= t "tests.show.passed" %></span>
+        <%else%>
+          <span id="failed"><%= t "tests.show.failed" %></span>
+        <%end%>
+      </div>
+      <div class="sub info">
+        <%= Time.at((@subject.test_duration - @test.remaining_time) * 60)
+            .utc.strftime("%H:%M:%S") %><br>
+        <%= Time.at(@subject.test_duration * 60).utc.strftime("%H:%M:%S") %><br>
+      <div>
+    </div>
+  </div>
+</div>

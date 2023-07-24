@@ -1,12 +1,12 @@
 <% provide :title, t("tests.title", name: @test.subject.name) %>
 <div class="test detail">
-  <%= render partial: "shared/banner", locals: {subject: @test.subject} %>
-  <div id="countdown-timer">
-      <div id="timer">
-        <%= set_time %>
-      </div>
-  </div>
+  <%= render(partial: "shared/banner", locals: {subject: @test.subject}) %>
   <% if @test.doing? %>
+    <div id="countdown-timer">
+        <div id="timer">
+          <%=set_time%>
+        </div>
+    </div>
     <div class="test form">
       <%= render "shared/test_form" %>
     </div>
@@ -17,4 +17,4 @@
   const endTime = <%= set_end_time %>
 </script>
 
-<%= javascript_pack_tag "counter" %>
+<%= javascript_pack_tag "counter" if @test.doing?%>

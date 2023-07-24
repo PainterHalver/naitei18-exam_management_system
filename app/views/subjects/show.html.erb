@@ -24,10 +24,10 @@
           <div><%= hidden_field_tag :subject_id, @subject.id %></div>
           <div><%= hidden_field_tag :remaining_time, @subject.test_duration %></div>
           <div><%= hidden_field_tag :start_time, Time.zone.now %></div>
-            <% if current_user.present? %>
-              <%= f.submit t("subjects.show.button"), class: "btn btn-primary create-test" %>
-            <% end %>
+          <% if current_user.present? %>
+            <%= f.submit t("subjects.show.button"), class: "btn btn-primary create-test" %>
           <% end %>
+        <% end %>
       </div>
       <%= image_tag("Cloud-IT-Infrastructure-Solutions-Banner.png", size: "300x280", class: "col-md-6 image") %>
     </div>

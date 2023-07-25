@@ -1,0 +1,14 @@
+<tr>
+  <td><%= link_to test.subject.name, subject_path(test.subject) %></td>
+  <td><%= "#{test.score} / #{test.subject.question_amount}" %></td>
+  <td><%= set_status(test) %></td>
+  <td><%= test.created_at.strftime(Settings.h_m_s_format) %></td>
+  <td><%= test.end_time.strftime(Settings.h_m_s_format) if test.end_time %></td>
+  <td>
+    <% if test.doing? %>
+      <%= link_to t("do"), edit_test_path(test), class: "btn btn-primary test table-button" %>
+    <% else %>
+      <%= link_to t("view"), test_path(test), class: "btn btn-primary test table-button" %>
+    <% end %>
+  </td>
+</tr>

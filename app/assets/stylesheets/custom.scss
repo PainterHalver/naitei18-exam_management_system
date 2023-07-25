@@ -316,3 +316,22 @@ input {
   margin-right: 50%;
   margin-bottom: 4%
 }
+
+.test {
+  &.table-button {
+    width: 75px;
+  }
+}
+
+.tests {
+  &.index {
+    margin-top: 2%;
+  }
+  &.index-header {
+    p {
+      @include title;
+      text-align: center;
+    }
+    margin-top: 50px;
+  }
+}

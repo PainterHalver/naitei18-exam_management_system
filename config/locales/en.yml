@@ -28,7 +28,11 @@ en:
         pass_score: "Pass score"
         test_duration: "Duration"
         question_amount: "Question amount"
-        question_in_bank_amount: "Amount in question bank"
+      test:
+        subject: "Subject"
+        end_time: "End time"
+        score: "Score"
+        status: "Status"
     validates:
         start_before_end: "Start time must be earlier than end time"
   static_pages:
@@ -70,6 +74,11 @@ en:
       limit_time: "Time:"
       passed: "Passed"
       failed: "Failed"
+    index:
+      in_progress: "In progress"
+      passed: "Passed"
+      failed: "Failed"
+      header: "Your Tests"
   layouts:
     header:
       home: "Home"
@@ -140,6 +149,8 @@ en:
   remove_answer: "Remove"
   created_at: "Created at"
   actions: "Actions"
+  view: "View"
+  do: "Do test"
   edit: "Edit"
   delete: "Delete"
   minute: "minutes"

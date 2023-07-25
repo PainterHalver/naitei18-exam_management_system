@@ -3,10 +3,10 @@
   <%@subject = @test.subject%>
   <%= render partial: "shared/banner", locals: {subject: @subject} %>
   <div class = "row infos">
-    <div class="test form col-md-8">
+    <div class="test form col-md-9">
       <%= render "shared/test_form" %>
     </div>
-    <div class="col-md-4 result">
+    <div class="col-md-3 result">
       <div class="score info">
         <%= t "tests.show.score" %><br>
         <p id="score"><%= "#{@test.score} / #{@subject.question_amount}" %></p>

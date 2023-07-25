@@ -31,7 +31,14 @@ class Supervisor::SubjectsController < Supervisor::SupervisorController
     end
   end
 
-  def destroy; end
+  def destroy
+    if @subject.destroy
+      flash[:success] = t "supervisor.subjects.destroy_success"
+    else
+      flash[:danger] = t "supervisor.subjects.destroy_fail"
+    end
+    redirect_to supervisor_subjects_path
+  end
 
   private
   def load_subject_by_id

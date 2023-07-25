@@ -134,3 +134,6 @@ vi:
   edit: "Sửa"
   delete: "Xóa"
   minute: "phút"
+  are_you_sure: "Bạn có chắc không?"
+  close: "Đóng"
+  delete_confirm_message: "Bạn có chắc chắn muốn xóa %{object_name} này?"

@@ -134,3 +134,6 @@ en:
   edit: "Edit"
   delete: "Delete"
   minute: "minutes"
+  are_you_sure: "Are you sure?"
+  close: "Close"
+  delete_confirm_message: "Do you really want to delete this %{object_name}?"

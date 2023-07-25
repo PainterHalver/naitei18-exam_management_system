@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resources :tests
 
     namespace :supervisor do
-      resources :subjects, only: %i(index new create edit update)
+      resources :subjects, only: %i(index new create edit update destroy)
       resources :questions, only: %i(new create)
     end
   end

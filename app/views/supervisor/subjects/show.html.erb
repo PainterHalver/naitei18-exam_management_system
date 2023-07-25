@@ -1,0 +1,41 @@
+<% provide :title, @subject.name %>
+
+<h3 style="display: inline-block;">
+  <%= @subject.name %>
+  <%= link_to t("edit"), edit_supervisor_subject_path(@subject) %>
+</h3>
+<div class="d-flex justify-between mb-1 px-1">
+  <div>
+    <p><b><%= Subject.human_attribute_name("description") %>: </b><%= @subject.description %></p>
+    <p><b><%= Subject.human_attribute_name("question_amount") %>: <%= @subject.question_amount %></b></p>
+    <p><b><%= Subject.human_attribute_name("question_in_bank_amount") %>: <%= @subject.questions.count %></b></p>
+    <p><b><%= Subject.human_attribute_name("pass_score") %>: <%= @subject.pass_score %>%</b></p>
+    <p><b><%= Subject.human_attribute_name("test_duration") %>: <%= @subject.test_duration %> <%= t "minute" %></b></p>
+  </div>
+  <%= link_to t(".add_question"), "#", class: "btn btn-primary align-self-end" %>
+</div>
+<table class="table">
+  <thead>
+  <tr class="info">
+    <th class="col-md-2"><%= t "created_at" %></th>
+    <th class="col-md-6"><%= Question.human_attribute_name("content") %></th>
+    <th class="col-md-2"><%= Question.human_attribute_name("question_type") %></th>
+    <th class="col-md-2"><%= t "actions" %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @questions.each do |question| %>
+    <tr>
+      <td><%= question.created_at.strftime("%Y-%m-%d %H:%M %p") %></td>
+      <td><%= question.content %></td>
+      <td><%= Question.human_attribute_name("question_type.#{question.question_type}") %></td>
+      <td>
+        <%= link_to t("edit"), "#", class: "btn btn-primary" %>
+        <%= link_to t("delete"), "#", method: :delete, class: "btn btn-danger" %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<%== pagy_bootstrap_nav @pagy %>
+<%== pagy_info @pagy %>

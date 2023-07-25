@@ -18,7 +18,7 @@
     <% @subjects.each do |subject| %>
       <tr>
         <td><%= subject.created_at.strftime("%Y-%m-%d %H:%M %p") %></td>
-        <td><%= link_to subject.name, subject_path(subject) %></td>
+        <td><%= link_to subject.name, supervisor_subject_path(subject) %></td>
         <td><%= subject.question_amount %></td>
         <td><%= subject.pass_score %>%</td>
         <td><%= subject.test_duration %></td>

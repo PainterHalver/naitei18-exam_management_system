@@ -28,6 +28,7 @@ vi:
         pass_score: "Điểm đỗ"
         test_duration: "Thời gian"
         question_amount: "Số câu hỏi"
+        question_in_bank_amount: "Số câu hỏi trong ngân hàng"
       validates:
         start_before_end: "Thời gian bắt đầu phải sớm hơn kết thúc"
   static_pages:
@@ -132,6 +133,8 @@ vi:
       update_success: "Cập nhật chủ đề thành công"
       destroy_success: "Xóa chủ đề thành công"
       destroy_fail: "Có lỗi xảy ra khi xóa chủ đề"
+      show:
+        add_question: "Thêm câu hỏi"
   create: "Tạo"
   add_answer: "Thêm câu trả lời"
   remove_answer: "Xóa"

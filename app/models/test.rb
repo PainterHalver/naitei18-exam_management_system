@@ -21,9 +21,9 @@ class Test < ApplicationRecord
   private
 
   def start_before_end
-    message = I18n.t("activerecord.validates.start_before_end")
     return unless start_time && end_time && start_time >= end_time
 
+    message = I18n.t("activerecord.validates.start_before_end")
     errors.add(:start_time, message)
   end
 end

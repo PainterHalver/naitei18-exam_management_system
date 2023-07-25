@@ -1,6 +1,7 @@
 class TestsController < ApplicationController
   before_action :require_login
   before_action :load_test, only: [:update, :show, :edit]
+  before_action :load_test_show, only: [:show]
   before_action :has_authorization_with_test?, only: [:show]
   before_action :post_data_handle, only: [:update]
 
@@ -11,7 +12,7 @@ class TestsController < ApplicationController
       redirect_to edit_test_path @test
     else
       flash.now[:danger] = t "tests.errors.questions_fail"
-      @subject = @subject = @test.subject
+      @subject = @test.subject
       render "subjects/show"
     end
   end
@@ -20,7 +21,9 @@ class TestsController < ApplicationController
     redirect_back fallback_location: request.referer
   end
 
-  def show; end
+  def show
+    @test_questions = @test.test_questions
+  end
 
   def update
     detail_answers = []
@@ -40,7 +43,9 @@ class TestsController < ApplicationController
     redirect_back
   end
 
-  def edit; end
+  def edit
+    @questions = @test.questions.includes(:answers)
+  end
 
   private
 
@@ -132,6 +137,15 @@ class TestsController < ApplicationController
 
   def load_test
     @test = Test.find_by id: params[:id]
+    return if @test
+
+    flash[:danger] = t "tests.errors.not_found"
+    redirect_back
+  end
+
+  def load_test_show
+    @test = Test.includes(test_questions: [:answers, {question: :answers}])
+                .find_by id: params[:id]
     return if @test
 
     flash[:danger] = t "tests.errors.not_found"

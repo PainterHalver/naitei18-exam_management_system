@@ -61,8 +61,14 @@ en:
       fail: "Can not save your answers"
       answer_error: "Can not update your answers"
       post_error: "Can not handle your data"
+      submit: "Submit"
     show:
       not_authorized: "You are not authorized to see this test"
+      score: "Score"
+      time: "Your time:"
+      limit_time: "Time:"
+      passed: "Passed"
+      failed: "Failed"
   layouts:
     header:
       home: "Home"

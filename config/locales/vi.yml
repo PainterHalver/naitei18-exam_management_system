@@ -59,10 +59,16 @@ vi:
     do:
       success: "Hoàn thành"
       fail: "Không thể lưu kết quả"
-    show:
-      not_authorized: "Bạn không thể xem bài test này"
       answer_error: "Không thể cập nhật câu trả lời của bạn"
       post_error: "Không thể xử lý dữ liệu được gửi"
+      submit: "Nộp bài"
+    show:
+      not_authorized: "Bạn không thể xem bài test này"
+      score: "Điểm số"
+      time: "Thực tế:"
+      limit_time: "Thời gian:"
+      passed: "Đạt"
+      failed: "Không Đạt"
   layouts:
     header:
       home: "Trang chủ"

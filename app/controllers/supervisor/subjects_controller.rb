@@ -1,9 +1,14 @@
 class Supervisor::SubjectsController < Supervisor::SupervisorController
-  before_action :load_subject_by_id, only: %i(edit update destroy)
+  before_action :load_subject_by_id, only: %i(show edit update destroy)
 
   def index
     @pagy, @subjects = pagy Subject.newest,
                             items: Settings.pagination.per_page_10
+  end
+
+  def show
+    @pagy, @questions = pagy @subject.questions,
+                             items: Settings.pagination.per_page_10
   end
 
   def new

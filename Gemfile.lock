@@ -60,6 +60,9 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
+    acts_as_paranoid (0.8.1)
+      activerecord (>= 5.2, < 7.1)
+      activesupport (>= 5.2, < 7.1)
     addressable (2.8.4)
       public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
@@ -332,6 +335,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  acts_as_paranoid
   bcrypt (= 3.1.13)
   bootsnap (>= 1.4.4)
   bootstrap-sass (= 3.4.1)

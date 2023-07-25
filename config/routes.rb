@@ -7,7 +7,8 @@ Rails.application.routes.draw do
     post "/login", to: "sessions#create"
     delete "logout", to: "sessions#destroy"
     resources :account_activations, only: :edit
-    resources :subjects, only: %i(index show)
+    resources :subjects
+    resources :tests
 
     namespace :supervisor do
       resources :subjects, only: %i(index new create edit update)

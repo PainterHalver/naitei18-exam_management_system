@@ -26,12 +26,42 @@ supervisor = User.create!(name: "Example Supervisor",
 subjects.each do |subject|
   name = subject
   description = "awesome project"
-  Subject.create!(user_id: supervisor.id,
+  item = Subject.create!(user_id: supervisor.id,
                name: name,
                description: description,
                question_amount: 20,
                pass_score: 80,
                test_duration: 20)
+
+  20.times do |n|
+    correct = rand(1..4)
+    query = [1,2,3,4].map {|i| {
+      is_correct: correct == i ? true : false,
+      content: "Dap an #{i}",
+    }}
+
+    question = item.questions.create!({
+      content: Faker::Lorem.sentence(word_count: 20),
+      user_id: supervisor.id,
+      question_type: Question.question_types[:single_choice],
+      answers_attributes: query
+    })
+  end
+
+  10.times do |n|
+    num = rand(2..4)
+    correct = [1,2,3,4].sample(num);
+    query = [1,2,3,4].map {|i| {
+      is_correct: correct.include?(i) ? true : false,
+      content: "Dap an #{i}",
+    }}
+    question = item.questions.create!({
+      content: Faker::Lorem.sentence(word_count: 20),
+      user_id: supervisor.id,
+      question_type: Question.question_types[:multiple_choice],
+      answers_attributes: query
+    })
+  end
 end
 
 5.times do |n|

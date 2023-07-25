@@ -194,16 +194,7 @@ input {
 }
 
 .subject {
-  &.detail {
-    position: absolute;
-      /* Thiết lập các biên để thẻ con chiếm toàn bộ màn hình */
-    left: 0;
-    right: 0;
-  }
   &.infos {
-    .image {
-
-    }
     .course-content {
       @include title;
       white-space: normal;
@@ -224,7 +215,27 @@ input {
     padding: 15px;
     padding-top: 2%;
     background-color: rgb(242, 245, 252);
-    height: 400px;
+    height: fit-content;
+    width: 50%
+  }
+}
+
+.detail {
+  position: absolute;
+    /* Thiết lập các biên để thẻ con chiếm toàn bộ màn hình */
+  left: 0;
+  right: 0;
+  #countdown-timer {
+    position: sticky;
+    top: 50px;
+    font-size: 2em;
+    font-weight: bold !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2%;
+    margin-top: 2%;
+    background-color:white;
   }
   .description {
     background-image: image-url("banner-course-detail.png");
@@ -242,4 +253,38 @@ input {
       }
     }
   }
+}
+
+.question {
+  &.item {
+    margin-top: 2%;
+    .content {
+      margin-bottom: 2%;
+      font-size: 18px;
+      font-weight: bold !important;
+    }
+  }
+  .answer {
+    display: flex;
+    margin-top: 1%;
+    input {
+      width: fit-content;
+      margin-top: 0%;
+      margin-right: 1%;
+      width: 20px;
+      height: 20px;
+    }
+    p {
+      margin-bottom: 0%;
+      font-size: 18px;
+    }
+  }
+}
+
+.submit-test {
+  width: 100px;
+  margin-top: 4%;
+  margin-left: 50%;
+  margin-right: 50%;
+  margin-bottom: 4%
 }

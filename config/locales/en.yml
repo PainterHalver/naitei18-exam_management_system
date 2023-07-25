@@ -28,6 +28,8 @@ en:
         pass_score: "Pass score"
         test_duration: "Duration"
         question_amount: "Question amount"
+    validates:
+        start_before_end: "Start time must be earlier than end time"
   static_pages:
     home:
       title: "Home"
@@ -47,6 +49,20 @@ en:
       duration: "Test duration: %{duration}"
       requirement: "Requirement: %{requirement}%"
       button: "Do Test"
+  tests:
+    title: "Test for %{name}"
+    errors:
+      not_found: "Test not found"
+      questions_fail: "Fail to add questions"
+    create:
+      success: "Your test created"
+    do:
+      success: "Completed"
+      fail: "Can not save your answers"
+      answer_error: "Can not update your answers"
+      post_error: "Can not handle your data"
+    show:
+      not_authorized: "You are not authorized to see this test"
   layouts:
     header:
       home: "Home"

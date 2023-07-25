@@ -1,0 +1,24 @@
+<div id=<%="question-#{question.id}"%> class="question item">
+    <%= form.fields_for question, index: question.id do |field| %>
+      <div class="content">
+        <%= "#{question_counter + 1}, #{question.content}" %>
+      </div>
+      <div class= "answer-collect">
+        <% if question.single_choice? %>
+          <%= field.collection_radio_buttons :id, question.answers, :id, :content do |answer| %>
+            <div class="answer">
+              <%= answer.radio_button %>
+              <p><%= answer.text %></p>
+            </div>
+          <% end %>
+        <% else %>
+          <%= field.collection_check_boxes :id, question.answers, :id, :content do |answer| %>
+            <div class="answer">
+              <%= answer.check_box %>
+              <p><%= answer.text %></p>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+</div>

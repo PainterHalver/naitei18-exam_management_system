@@ -120,6 +120,10 @@ en:
         title: "Create question"
       create_success: "Successfully created question!"
       create_failed: "Failed to create question!"
+      not_found: "Question not found"
+      edit:
+        title: "Edit question"
+      update_success: "Sucessfully updated question"
     subjects:
       index:
         title: "Manage subjects"

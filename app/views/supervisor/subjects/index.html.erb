@@ -11,7 +11,7 @@
     <th class="col-md-1"><%= Subject.human_attribute_name("question_amount") %></th>
     <th class="col-md-1"><%= Subject.human_attribute_name("pass_score")  %></th>
     <th class="col-md-1"><%= Subject.human_attribute_name("test_duration")  %></th>
-    <th class="col-md-2"><%= t "actions" %></th>
+    <th class="col-md-2 center"><%= t "actions" %></th>
   </tr>
   </thead>
   <tbody>
@@ -22,7 +22,7 @@
         <td><%= subject.question_amount %></td>
         <td><%= subject.pass_score %>%</td>
         <td><%= subject.test_duration %></td>
-        <td>
+        <td class="pull-right">
           <%= link_to t("edit"), edit_supervisor_subject_url(subject), class: "btn btn-primary" %>
           <%= link_to t("delete"), supervisor_subject_url(subject), method: :delete, class: "btn btn-danger" %>
         </td>

@@ -120,6 +120,10 @@ vi:
         title: "Tạo câu hỏi"
       create_success: "Tạo câu hỏi thành công!"
       create_failed: "Tạo câu hỏi thất bại"
+      not_found: "Không tìm thấy câu hỏi"
+      edit:
+        title: "Chỉnh sửa câu hỏi"
+      update_success: "Cập nhật câu hỏi thành công"
     subjects:
       index:
         title: "Quản lý chủ đề"

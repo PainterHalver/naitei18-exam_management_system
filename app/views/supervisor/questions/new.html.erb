@@ -1,3 +1,5 @@
-<%= provide :title, t(".title") %>
+<% provide :title, t(".title") %>
+<% provide :form_url, supervisor_questions_path %>
+<% provide :submit_text, t("create") %>
 <h1><%= t ".title" %></h1>
 <%= render "question_form" %>

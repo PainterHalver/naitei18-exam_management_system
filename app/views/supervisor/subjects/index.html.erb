@@ -17,14 +17,17 @@
   <tbody>
     <% @subjects.each do |subject| %>
       <tr>
-        <td><%= subject.created_at.strftime("%Y-%m-%d %H:%M %p") %></td>
+        <td><%= subject.created_at.strftime(Settings.h_m_s_format) %></td>
         <td><%= link_to subject.name, supervisor_subject_path(subject) %></td>
         <td><%= subject.question_amount %></td>
         <td><%= subject.pass_score %>%</td>
         <td><%= subject.test_duration %></td>
-        <td class="pull-right">
-          <%= link_to t("edit"), edit_supervisor_subject_url(subject), class: "btn btn-primary" %>
-          <%= link_to t("delete"), supervisor_subject_url(subject), method: :delete, class: "btn btn-danger" %>
+        <td class="text-right">
+          <%= link_to t("edit"), edit_supervisor_subject_path(subject), class: "btn btn-primary" %>
+          <button type="button" class="btn btn-danger" data-toggle="modal"
+                  data-target="#confirmDeleteModal" data-path="<%= supervisor_subject_path(subject) %>">
+            <%= t "delete" %>
+          </button>
         </td>
       </tr>
     <% end %>
@@ -32,3 +35,5 @@
 </table>
 <%== pagy_bootstrap_nav @pagy %>
 <%== pagy_info @pagy %>
+
+<%= render "shared/delete_modal", object_name: Subject.model_name.human.downcase %>

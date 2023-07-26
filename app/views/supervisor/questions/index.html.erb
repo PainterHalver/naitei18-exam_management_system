@@ -30,7 +30,10 @@
       <td><%= question.subject.present? ? question.subject_name : t("deleted") %></td>
       <td class="text-right">
         <%= link_to t("edit"), edit_supervisor_question_path(question), class: "btn btn-primary" %>
-        <%= link_to t("delete"), "#", method: :delete, class: "btn btn-danger" %>
+        <button type="button" class="btn btn-danger" data-toggle="modal"
+                data-target="#confirmDeleteModal" data-path="<%= supervisor_question_path(question) %>">
+          <%= t "delete" %>
+        </button>
       </td>
     </tr>
   <% end %>
@@ -39,3 +42,5 @@
 
 <%== pagy_bootstrap_nav @pagy %>
 <%== pagy_info @pagy %>
+
+<%= render "shared/delete_modal", object_name: Question.model_name.human.downcase %>

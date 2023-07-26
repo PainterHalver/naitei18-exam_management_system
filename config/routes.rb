@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
     namespace :supervisor do
       resources :subjects, only: %i(index show new create edit update destroy)
-      resources :questions, only: %i(new create edit update)
+      resources :questions, only: %i(index new create edit update)
     end
   end
 end

@@ -1,11 +1,18 @@
 class Question < ApplicationRecord
   belongs_to :subject
+  belongs_to :subject_including_deleted, class_name: Subject.name,
+             foreign_key: :subject_id, with_deleted: true
   belongs_to :creator, class_name: User.name, foreign_key: :user_id
   has_many :answers, dependent: :destroy
   has_many :test_questions, dependent: :destroy
   accepts_nested_attributes_for :answers,
                                 reject_if: :all_blank,
                                 allow_destroy: true
+
+  delegate :name, to: :subject, prefix: true
+  scope :newest, ->{order created_at: :desc}
+  # tat ca la Subject.with_deleted
+  scope :exclude_deleted_subject, ->{where subject_id: Subject.pluck(:id)}
 
   enum question_type: {single_choice: 0, multiple_choice: 1}
 

@@ -83,6 +83,7 @@ en:
       en: "English"
       vn: "Vietnamese"
       manage_subjects: "Manage subjects"
+      manage_questions: "Manage questions"
   base_title: "EMS"
   signup:
     title: "Signup"
@@ -124,6 +125,12 @@ en:
       edit:
         title: "Edit question"
       update_success: "Sucessfully updated question"
+      index:
+        title: "Manage questions"
+        question_list: "Question list"
+        create_question: "Create new question"
+        show_questions_with_deleted_subject: "Show questions with deleted subject"
+        show_questions_without_deleted_subject: "Show only questions with available subject"
     subjects:
       index:
         title: "Manage subjects"
@@ -150,3 +157,4 @@ en:
   are_you_sure: "Are you sure?"
   close: "Close"
   delete_confirm_message: "Do you really want to delete this %{object_name}?"
+  deleted: "Deleted"

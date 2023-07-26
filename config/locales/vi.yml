@@ -83,6 +83,7 @@ vi:
       en: "Tiếng Anh"
       vn: "Tiếng Việt"
       manage_subjects: "Quản lý chủ đề"
+      manage_questions: "Quản lý câu hỏi"
   base_title: "EMS"
   signup:
     title: "Đăng ký"
@@ -124,6 +125,12 @@ vi:
       edit:
         title: "Chỉnh sửa câu hỏi"
       update_success: "Cập nhật câu hỏi thành công"
+      index:
+        title: "Quản lý câu hỏi"
+        question_list: "Danh sách câu hỏi"
+        create_question: "Tạo câu hỏi mới"
+        show_questions_with_deleted_subject: "Hiển thị cả chủ đề đã bị xóa"
+        show_questions_without_deleted_subject: "Chỉ hiển thị câu hỏi có chủ đề"
     subjects:
       index:
         title: "Quản lý chủ đề"
@@ -150,3 +157,4 @@ vi:
   are_you_sure: "Bạn có chắc không?"
   close: "Đóng"
   delete_confirm_message: "Bạn có chắc chắn muốn xóa %{object_name} này?"
+  deleted: "Đã xóa"

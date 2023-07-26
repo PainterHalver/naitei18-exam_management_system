@@ -4,6 +4,7 @@ class TestsController < ApplicationController
   before_action :load_test_show, only: [:show]
   before_action :has_authorization_with_test?, only: [:show]
   before_action :post_data_handle, only: [:update]
+  before_action :test_available?, only: [:create]
 
   def create
     @test = current_user.tests.build(test_params)
@@ -168,5 +169,13 @@ class TestsController < ApplicationController
 
     flash[:danger] = t "tests.show.not_authorized"
     redirect_back
+  end
+
+  def test_available?
+     subject = Subject.fnd_by id: params[:subject_id]
+     return if subject.questions.count >= subject.question_amount
+
+     flash[:danger] = t "tests.create.not_available"
+     redirect_back
   end
 end

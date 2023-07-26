@@ -27,4 +27,12 @@ module TestHelper
 
     {disabled: :set_disabled}
   end
+
+  def set_status test
+    return t "tests.index.in_progress" if test.doing?
+
+    return t "tests.index.passed" if test.passed?
+
+    t "tests.index.failed"
+  end
 end

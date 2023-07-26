@@ -28,7 +28,11 @@ vi:
         pass_score: "Điểm đỗ"
         test_duration: "Thời gian"
         question_amount: "Số câu hỏi"
-        question_in_bank_amount: "Số câu hỏi trong ngân hàng"
+      test:
+        subject: "Chủ đề"
+        end_time: "Ngày hoàn thành"
+        score: "Điểm số"
+        status: "Trạng thái"
       validates:
         start_before_end: "Thời gian bắt đầu phải sớm hơn kết thúc"
   static_pages:
@@ -70,6 +74,11 @@ vi:
       limit_time: "Thời gian:"
       passed: "Đạt"
       failed: "Không Đạt"
+    index:
+      in_progress: "Đang thực hiện"
+      passed: "Đạt"
+      failed: "Không đạt"
+      header: "Lịch sử làm bài"
   layouts:
     header:
       home: "Trang chủ"
@@ -144,6 +153,8 @@ vi:
   remove_answer: "Xóa"
   created_at: "Ngày tạo"
   actions: "Hành động"
+  view: "Xem"
+  do: "Làm bài"
   edit: "Sửa"
   delete: "Xóa"
   minute: "phút"

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :account_activations, only: :edit
     resources :subjects
     resources :tests
+    resources :users
 
     namespace :supervisor do
       resources :subjects, only: %i(index show new create edit update destroy)

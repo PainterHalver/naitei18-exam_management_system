@@ -39,6 +39,16 @@ vi:
     home:
       title: "Trang chủ"
       login_message: "Bạn cần phải đăng ký hoặc đăng nhập để tiếp tục!"
+  users:
+    edit:
+      title: "Sửa hồ sơ"
+      user_invalid: "Bạn không thể chỉnh sửa hồ sơ này"
+      profile: "Hồ sơ"
+      saved: "Đã lưu"
+    errors:
+      not_found: "Không tìm thấy người dùng"
+    form:
+      save: "Xác nhận"
   subjects:
     index:
       title: "Các chủ đề"
@@ -109,9 +119,14 @@ vi:
     minimum_answers: "Câu hỏi phải có ít nhất %{count} câu trả lời"
   mail:
     account_activation: "Kích hoạt tài khoản"
+    reset_password: "Đổi mật khẩu"
     hi_message: "Xin chào"
     welcome_sentence: "Chào mừng đến với EMS! Click vào link bên dưới để kích hoạt tài khoản:"
+    reset_sentence: "Để đổi mật khẩu, hãy bấm vào đường dẫn dưới đây"
     activate: "Kích hoạt"
+    reset: "Thay đổi mật khẩu"
+    expire: "Đường dẫn sẽ hết hạn trong vòng 10 phút"
+    ignore: "Nếu bạn không muốn thay đổi mật khẩu, không cần để ý đến mail này"
   app_name: "Hệ thống quản lý bài thi"
   account_activation:
     activated: "Kích hoạt tài khoản thành công!"

@@ -15,9 +15,9 @@ class Question < ApplicationRecord
   # Toi thieu 2 lua chon
   validates :answers, length: {minimum: Settings.digit.length_2,
                                too_short: I18n.t("errors.minimum_answers")}
-  validate :must_have_one_correct_answer, on: :create
-  validate :validate_single_type, on: :create, if: :single_choice?
-  validate :validate_multiple_type, on: :create, if: :multiple_choice?
+  validate :must_have_one_correct_answer
+  validate :validate_single_type, if: :single_choice?
+  validate :validate_multiple_type, if: :multiple_choice?
 
   private
 

@@ -42,6 +42,16 @@ vi:
       title: "Trang chủ"
       login_message: "Bạn cần phải đăng ký hoặc đăng nhập để tiếp tục!"
   users:
+    profile:
+      line_chart: "Bài test trong tháng"
+      col_chart: "Theo chủ đề"
+      pie_chart: "Trạng thái"
+      email: "Email: %{email}"
+      completed_test_count: "Đã hoàn thành: %{test_count} bài test"
+      progress_test_count: "Đang thực hiện: %{test_count} tests"
+      subject_count: "Đã học: %{subject_count} chủ đề"
+      joined_at: "Ngày tham gia: %{joined_at}"
+      invalid: "Bạn không thể xem hồ sơ người khác"
     edit:
       title: "Sửa hồ sơ"
       user_invalid: "Bạn không thể chỉnh sửa hồ sơ này"

@@ -35,4 +35,12 @@ module TestHelper
 
     t "tests.index.failed"
   end
+
+  def completed_tests tests
+    tests.completed
+  end
+
+  def progressing_tests tests
+    tests.progressing
+  end
 end

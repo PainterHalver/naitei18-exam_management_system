@@ -335,3 +335,28 @@ input {
     margin-top: 50px;
   }
 }
+
+.user_info {
+  display: flex;
+  justify-content: center;
+  #profile_name {
+    text-align: start;
+  }
+  p {
+    font-size: 16px;
+  }
+}
+.chart-section {
+  margin-top: 2%;
+  .chart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 2%;
+    p {
+      font-size: 18px;
+      font-weight: 600;
+    }
+  }
+}

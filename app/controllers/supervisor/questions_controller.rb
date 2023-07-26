@@ -1,5 +1,12 @@
 class Supervisor::QuestionsController < Supervisor::SupervisorController
+  include Supervisor::QuestionsHelper
   before_action :load_question_by_id, only: %i(edit update)
+
+  def index
+    builder = Question.newest
+    builder = builder.exclude_deleted_subject unless show_deleted_subject?
+    @pagy, @questions = pagy builder, items: Settings.digit.length_10
+  end
 
   def new
     @question = Question.new

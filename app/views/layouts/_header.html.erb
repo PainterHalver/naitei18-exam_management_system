@@ -7,9 +7,10 @@
 
         <% if is_supervisor? %>
           <li><%= link_to t(".manage_subjects"), supervisor_subjects_path %></li>
-          <% else %>
-        <li><%= link_to t(".subjects"), subjects_path %></li>
-          <% end %>
+          <li><%= link_to t(".manage_questions"), supervisor_questions_path %></li>
+        <% else %>
+          <li><%= link_to t(".subjects"), subjects_path %></li>
+        <% end %>
 
         <% if logged_in? %>
           <li class="dropdown">

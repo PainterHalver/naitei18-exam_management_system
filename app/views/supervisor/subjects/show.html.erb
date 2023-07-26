@@ -15,6 +15,7 @@
   <%= link_to t(".add_question"), new_supervisor_question_path(subject_id: @subject.id),
               class: "btn btn-primary align-self-end" %>
 </div>
+
 <table class="table">
   <thead>
   <tr class="info">
@@ -38,5 +39,6 @@
   <% end %>
   </tbody>
 </table>
+
 <%== pagy_bootstrap_nav @pagy %>
 <%== pagy_info @pagy %>

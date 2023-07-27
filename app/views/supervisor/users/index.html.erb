@@ -1,16 +1,21 @@
 <% provide :title, t(".title") %>
 <h3><%= t ".title" %></h3>
 
-<a href="#collapseSearch" data-toggle="collapse">
-  <%= t "toggle_search" %>
-</a>
+<div class="my-1">
+  <a class="f-md search_collapse" href="#collapseSearch" data-toggle="collapse">
+    <span class="glyphicon glyphicon-chevron-down"></span>
+    <%= t "toggle_search" %>
+  </a>
+</div>
 
 <div class="collapse mb-2 mt-1" id="collapseSearch">
   <%= search_form_for @query, url: supervisor_users_path do |f| %>
     <%= f.label :name_or_email_cont %>
-    <%= f.search_field :name_or_email_cont, class: "form-control" %>
+    <div class="d-flex" >
+      <%= f.search_field :name_or_email_cont, class: "form-control f-lg" %>
 
-    <%= f.submit t("search"), class: "btn btn-primary" %>
+      <%= f.submit t("search"), class: "width-fit btn-primary ml-1 br-4px" %>
+    </div>
   <% end %>
 </div>
 

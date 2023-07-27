@@ -360,3 +360,7 @@ input {
     }
   }
 }
+
+.search_collapse, .search_collapse:hover, .search_collapse:active, .search_collapse:visited, .search_collapse:focus {
+  text-decoration: none;
+}

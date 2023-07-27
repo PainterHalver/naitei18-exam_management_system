@@ -129,6 +129,7 @@ vi:
     success: "Đăng ký thành công!"
     mail_check: "Kiểm tra email để lấy link kích hoạt."
     signup_failed: "Có lỗi xảy ra. Đăng ký thất bại!"
+    wait_for_activation: "Tài khoản của bạn đã được tạo. Vui lòng chờ supervisor kích hoạt tài khoản."
   errors:
     the_form_contains: "Form này có"
     error: "lỗi"
@@ -139,23 +140,28 @@ vi:
   mail:
     account_activation: "Kích hoạt tài khoản"
     reset_password: "Đổi mật khẩu"
-    hi_message: "Xin chào"
+    hi_message: "Xin chào, %{name}!"
     welcome_sentence: "Chào mừng đến với EMS! Click vào link bên dưới để kích hoạt tài khoản:"
     reset_sentence: "Để đổi mật khẩu, hãy bấm vào đường dẫn dưới đây"
     activate: "Kích hoạt"
     reset: "Thay đổi mật khẩu"
     expire: "Đường dẫn sẽ hết hạn trong vòng 10 phút"
     ignore: "Nếu bạn không muốn thay đổi mật khẩu, không cần để ý đến mail này"
+    activated_message: "Tài khoản của bạn đã được kích hoạt, truy cập vào link dưới để đăng nhập:"
   app_name: "Hệ thống quản lý bài thi"
   account_activation:
     activated: "Kích hoạt tài khoản thành công!"
     invalid: "Kích hoạt tài khoản thất bại: Invalid link!"
+    failed: "Có lỗi khi kích hoạt tài khoản."
+    deactivated: "Hủy kích hoạt tài khoản thành công."
+    deactivation_failed: "Có lỗi xảy ra khi hủy kích hoạt tài khoản."
   login:
     title: "Đăng nhập"
     new_user?: "Chưa có tài khoản?"
     signup_now: "Đăng ký"
-    invalid_email_password_combination: "Email hoặc mật khẩu không đúng"
-    not_activated: "Người dùng này chưa được kích hoạt!"
+    invalid_email_password_combination: "Tên đăng nhập hoặc mật khẩu không đúng"
+    not_activated: "Tài khoản của bạn chưa được kích hoạt. Hãy liên hệ với supervisor."
+    success: "Đăng nhập thành công."
   no_permission: "Bạn không có quyền."
   require_login: "Bạn cần phải đăng nhập trước"
   supervisor:
@@ -235,3 +241,5 @@ vi:
       blank: "là rỗng"
       'null': "là null"
   deactivate: "Hủy kích hoạt"
+  user:
+    error: "Không tìm thấy người dùng"

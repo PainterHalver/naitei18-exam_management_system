@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :load_user, :require_login, except: [:new, :create]
+  before_action :load_user_by_id, :require_login, except: [:new, :create]
   before_action :correct_user, only: [:edit, :update]
 
   def new
@@ -9,9 +9,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new user_params
     if @user.save
-      @user.send_activation_email
-      flash[:info] = t "signup.mail_check"
-      redirect_to root_path
+      flash[:info] = t "signup.wait_for_activation"
+      redirect_to login_path
     else
       flash[:danger] = t "signup.signup_failed"
       render :new
@@ -32,15 +31,6 @@ class UsersController < ApplicationController
   end
 
   private
-
-  def load_user
-    @user = User.find_by id: params[:id]
-
-    return if @user
-
-    flash[:danger] = t "user.error"
-    redirect_to login_path
-  end
 
   def correct_user
     return if current_user?(@user)

@@ -24,4 +24,13 @@ module SessionsHelper
   def is_supervisor?
     current_user&.is_supervisor?
   end
+
+  def load_user_by_id
+    @user = User.find_by id: params[:id]
+
+    return if @user
+
+    flash[:danger] = t "user.error"
+    redirect_to login_path
+  end
 end

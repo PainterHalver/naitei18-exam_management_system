@@ -39,6 +39,16 @@ en:
     home:
       title: "Home"
       login_message: "You need to signup or login to continue!"
+  users:
+    edit:
+      title: "Edit profile"
+      user_invalid: "You can not edit this profile"
+      profile: "Profile"
+      saved: "Saved"
+    errors:
+      not_found: "User not found"
+    form:
+      save: "Save"
   subjects:
     index:
       title: "Subjects"
@@ -109,9 +119,14 @@ en:
     minimum_answers: "A question must have at least %{count} answers"
   mail:
     account_activation: "Account activation"
+    reset_password: "Reset Password"
     hi_message: "Hi"
     welcome_sentence: "Welcome to the EMS! Click on the link below to activate your account:"
+    reset_sentence: "To reset password, please click the link below"
     activate: "Activate"
+    reset: "Reset your password"
+    expire: "Your link will be expire in 10 minutes"
+    ignore: "If you don't want to reset your password, just ignore this mail and everything will be as is"
   app_name: "Exam Management System"
   account_activation:
     activated: "Account activated successfully!"

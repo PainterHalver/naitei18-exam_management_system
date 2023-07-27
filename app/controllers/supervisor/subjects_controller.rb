@@ -7,7 +7,7 @@ class Supervisor::SubjectsController < Supervisor::SupervisorController
   end
 
   def show
-    @pagy, @questions = pagy @subject.questions,
+    @pagy, @questions = pagy @subject.questions.newest,
                              items: Settings.pagination.per_page_10
   end
 

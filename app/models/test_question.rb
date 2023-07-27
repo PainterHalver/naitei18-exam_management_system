@@ -1,4 +1,5 @@
 class TestQuestion < ApplicationRecord
+  acts_as_paranoid
   belongs_to :question
   belongs_to :test
   has_many :detail_answers, dependent: :destroy

@@ -1,4 +1,5 @@
 class Question < ApplicationRecord
+  acts_as_paranoid
   belongs_to :subject
   belongs_to :subject_including_deleted, class_name: Subject.name,
              foreign_key: :subject_id, with_deleted: true

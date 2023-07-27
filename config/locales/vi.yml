@@ -140,6 +140,8 @@ vi:
         create_question: "Tạo câu hỏi mới"
         show_questions_with_deleted_subject: "Hiển thị cả chủ đề đã bị xóa"
         show_questions_without_deleted_subject: "Chỉ hiển thị câu hỏi có chủ đề"
+      delete_success: "Xóa câu hỏi thành công"
+      delete_failed: "Có lỗi xảy ra khi xóa câu hỏi."
     subjects:
       index:
         title: "Quản lý chủ đề"

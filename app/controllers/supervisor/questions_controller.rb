@@ -1,6 +1,6 @@
 class Supervisor::QuestionsController < Supervisor::SupervisorController
   include Supervisor::QuestionsHelper
-  before_action :load_question_by_id, only: %i(edit update)
+  before_action :load_question_by_id, only: %i(edit update destroy)
 
   def index
     builder = Question.newest
@@ -35,6 +35,15 @@ class Supervisor::QuestionsController < Supervisor::SupervisorController
     else
       render :edit
     end
+  end
+
+  def destroy
+    if @question.destroy
+      flash[:success] = t "supervisor.questions.delete_success"
+    else
+      flash[:danger] = t "supervisor.questions.delete_failed"
+    end
+    redirect_back fallback_location: root_path
   end
 
   private

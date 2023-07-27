@@ -1,0 +1,32 @@
+<% provide :title, t(".title") %>
+<h3><%= t ".title" %></h3>
+
+<a href="#collapseSearch" data-toggle="collapse">
+  <%= t "toggle_search" %>
+</a>
+
+<div class="collapse mb-2 mt-1" id="collapseSearch">
+  <%= search_form_for @query, url: supervisor_users_path do |f| %>
+    <%= f.label :name_or_email_cont %>
+    <%= f.search_field :name_or_email_cont, class: "form-control" %>
+
+    <%= f.submit t("search"), class: "btn btn-primary" %>
+  <% end %>
+</div>
+
+<table class="table mt-1">
+  <thead>
+  <tr class="info">
+    <th class="col-md-2"><%= sort_link @query, :created_at %></th>
+    <th class="col-md-2"><%= sort_link @query, :name %></th>
+    <th class="col-md-4"><%= sort_link @query, :email %></th>
+    <th class="col-md-2"><%= sort_link @query, :activated  %></th>
+    <th class="col-md-1 center"><%= t "actions" %></th>
+  </tr>
+  </thead>
+  <tbody>
+    <%= render partial: "user_row", collection: @users, as: :user %>
+  </tbody>
+</table>
+
+<%= render "shared/pagy_component" %>

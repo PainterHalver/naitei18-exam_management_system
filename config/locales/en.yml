@@ -11,6 +11,8 @@ en:
         email: "Email"
         password: "Password"
         password_confirmation: "Password confirmation"
+        activated: "Activated"
+        created_at: "Created at"
       question:
         subject: "Subject"
         content: "Content"
@@ -118,6 +120,8 @@ en:
       en: "English"
       vn: "Vietnamese"
       manage_subjects: "Manage subjects"
+      manage_questions: "Manage questions"
+      manage_users: "Manage users"
   base_title: "EMS"
   signup:
     title: "Signup"
@@ -187,6 +191,9 @@ en:
       destroy_fail: "Error occured while trying to delete subject"
       show:
         add_question: "Add question"
+    users:
+      index:
+        title: "Manage users"
   create: "Create"
   add_answer: "Add answer"
   remove_answer: "Remove"
@@ -200,3 +207,8 @@ en:
   are_you_sure: "Are you sure?"
   close: "Close"
   delete_confirm_message: "Do you really want to delete this %{object_name}?"
+  deleted: "Deleted"
+  activate: "Activate"
+  search: "Search"
+  toggle_search: "Search options"
+  deactivate: "Deactivate"

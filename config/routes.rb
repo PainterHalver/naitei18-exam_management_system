@@ -6,7 +6,6 @@ Rails.application.routes.draw do
     get "/login", to: "sessions#new"
     post "/login", to: "sessions#create"
     delete "logout", to: "sessions#destroy"
-    resources :account_activations, only: :edit
     resources :password_resets, only: [:new, :create, :edit, :update]
     resources :subjects
     resources :tests
@@ -15,7 +14,12 @@ Rails.application.routes.draw do
     namespace :supervisor do
       resources :subjects, only: %i(index show new create edit update destroy)
       resources :questions, only: %i(index new create edit update destroy)
-      resources :users, only: :index
+      resources :users, only: :index do
+        member do
+          patch :activate
+          patch :deactivate
+        end
+      end
     end
   end
 end

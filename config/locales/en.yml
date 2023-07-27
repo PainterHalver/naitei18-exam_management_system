@@ -129,6 +129,7 @@ en:
     success: "Signup success!"
     mail_check: "Please check your email for activation link."
     signup_failed: "An error occured. Signup failed!"
+    wait_for_activation: "Your account has been created. Please wait for a supervisor to activate your account."
   errors:
     the_form_contains: "The form contains"
     error: "error"
@@ -139,23 +140,28 @@ en:
   mail:
     account_activation: "Account activation"
     reset_password: "Reset Password"
-    hi_message: "Hi"
+    hi_message: "Hi, %{name}!"
     welcome_sentence: "Welcome to the EMS! Click on the link below to activate your account:"
     reset_sentence: "To reset password, please click the link below"
     activate: "Activate"
     reset: "Reset your password"
     expire: "Your link will be expire in 10 minutes"
     ignore: "If you don't want to reset your password, just ignore this mail and everything will be as is"
+    activated_message: "Your account has been activated by a supervisor, visit the link below to login:"
   app_name: "Exam Management System"
   account_activation:
     activated: "Account activated successfully!"
     invalid: "Account activation failed: Invalid link!"
+    failed: "An error occured while activating account."
+    deactivated: "Account deactivated successfully."
+    deactivation_failed: "An error occured while deactivating account."
   login:
     title: "Login"
     new_user?: "New user?"
     signup_now: "Signup"
-    invalid_email_password_combination: "Invalid email or password"
-    not_activated: "This user is not activated yet!"
+    invalid_email_password_combination: "Incorrect email or password"
+    not_activated: "Your account is not activated. Contact your supervisor."
+    success: "Signed in successfully."
   no_permission: "You don't have permission."
   require_login: "You need to log in first!"
   supervisor:
@@ -212,3 +218,5 @@ en:
   search: "Search"
   toggle_search: "Search options"
   deactivate: "Deactivate"
+  user:
+    error: "User not found"

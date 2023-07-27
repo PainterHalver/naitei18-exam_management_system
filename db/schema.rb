@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_27_005245) do
+ActiveRecord::Schema.define(version: 2023_07_27_034919) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -119,7 +119,6 @@ ActiveRecord::Schema.define(version: 2023_07_27_005245) do
     t.string "email"
     t.string "password_digest"
     t.string "remember_digest"
-    t.string "activation_digest"
     t.string "reset_digest"
     t.datetime "activated_at"
     t.boolean "activated", default: false

@@ -4,12 +4,11 @@ class User < ApplicationRecord
   has_many :questions, dependent: :destroy
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  attr_accessor :remember_token, :activation_token, :reset_token
+  attr_accessor :remember_token, :reset_token
 
   scope :newest, ->{order created_at: :desc}
 
   before_save :downcase_email
-  before_create :create_activation_digest
 
   validates :name,
             presence: true,
@@ -57,7 +56,12 @@ class User < ApplicationRecord
   end
 
   def activate
+    send_activation_email if activated_at.nil?
     update_columns activated: true, activated_at: Time.zone.now
+  end
+
+  def deactivate
+    update_columns activated: false
   end
 
   def create_reset_digest
@@ -82,10 +86,5 @@ class User < ApplicationRecord
 
   def downcase_email
     email.downcase!
-  end
-
-  def create_activation_digest
-    self.activation_token = User.new_token
-    self.activation_digest = User.digest activation_token
   end
 end

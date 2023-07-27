@@ -3,20 +3,13 @@
   <h3 style="display: inline-block;"><%= t ".question_list" %></h3>
   <%= link_to t(".create_question"), new_supervisor_question_path, class: "btn btn-primary" %>
 </div>
-<div class="my-1">
-  <% if show_deleted_subject? %>
-    <%= link_to t(".show_questions_without_deleted_subject"),
-                request.query_parameters.except(:show_deleted_subject) %>
-  <% else %>
-    <%= link_to t(".show_questions_with_deleted_subject"),
-                request.query_parameters.merge({show_deleted_subject: true}) %>
-  <% end %>
-</div>
 
-<table class="table">
+<%= render "questions_filter" %>
+
+<table class="table mt-1">
   <thead>
   <tr class="info">
-    <th class="col-md-2"><%= t "created_at" %></th>
+    <th class="col-md-2"><%= sort_link @query, :created_at %></th>
     <th class="col-md-6"><%= Question.human_attribute_name("content") %></th>
     <th class="col-md-2"><%= Question.human_attribute_name("subject") %></th>
     <th class="col-md-2 center"><%= t "actions" %></th>

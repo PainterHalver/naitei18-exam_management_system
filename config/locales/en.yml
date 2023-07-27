@@ -18,6 +18,9 @@ en:
         content: "Content"
         question_type: "Question type"
         answers: "Answers"
+        exclude_deleted_subject: "Exclude deleted subject"
+        subject_id: "Subject"
+        creator: "Creator"
       question/question_type:
         single_choice: "Single choice"
         multiple_choice: "Multiple choice"
@@ -230,3 +233,10 @@ en:
   deactivate: "Deactivate"
   user:
     error: "User not found"
+  toggle_filter: "Toggle filter"
+  all: "All"
+  open_filter: "Open filters"
+  close_filter: "Close filters"
+  test:
+    do:
+      fail: "Failed"

@@ -6,10 +6,12 @@ gem "acts_as_paranoid"
 gem "bcrypt", "3.1.13"
 gem "bootsnap", ">= 1.4.4", require: false
 gem "bootstrap-sass", "3.4.1"
+gem "chartkick"
 gem "cocoon"
 gem "config"
 gem "faker", ">= 3.2.0"
 gem "figaro"
+gem "groupdate"
 gem "image_processing", "1.12.2"
 gem "jbuilder", "~> 2.7"
 gem "mini_magick", "4.9.5"
@@ -22,8 +24,6 @@ gem "ransack"
 gem "sass-rails", ">= 6"
 gem "turbolinks", "~> 5"
 gem "webpacker", "~> 5.0"
-gem "chartkick"
-gem "groupdate"
 
 group :development, :test do
   gem "byebug", platform: :mri

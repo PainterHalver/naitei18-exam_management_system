@@ -27,6 +27,20 @@ class Question < ApplicationRecord
   validate :validate_single_type, if: :single_choice?
   validate :validate_multiple_type, if: :multiple_choice?
 
+  class << self
+    def ransackable_attributes _auth_object
+      %w(content question_type created_at subject_id)
+    end
+
+    def ransackable_associations _auth_object
+      %w(creator)
+    end
+
+    def ransackable_scopes _auth_object
+      %i(exclude_deleted_subject)
+    end
+  end
+
   private
 
   def must_have_one_correct_answer

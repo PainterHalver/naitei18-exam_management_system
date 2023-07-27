@@ -362,5 +362,10 @@ input {
 }
 
 .search_collapse, .search_collapse:hover, .search_collapse:active, .search_collapse:visited, .search_collapse:focus {
-  text-decoration: none;
+          text-decoration: none;
+}
+
+[aria-expanded="false"] > .expanded,
+[aria-expanded="true"] > .collapsed {
+  display: none;
 }

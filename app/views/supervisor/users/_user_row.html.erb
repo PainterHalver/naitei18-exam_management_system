@@ -1,0 +1,17 @@
+<tr>
+  <td><%= user.created_at.strftime(Settings.h_m_s_format) %></td>
+  <td><%= user.name %></td>
+  <td><%= user.email %></td>
+  <td style="font-size: 16px;">
+        <span class="label label-<%= user.activated? ? "success" : "danger" %>">
+          <%= user.activated %>
+        </span>
+  </td>
+  <td class="text-right">
+    <% if user.activated? %>
+      <%= link_to t("deactivate"), "#", class: "btn btn-danger" %>
+    <% else %>
+      <%= link_to t("activate"), "#", class: "btn btn-success" %>
+    <% end %>
+  </td>
+</tr>

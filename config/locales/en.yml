@@ -47,8 +47,23 @@ en:
       saved: "Saved"
     errors:
       not_found: "User not found"
+      email_invalid: "Email not valid"
+      password_empty: "Password is empty"
+      user_invalid: "User not valid"
     form:
       save: "Save"
+      password: "Password"
+      confirmation: "Password confirmation"
+      update_password: "Update"
+      email: "Email"
+      confirm: "Confirm"
+    reset_password:
+      title: "Reset Password"
+      begin: "A reset email has been sent to you"
+      success: "Your password has been reset"
+      expired: "This link was expired"
+    forgot_password:
+      title: "Forgot Password"
   subjects:
     index:
       title: "Subjects"
@@ -71,6 +86,7 @@ en:
       questions_fail: "Fail to add questions"
     create:
       success: "Your test created"
+      not_available: "Not enough questions for a test"
     do:
       success: "Completed"
       fail: "Can not save your answers"
@@ -102,7 +118,6 @@ en:
       en: "English"
       vn: "Vietnamese"
       manage_subjects: "Manage subjects"
-      manage_questions: "Manage questions"
   base_title: "EMS"
   signup:
     title: "Signup"
@@ -185,4 +200,3 @@ en:
   are_you_sure: "Are you sure?"
   close: "Close"
   delete_confirm_message: "Do you really want to delete this %{object_name}?"
-  deleted: "Deleted"

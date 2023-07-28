@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :users
 
     namespace :supervisor do
+      root "static_pages#home"
       resources :subjects, only: %i(index show new create edit update destroy)
       resources :questions, only: %i(index new create edit update destroy)
       resources :users, only: :index do

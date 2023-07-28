@@ -213,6 +213,9 @@ vi:
     users:
       index:
         title: "Quản lý người dùng"
+    static_pages:
+      home:
+        title: "Trang quản trị"
   create: "Tạo"
   add_answer: "Thêm câu trả lời"
   remove_answer: "Xóa"

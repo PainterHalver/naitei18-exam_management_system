@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
   def handle_activation user
     if user.activated?
       log_in user
-      flash[:info] = t "login.success"
+      flash[:info] = t "login.success" unless is_supervisor?
       redirect_to root_path
     else
       flash[:warning] = t "login.not_activated"

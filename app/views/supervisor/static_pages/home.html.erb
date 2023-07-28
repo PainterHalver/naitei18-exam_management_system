@@ -1,0 +1,26 @@
+<% provide :title, t(".title") %>
+<div class="detail">
+  <!-- banner -->
+  <div class="description vertical-center">
+    <div class="container">
+      <h1 class="text-white"><%= t ".title" %></h1>
+    </div>
+  </div>
+
+  <div class="container mt-2">
+    <div class="row">
+      <div class="col-md-4">
+        <%= link_to t("layouts.header.manage_subjects"), supervisor_subjects_path,
+                    class: "width-full btn btn-info mt-2 py-2 f-lg" %>
+      </div>
+      <div class="col-md-4">
+        <%= link_to t("layouts.header.manage_questions"), supervisor_questions_path,
+                    class: "width-full btn btn-info mt-2 py-2 f-lg" %>
+      </div>
+      <div class="col-md-4">
+        <%= link_to t("layouts.header.manage_users"), supervisor_users_path,
+                    class: "width-full btn btn-info mt-2 py-2 f-lg" %>
+      </div>
+    </div>
+  </div>
+</div>

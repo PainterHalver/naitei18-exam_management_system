@@ -37,7 +37,7 @@ subjects.each do |subject|
     correct = rand(1..4)
     query = [1,2,3,4].map {|i| {
       is_correct: correct == i ? true : false,
-      content: "Dap an #{i}",
+      content: "Dap an #{i} (#{correct == i ? 'dung' : 'sai'})",
     }}
 
     question = item.questions.create!({
@@ -53,7 +53,7 @@ subjects.each do |subject|
     correct = [1,2,3,4].sample(num);
     query = [1,2,3,4].map {|i| {
       is_correct: correct.include?(i) ? true : false,
-      content: "Dap an #{i}",
+      content: "Dap an #{i} (#{correct.include?(i) ? 'dung' : 'sai'})",
     }}
     question = item.questions.create!({
       content: Faker::Lorem.sentence(word_count: 20),

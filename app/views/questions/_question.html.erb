@@ -1,12 +1,11 @@
-<%@question_or_test_question = variable_question_partial(question)%>
-<div id=<%="question-#{question.id}"%> class="question item">
-    <%= form.fields_for question,
-                 index: question.id do |field| %>
+<% @question_or_test_question = variable_question_partial(question) %>
+<div id="<%= "question-#{question.id}" %>" class="question item">
+    <%= form.fields_for question, index: question.id do |field| %>
       <div class="content">
         <%= "#{question_counter + 1}, #{@question_or_test_question.content}" %>
       </div>
       <div class= "answer-collect">
-        <% if @question_or_test_question.single_choice?%>
+        <% if @question_or_test_question.single_choice? %>
           <%= field.collection_radio_buttons(set_method_fields_for(@question_or_test_question),
                                              @question_or_test_question.answers,
                                              :id, :content) do |answer| %>

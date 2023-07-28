@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :load_user_by_id, :require_login, except: [:new, :create]
   before_action :correct_user, only: [:edit, :update]
+  before_action :profile_accessible?, only: [:show]
 
   def new
     @user = User.new
@@ -30,6 +31,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @tests = @user.tests.includes(:subject)
+    @subjects_data = @tests.joins(:subject).group(:name).count
+  end
+
   private
 
   def correct_user
@@ -43,4 +49,12 @@ class UsersController < ApplicationController
     params.require(:user)
           .permit :name, :email, :password, :password_confirmation
   end
+
+  def profile_accessible?
+    return if current_user?(@user) || @user.is_supervisor?
+
+    flash[:danger] = t "users.profile.invalid"
+    redirect_to root_url
+  end
+
 end

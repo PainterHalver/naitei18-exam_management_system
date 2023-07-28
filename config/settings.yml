@@ -9,3 +9,5 @@ digit:
 pagination:
   per_page_10: 10
 h_m_s_format: "%Y-%m-%d %H:%M %p"
+chart_width_500: "400px"
+chart_height_600: "350px"

@@ -42,6 +42,16 @@ en:
       title: "Home"
       login_message: "You need to signup or login to continue!"
   users:
+    profile:
+      line_chart: "Tests in this month"
+      col_chart: "Subjects"
+      pie_chart: "Statuses"
+      email: "Email: %{email}"
+      completed_test_count: "Completed: %{test_count} tests"
+      progress_test_count: "Doing: %{test_count} tests"
+      subject_count: "Learned: %{subject_count} subjects"
+      joined_at: "Joined at: %{joined_at}"
+      invalid: "You can not see this profile"
     edit:
       title: "Edit profile"
       user_invalid: "You can not edit this profile"

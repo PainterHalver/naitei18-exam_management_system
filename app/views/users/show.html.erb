@@ -1,0 +1,36 @@
+<% provide :title, @user.name %>
+<div class="row">
+  <div class="row chart-section">
+    <div class="user_info col-md-6">
+      <div>
+        <h1 id="profile_name">
+          <%= @user.name %><br>
+        </h1>
+        <p><%= t "users.profile.email", email: @user.email %></p>
+        <p><%= t "users.profile.completed_test_count", test_count: completed_tests(@tests).count %></p>
+        <p><%= t "users.profile.progress_test_count", test_count: progressing_tests(@tests).count %></p>
+        <p><%= t "users.profile.subject_count", subject_count: @subjects_data.count%></p>
+        <p><%= t "users.profile.joined_at", joined_at: @user.activated_at.strftime(Settings.h_m_s_format)%></p>
+      </div>
+    </div>
+    <div class="col-md-6 chart" id="line_chart">
+      <p><%= t "users.profile.line_chart" %></p>
+      <%= line_chart @tests.group_by_day(:created_at).count,
+          width: Settings.chart_width_500, height: Settings.chart_height_600 %>
+    </div>
+  </div>
+  <div class="chart-section">
+    <div class="row charts">
+        <div class="col-md-6 chart" id="col_chart">
+          <p><%= t "users.profile.col_chart" %></p>
+          <%= column_chart @subjects_data,
+              width: Settings.chart_width_500, height: Settings.chart_height_600 %>
+        </div>
+        <div class="col-md-6 chart" id="pie_chart">
+          <p><%= t "users.profile.pie_chart" %></p>
+          <%= pie_chart @tests.group(:status).count, legend: "bottom",
+              width: Settings.chart_width_500, height: Settings.chart_height_600 %>
+        </div>
+    </div>
+  </div>
+</div>

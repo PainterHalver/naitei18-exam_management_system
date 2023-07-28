@@ -172,8 +172,8 @@ class TestsController < ApplicationController
   end
 
   def test_available?
-    subject = Subject.fnd_by id: params[:subject_id]
-    return if subject.questions.count >= subject.question_amount
+    subject = Subject.find_by id: params[:subject_id]
+    return if subject && subject.questions.count >= subject.question_amount
 
     flash[:danger] = t "tests.create.not_available"
     redirect_back

@@ -7,7 +7,8 @@ class Subject < ApplicationRecord
 
   scope :newest, ->{order created_at: :desc}
 
-  validates :name, presence: true
+  validates :name, presence: true,
+            uniqueness: {case_sensitive: false}
   validates :description, presence: true
   validates :question_amount,
             presence: true,

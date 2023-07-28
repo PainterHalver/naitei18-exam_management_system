@@ -18,6 +18,9 @@ vi:
         content: "Nội dung"
         question_type: "Loại câu hỏi"
         answers: "Các câu hỏi"
+        exclude_deleted_subject: "Không hiện chủ đề đã xóa"
+        subject_id: "Chủ đề"
+        creator: "Người tạo"
       question/question_type:
         single_choice: "Chọn một đáp án"
         multiple_choice: "Chọn nhiều đáp án"
@@ -240,7 +243,7 @@ vi:
     asc: "tăng dần"
     desc: "giảm dần"
     predicates:
-      eq: "bằng"
+      eq: "là"
       in: "trong"
       cont: "chứa"
       start: "bắt đầu với"
@@ -253,3 +256,10 @@ vi:
   deactivate: "Hủy kích hoạt"
   user:
     error: "Không tìm thấy người dùng"
+  toggle_filter: "Tắt mở bộ lọc"
+  all: "Tất cả"
+  open_filter: "Mở bộ lọc"
+  close_filter: "Đóng bộ lọc"
+  test:
+    do:
+      fail: "Thất bại"

@@ -7,6 +7,7 @@ class User < ApplicationRecord
   attr_accessor :remember_token, :reset_token
 
   scope :newest, ->{order created_at: :desc}
+  scope :supervisors, ->{where is_supervisor: true}
 
   before_save :downcase_email
 
@@ -40,7 +41,7 @@ class User < ApplicationRecord
     end
 
     def ransackable_attributes _auth_object
-      %w(name email activated created_at)
+      %w(id name email activated created_at)
     end
 
     def ransackable_associations _auth_object

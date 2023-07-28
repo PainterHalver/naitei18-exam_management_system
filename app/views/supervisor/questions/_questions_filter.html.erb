@@ -1,0 +1,35 @@
+<a href="#collapseFilter" data-toggle="collapse" aria-expanded="false" aria-controls="collapseFilter">
+  <span class="collapsed">
+        <%= t "open_filter" %>▼
+  </span>
+  <span class="expanded">
+        <%= t "close_filter" %>▲
+  </span>
+</a>
+
+<div class="collapse mb-2 mt-1" id="collapseFilter">
+  <%= search_form_for @query, url: supervisor_questions_path do |f| %>
+    <%= f.label :content_cont %>
+    <%= f.search_field :content_cont, class: "form-control" %>
+
+    <%= f.label :question_type_eq %>
+    <%= f.select :question_type_eq,
+                 filter_question_type_options,
+                 {include_blank: t("all")}, {class: "form-control"} %>
+
+    <%= f.label :subject_id_eq %>
+    <%= f.select :subject_id_eq,
+                 filter_subject_options,
+                 {include_blank: t("all")}, {class: "form-control"} %>
+
+    <%= f.label :creator_id_eq, Question.human_attribute_name("creator") %>
+    <%= f.select :creator_id_eq,
+                 filter_supervisor_options,
+                 {include_blank: t("all")}, {class: "form-control"} %>
+
+    <%= f.check_box :exclude_deleted_subject, {checked: exclude_deleted_subject?}, true, nil %>
+    <%= f.label :exclude_deleted_subject %>
+
+    <%= f.submit t("search"), class: "btn btn-primary" %>
+  <% end %>
+</div>

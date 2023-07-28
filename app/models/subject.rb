@@ -20,4 +20,13 @@ class Subject < ApplicationRecord
   validates :test_duration,
             presence: true,
             numericality: {greater_than_or_equal_to: Settings.digit.length_0}
+
+  def self.ransackable_associations _auth_object = nil
+    %w(image_attachment image_blob questions tests user)
+  end
+
+  def self.ransackable_attributes _auth_object = nil
+    %w(created_at deleted_at description id name
+      pass_score question_amount test_duration updated_at user_id)
+  end
 end

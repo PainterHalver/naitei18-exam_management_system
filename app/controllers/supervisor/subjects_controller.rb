@@ -2,7 +2,8 @@ class Supervisor::SubjectsController < Supervisor::SupervisorController
   before_action :load_subject_by_id, only: %i(show edit update destroy)
 
   def index
-    @pagy, @subjects = pagy Subject.newest,
+    @q = Subject.newest.ransack(params[:q])
+    @pagy, @subjects = pagy @q.result,
                             items: Settings.pagination.per_page_10
   end
 

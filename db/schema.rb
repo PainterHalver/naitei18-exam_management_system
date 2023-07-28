@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 2023_07_27_034919) do
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_subjects_on_deleted_at"
+    t.index ["name"], name: "index_subjects_on_name", unique: true
     t.index ["user_id"], name: "index_subjects_on_user_id"
   end
 

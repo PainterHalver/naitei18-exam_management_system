@@ -3,6 +3,19 @@
   <h3 style="display: inline-block;"><%= t ".subject_list" %></h3>
   <%= link_to t(".create_subject"), new_supervisor_subject_path, class: "btn btn-primary" %>
 </div>
+<div class="my-1">
+  <a class="search_collapse f-md" data-toggle="collapse" href="#supervisor-subject-search" aria-expanded="false">
+    <span class="glyphicon glyphicon-chevron-down"></span>
+    <%= t "toggle_search" %>
+  </a>
+</div>
+<div class="collapse" id="supervisor-subject-search">
+  <%= search_form_for(@q, url: supervisor_subjects_path, class: "d-flex") do |f| %>
+    <%= f.search_field :name_cont, class: "form-control f-lg" %>
+
+    <%= f.submit t("search"), class: "width-fit btn-primary ml-1 br-4px"%>
+  <% end %>
+</div>
 <table class="table">
   <thead>
   <tr class="info">

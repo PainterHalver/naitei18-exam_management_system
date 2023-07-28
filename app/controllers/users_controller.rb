@@ -56,5 +56,4 @@ class UsersController < ApplicationController
     flash[:danger] = t "users.profile.invalid"
     redirect_to root_url
   end
-
 end

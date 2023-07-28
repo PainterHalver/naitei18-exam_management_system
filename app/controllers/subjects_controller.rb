@@ -2,7 +2,8 @@ class SubjectsController < ApplicationController
   before_action :load_subject, except: :index
 
   def index
-    @pagy, @subjects = pagy(Subject.newest,
+    @q = Subject.newest.ransack(params[:q])
+    @pagy, @subjects = pagy(@q.result,
                             items: Settings.pagination.per_page_10)
   end
 

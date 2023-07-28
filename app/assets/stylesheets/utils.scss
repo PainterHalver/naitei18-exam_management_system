@@ -2,6 +2,18 @@
   margin-top: 10px !important;
 }
 
+.ml-1 {
+  margin-left: 10px !important
+}
+
+.br-4px {
+  border-radius: 4px;
+}
+
+.pl-4 {
+  padding-left: 40px;
+}
+
 .mb-1 {
   margin-bottom: 10px !important;
 }
@@ -37,4 +49,16 @@
 
 .align-self-end {
   align-self: flex-end;
+}
+
+.width-fit {
+  width: fit-content
+}
+
+.f-md {
+  font-size: medium;
+}
+
+.f-lg {
+  font-size: large;
 }

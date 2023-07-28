@@ -368,4 +368,12 @@ input {
 [aria-expanded="false"] > .expanded,
 [aria-expanded="true"] > .collapsed {
   display: none;
+  text-decoration: none;
+}
+
+.test-buttons {
+  justify-content: space-between;
+  input {
+    margin: 0%;
+  }
 }

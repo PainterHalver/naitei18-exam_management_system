@@ -108,6 +108,8 @@ vi:
       answer_error: "Không thể cập nhật câu trả lời của bạn"
       post_error: "Không thể xử lý dữ liệu được gửi"
       submit: "Nộp bài"
+      save: "Lưu"
+      at_least_one: "Phải trả lời ít nhất một câu hỏi"
     show:
       not_authorized: "Bạn không thể xem bài test này"
       score: "Điểm số"

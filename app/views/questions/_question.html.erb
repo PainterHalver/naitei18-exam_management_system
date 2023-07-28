@@ -1,13 +1,13 @@
-<% @question_or_test_question = variable_question_partial(question) %>
-<div id="<%= "question-#{question.id}" %>" class="question item">
-    <%= form.fields_for question, index: question.id do |field| %>
+<div id=<%="question-#{question.question.id}"%> class="question item">
+    <%= form.fields_for question,
+                 index: question.id do |field| %>
       <div class="content">
-        <%= "#{question_counter + 1}, #{@question_or_test_question.content}" %>
+        <%= "#{question_counter + 1}, #{question.question.content}" %>
       </div>
       <div class= "answer-collect">
-        <% if @question_or_test_question.single_choice? %>
-          <%= field.collection_radio_buttons(set_method_fields_for(@question_or_test_question),
-                                             @question_or_test_question.answers,
+        <% if question.question.single_choice? %>
+          <%= field.collection_radio_buttons(set_method_fields_for(question.question),
+                                             question.question.answers,
                                              :id, :content) do |answer| %>
             <div class="answer <%= set_correct_class(question, answer) %>">
               <%= answer.radio_button check_disable %>
@@ -15,8 +15,8 @@
             </div>
           <% end %>
         <% else %>
-          <%= field.collection_check_boxes(set_method_fields_for(@question_or_test_question),
-                                             @question_or_test_question.answers,
+          <%= field.collection_check_boxes(set_method_fields_for(question.question),
+                                             question.question.answers,
                                              :id, :content) do |answer| %>
             <div class="answer <%= set_correct_class(question, answer) %>">
               <%= answer.check_box check_disable %>

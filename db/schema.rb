@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_27_034919) do
+ActiveRecord::Schema.define(version: 2023_07_28_094216) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 2023_07_27_034919) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
+    t.boolean "correct", default: false
     t.index ["deleted_at"], name: "index_test_questions_on_deleted_at"
     t.index ["question_id"], name: "index_test_questions_on_question_id"
     t.index ["test_id", "question_id"], name: "index_test_questions_on_test_id_and_question_id", unique: true
@@ -110,6 +111,7 @@ ActiveRecord::Schema.define(version: 2023_07_27_034919) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "pause_time"
     t.index ["subject_id"], name: "index_tests_on_subject_id"
     t.index ["user_id"], name: "index_tests_on_user_id"
   end

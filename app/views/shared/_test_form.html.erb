@@ -1,13 +1,12 @@
-<%=form_for @test, method: :patch  do |f|%>
+<%=form_for @test do |f|%>
   <%= render "shared/error_messages", object: f.object %>
-  <%if @test.doing?%>
-    <div class="test form container">
-      <%= render partial: "questions/question", collection: @questions, locals: {form: f} %>
-    </div>
-    <%= f.submit t("tests.do.submit"), class: "btn btn-primary submit-test" %>
-  <% else %>
     <div class="test form container">
       <%= render partial: "questions/question", collection: @test_questions, locals: {form: f} %>
+      <% if @test.doing? %>
+        <div class="test-buttons d-flex mt-2 mb-2">
+          <%= f.submit t("tests.do.save"), class: "btn btn-primary submit-test" %>
+          <%= f.submit t("tests.do.submit"), class: "btn btn-success submit-test", id: "submit-test" %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
 <%end%>

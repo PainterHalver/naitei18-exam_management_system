@@ -19,7 +19,7 @@ class TestsController < ApplicationController
   end
 
   def index
-    redirect_back fallback_location: request.referer
+    redirect_back fallback_location: root_path
   end
 
   def show
@@ -41,7 +41,7 @@ class TestsController < ApplicationController
     end
   rescue ActiveRecord::Rollback
     flash[:danger] = t "tests.do.answer_error"
-    redirect_back
+    redirect_back fallback_location: root_path
   end
 
   def edit
@@ -109,7 +109,7 @@ class TestsController < ApplicationController
       redirect_to subjects_path
     else
       flash[:error] = t "test.do.fail"
-      redirect_back
+      redirect_back fallback_location: root_path
     end
   end
 
@@ -141,7 +141,7 @@ class TestsController < ApplicationController
     return if @test
 
     flash[:danger] = t "tests.errors.not_found"
-    redirect_back
+    redirect_back fallback_location: root_path
   end
 
   def load_test_show
@@ -150,7 +150,7 @@ class TestsController < ApplicationController
     return if @test
 
     flash[:danger] = t "tests.errors.not_found"
-    redirect_back
+    redirect_back fallback_location: root_path
   end
 
   def add_questions_to_test
@@ -168,7 +168,7 @@ class TestsController < ApplicationController
               current_user.id = @test.user_id
 
     flash[:danger] = t "tests.show.not_authorized"
-    redirect_back
+    redirect_back fallback_location: root_path
   end
 
   def test_available?
@@ -176,6 +176,6 @@ class TestsController < ApplicationController
     return if subject && subject.questions.count >= subject.question_amount
 
     flash[:danger] = t "tests.create.not_available"
-    redirect_back
+    redirect_back fallback_location: root_path
   end
 end

@@ -8,12 +8,14 @@
         </span>
   </td>
   <td class="text-right">
-    <% if user.activated? %>
-      <%= link_to t("deactivate"), deactivate_supervisor_user_path(user),
-                  method: :patch, class: "btn btn-danger" %>
-    <% else %>
-      <%= link_to t("activate"), activate_supervisor_user_path(user),
-                  method: :patch, class: "btn btn-success" %>
+    <% unless user.is_supervisor? %>
+      <% if user.activated? %>
+        <%= link_to t("deactivate"), deactivate_supervisor_user_path(user),
+                    method: :patch, class: "btn btn-danger" %>
+      <% else %>
+        <%= link_to t("activate"), activate_supervisor_user_path(user),
+                    method: :patch, class: "btn btn-success" %>
+      <% end %>
     <% end %>
   </td>
 </tr>

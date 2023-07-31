@@ -9,7 +9,7 @@
           <%= field.collection_radio_buttons(set_method_fields_for(@question_or_test_question),
                                              @question_or_test_question.answers,
                                              :id, :content) do |answer| %>
-            <div class="answer">
+            <div class="answer <%= set_correct_class(question, answer) %>">
               <%= answer.radio_button check_disable %>
               <p><%= answer.text %></p>
             </div>
@@ -18,12 +18,21 @@
           <%= field.collection_check_boxes(set_method_fields_for(@question_or_test_question),
                                              @question_or_test_question.answers,
                                              :id, :content) do |answer| %>
-            <div class="answer">
+            <div class="answer <%= set_correct_class(question, answer) %>">
               <%= answer.check_box check_disable %>
               <p><%= answer.text %></p>
             </div>
           <% end %>
         <% end %>
       </div>
+      <% unless @test.doing? %>
+        <div class="mt-2">
+          <% if question_passed? question %>
+            <span class="label label-success f-md"><%= t "correct" %></span>
+          <% else %>
+            <span class="label label-danger f-md"><%= t "wrong" %></span>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
 </div>

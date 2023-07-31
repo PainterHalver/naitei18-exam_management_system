@@ -2,7 +2,9 @@ class TestsController < ApplicationController
   before_action :require_login
   before_action :load_test, only: [:update, :show, :edit]
   before_action :load_test_show, only: [:show]
-  before_action :has_authorization_with_test?, only: [:show]
+  before_action :has_authorization_with_test?, only: [:show, :edit, :update]
+  before_action :require_doing_test, only: [:edit, :update]
+  before_action :require_finished_test, only: [:show]
   before_action :post_data_handle, only: [:update]
   before_action :test_available?, only: [:create]
 
@@ -45,6 +47,11 @@ class TestsController < ApplicationController
   end
 
   def edit
+    # Set start_time lan dau tien vao test
+    if @test.start_time.nil?
+      @test.start_time = Time.zone.now
+      @test.save
+    end
     @questions = @test.questions.includes(:answers)
   end
 
@@ -70,7 +77,7 @@ class TestsController < ApplicationController
   def update_test score
     rate = score * 1.0 / @test.subject.question_amount * 100
     check_pass = rate > @test.subject.pass_score ? 1 : 2
-    @test.update!(status: check_pass, score: score)
+    @test.update!(status: check_pass, score: score, end_time: Time.zone.now)
   end
 
   def calculate_score answer_ids
@@ -104,9 +111,9 @@ class TestsController < ApplicationController
   end
 
   def create_relations detail_answers
-    if DetailAnswer.insert_all! detail_answers
+    if detail_answers.empty? || (DetailAnswer.insert_all! detail_answers)
       flash[:success] = t "tests.do.success"
-      redirect_to subjects_path
+      redirect_to root_path
     else
       flash[:error] = t "test.do.fail"
       redirect_back fallback_location: root_path
@@ -160,7 +167,7 @@ class TestsController < ApplicationController
   end
 
   def test_params
-    params.permit :subject_id, :remaining_time, :start_time
+    params.permit :subject_id
   end
 
   def has_authorization_with_test?
@@ -177,5 +184,19 @@ class TestsController < ApplicationController
 
     flash[:danger] = t "tests.create.not_available"
     redirect_back fallback_location: root_path
+  end
+
+  def require_doing_test
+    return if @test.doing?
+
+    flash[:danger] = t "tests.has_finished"
+    redirect_to root_path
+  end
+
+  def require_finished_test
+    return unless @test.doing?
+
+    flash[:danger] = t "tests.not_finished"
+    redirect_to root_path
   end
 end

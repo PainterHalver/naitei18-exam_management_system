@@ -8,7 +8,7 @@
     <% if test.doing? %>
       <%= link_to t("do"), edit_test_path(test), class: "btn btn-primary test table-button" %>
     <% else %>
-      <%= link_to t("view"), test_path(test), class: "btn btn-primary test table-button" %>
+      <%= link_to t("view"), test_path(test), class: "btn btn-success test table-button" %>
     <% end %>
   </td>
 </tr>

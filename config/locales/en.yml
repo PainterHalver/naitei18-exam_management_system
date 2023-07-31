@@ -213,6 +213,9 @@ en:
     users:
       index:
         title: "Manage users"
+    static_pages:
+      home:
+        title: "Admin page"
   create: "Create"
   add_answer: "Add answer"
   remove_answer: "Remove"

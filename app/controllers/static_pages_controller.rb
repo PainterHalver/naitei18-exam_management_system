@@ -1,6 +1,7 @@
 class StaticPagesController < ApplicationController
   def home
     if logged_in?
+      redirect_to supervisor_root_path if is_supervisor?
       @pagy, @tests = pagy(current_user.tests.includes(:subject),
                            items: Settings.pagination.per_page_10)
     else

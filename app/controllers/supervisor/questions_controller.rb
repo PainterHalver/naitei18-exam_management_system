@@ -19,7 +19,7 @@ class Supervisor::QuestionsController < Supervisor::SupervisorController
     @question = current_user.questions.new question_params
     if @question.save
       flash[:success] = t "supervisor.questions.create_success"
-      redirect_to root_path
+      redirect_back fallback_location: supervisor_root_path
     else
       flash.now[:danger] = t "supervisor.questions.create_failed"
       render :new
@@ -31,7 +31,7 @@ class Supervisor::QuestionsController < Supervisor::SupervisorController
   def update
     if @question.update question_params
       flash[:success] = t "supervisor.questions.update_success"
-      redirect_to root_path
+      redirect_back fallback_location: supervisor_root_path
     else
       render :edit
     end
@@ -43,7 +43,7 @@ class Supervisor::QuestionsController < Supervisor::SupervisorController
     else
       flash[:danger] = t "supervisor.questions.delete_failed"
     end
-    redirect_back fallback_location: root_path
+    redirect_back fallback_location: supervisor_root_path
   end
 
   private
@@ -53,7 +53,7 @@ class Supervisor::QuestionsController < Supervisor::SupervisorController
     return if @question
 
     flash[:danger] = t "supervisor.questions.not_found"
-    redirect_to root_path
+    redirect_to supervisor_root_path
   end
 
   def question_params

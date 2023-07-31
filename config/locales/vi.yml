@@ -120,6 +120,8 @@ vi:
       passed: "Đạt"
       failed: "Không đạt"
       header: "Lịch sử làm bài"
+    has_finished: "Bài thi này đã kết thúc"
+    not_finished: "Bài test vẫn chưa được hoàn thành"
   layouts:
     header:
       home: "Trang chủ"
@@ -266,3 +268,7 @@ vi:
   test:
     do:
       fail: "Thất bại"
+  do_test_time: "Thời gian làm bài"
+  remaining_test_time: "Thời gian còn lại"
+  correct: "Đúng"
+  wrong: "Sai"

@@ -15,18 +15,4 @@ class Test < ApplicationRecord
             numericality: {greater_than_or_equal_to: 0,
                            less_than_or_equal_to:
                            ->(record){record.subject.question_amount}}
-  validates :remaining_time, presence: true,
-            numericality: {less_than_or_equal_to:
-                          ->(record){record.subject.test_duration}}
-  validates :start_time, presence: true
-  validate :start_before_end
-
-  private
-
-  def start_before_end
-    return unless start_time && end_time && start_time >= end_time
-
-    message = I18n.t("activerecord.validates.start_before_end")
-    errors.add(:start_time, message)
-  end
 end

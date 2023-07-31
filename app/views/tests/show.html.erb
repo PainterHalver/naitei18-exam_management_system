@@ -17,9 +17,13 @@
         <%end%>
       </div>
       <div class="sub info">
-        <%= Time.at((@subject.test_duration - @test.remaining_time) * 60)
-            .utc.strftime("%H:%M:%S") %><br>
-        <%= Time.at(@subject.test_duration * 60).utc.strftime("%H:%M:%S") %><br>
+        <span class="text-primary">
+          <%= t "do_test_time" %> <br>
+          <%= Time.at(@test.end_time - @test.start_time)
+            .utc.strftime("%H:%M:%S") %>
+        </span><br>
+        <%= t "remaining_test_time" %> <br>
+        <%= Time.at(@subject.test_duration * 60 - (@test.end_time - @test.start_time)).utc.strftime("%H:%M:%S") %><br>
       </div>
     </div>
   </div>

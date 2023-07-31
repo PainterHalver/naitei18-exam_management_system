@@ -110,7 +110,6 @@ ActiveRecord::Schema.define(version: 2023_07_27_034919) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.float "remaining_time"
     t.index ["subject_id"], name: "index_tests_on_subject_id"
     t.index ["user_id"], name: "index_tests_on_user_id"
   end

@@ -120,6 +120,8 @@ en:
       passed: "Passed"
       failed: "Failed"
       header: "Your Tests"
+    has_finished: "This test has ended"
+    not_finished: "The test has not ended yet"
   layouts:
     header:
       home: "Home"
@@ -243,3 +245,7 @@ en:
   test:
     do:
       fail: "Failed"
+  do_test_time: "Time taken"
+  remaining_test_time: "Time remaining"
+  correct: "Correct"
+  wrong: "Wrong"

@@ -13,6 +13,7 @@ class TestsController < ApplicationController
     @test.start_time = Time.zone.now
     if @test.save
       add_questions_to_test
+      enqueue_job
       redirect_to edit_test_path @test
     else
       flash.now[:danger] = t "tests.errors.questions_fail"
@@ -53,6 +54,12 @@ class TestsController < ApplicationController
   end
 
   private
+
+  def enqueue_job
+    time = (@test.subject.test_duration + 0.1).minutes
+    CalculateScoreOvertimeJob.set(wait: time)
+                             .perform_later(@test.id)
+  end
 
   def submit_test corrected
     ActiveRecord::Base.transaction do

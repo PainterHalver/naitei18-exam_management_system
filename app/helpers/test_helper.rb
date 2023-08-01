@@ -5,7 +5,7 @@ module TestHelper
 
   def get_time_left_in_second
     time = @test.subject.test_duration * 60 - (Time.zone.now - @test.start_time)
-    time.round.positive? ? float : 0
+    time.round.positive? ? time : 0
   end
 
   def variable_question_partial question

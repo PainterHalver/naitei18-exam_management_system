@@ -51,7 +51,7 @@ class UsersController < ApplicationController
   end
 
   def profile_accessible?
-    return if current_user?(@user) || @user.is_supervisor?
+    return if current_user?(@user) || current_user.is_supervisor?
 
     flash[:danger] = t "users.profile.invalid"
     redirect_to root_url

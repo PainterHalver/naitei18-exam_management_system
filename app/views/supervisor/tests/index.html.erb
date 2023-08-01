@@ -1,0 +1,20 @@
+<% provide :title, t("tests.index.header") %>
+
+<div class="tests index-header">
+  <p><%= t "tests.index.header" %> <%= @user.name %></p>
+</div>
+<table class="table table-hover tests index">
+  <thead>
+  <tr class="info">
+    <th class="col-md-5"><%= Test.human_attribute_name("subject") %></th>
+    <th class="col-md-1"><%= Test.human_attribute_name("score") %></th>
+    <th class="col-md-2"><%= Test.human_attribute_name("status")  %></th>
+    <th class="col-md-2"><%= t "created_at" %></th>
+    <th class="col-md-2"><%= Test.human_attribute_name("end_time") %></th>
+    <th class="col-md-1"><%= t "actions" %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <%= render partial: "tests/test", collection: @tests %>
+  </tbody>
+</table>

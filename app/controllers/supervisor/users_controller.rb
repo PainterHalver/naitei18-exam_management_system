@@ -1,7 +1,9 @@
 class Supervisor::UsersController < Supervisor::SupervisorController
-  before_action :load_user_by_id, :only_user_role, only: %i(activate deactivate)
+  before_action ->{load_user_by_id params[:id]}, only: %i(activate deactivate)
+  before_action :only_user_role, only: %i(activate deactivate)
+
   def index
-    @query = User.newest.ransack params[:q]
+    @query = User.newest.includes(:tests).ransack params[:q]
     @pagy, @users = pagy @query.result,
                          items: Settings.digit.length_10
   end

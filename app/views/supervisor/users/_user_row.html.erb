@@ -1,12 +1,13 @@
 <tr>
   <td><%= user.created_at.strftime(Settings.h_m_s_format) %></td>
-  <td><%= user.name %></td>
+  <td><%= link_to user.name, user_path(user) %></td>
   <td><%= user.email %></td>
-  <td style="font-size: 16px;">
+  <td style="font-size: 16px;" class="center">
         <span class="label label-<%= user.activated? ? "success" : "danger" %>">
           <%= user.activated %>
         </span>
   </td>
+  <td class="center"><%= user.tests.size %></td>
   <td class="text-right">
     <% unless user.is_supervisor? %>
       <% if user.activated? %>
@@ -17,5 +18,6 @@
                     method: :patch, class: "btn btn-success" %>
       <% end %>
     <% end %>
+    <%= link_to t("view_tests"), supervisor_user_tests_path(user), class: "btn btn-primary" %>
   </td>
 </tr>

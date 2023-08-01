@@ -6,10 +6,10 @@ Rails.application.routes.draw do
     get "/login", to: "sessions#new"
     post "/login", to: "sessions#create"
     delete "logout", to: "sessions#destroy"
-    resources :password_resets, only: [:new, :create, :edit, :update]
-    resources :subjects
-    resources :tests
-    resources :users
+    resources :password_resets, only: %i(new create edit update)
+    resources :subjects, only: %i(index show)
+    resources :tests, only: %i(index show create edit update)
+    resources :users, only: %i(show edit update)
 
     namespace :supervisor do
       root "static_pages#home"
@@ -20,6 +20,7 @@ Rails.application.routes.draw do
           patch :activate
           patch :deactivate
         end
+        resources :tests, only: :index
       end
     end
   end

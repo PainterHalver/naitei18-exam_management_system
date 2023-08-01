@@ -13,6 +13,7 @@ en:
         password_confirmation: "Password confirmation"
         activated: "Activated"
         created_at: "Created at"
+        test_count: "Test count"
       question:
         subject: "Subject"
         content: "Content"
@@ -251,3 +252,4 @@ en:
   remaining_test_time: "Time remaining"
   correct: "Correct"
   wrong: "Wrong"
+  view_tests: "View tests"

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :load_user_by_id, :require_login, except: [:new, :create]
+  before_action ->{load_user_by_id params[:id]}, :require_login,
+                except: [:new, :create]
   before_action :correct_user, only: [:edit, :update]
   before_action :profile_accessible?, only: [:show]
 
@@ -51,7 +52,7 @@ class UsersController < ApplicationController
   end
 
   def profile_accessible?
-    return if current_user?(@user) || @user.is_supervisor?
+    return if current_user?(@user) || current_user.is_supervisor?
 
     flash[:danger] = t "users.profile.invalid"
     redirect_to root_url

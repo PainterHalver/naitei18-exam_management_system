@@ -6,7 +6,9 @@
   <td><%= test.end_time.strftime(Settings.h_m_s_format) if test.end_time %></td>
   <td>
     <% if test.doing? %>
-      <%= link_to t("do"), edit_test_path(test), class: "btn btn-primary test table-button" %>
+      <% if current_user == test.user %>
+        <%= link_to t("do"), edit_test_path(test), class: "btn btn-primary test table-button" %>
+      <% end %>
     <% else %>
       <%= link_to t("view"), test_path(test), class: "btn btn-success test table-button" %>
     <% end %>

@@ -23,7 +23,8 @@
             .utc.strftime("%H:%M:%S") %>
         </span><br>
         <%= t "remaining_test_time" %> <br>
-        <%= Time.at(@subject.test_duration * 60 - (@test.end_time - @test.start_time)).utc.strftime("%H:%M:%S") %><br>
+        <%= Time.at([@subject.test_duration * 60 - (@test.end_time - @test.start_time), 0].max)
+                .utc.strftime("%H:%M:%S") %><br>
       </div>
     </div>
   </div>

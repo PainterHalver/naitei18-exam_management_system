@@ -25,8 +25,8 @@ module SessionsHelper
     current_user&.is_supervisor?
   end
 
-  def load_user_by_id
-    @user = User.find_by id: params[:id]
+  def load_user_by_id id
+    @user = User.find_by id: id
 
     return if @user
 

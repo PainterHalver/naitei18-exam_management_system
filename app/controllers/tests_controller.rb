@@ -209,7 +209,7 @@ class TestsController < ApplicationController
 
   def has_authorization_with_test?
     return if current_user.is_supervisor? ||
-              current_user.id = @test.user_id
+              current_user.id == @test.user_id
 
     flash[:danger] = t "tests.show.not_authorized"
     redirect_back fallback_location: root_path

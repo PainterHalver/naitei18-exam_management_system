@@ -13,6 +13,7 @@ vi:
         confirmation: "Nhập lại mật khẩu"
         activated: "Đã kích hoạt"
         created_at: "Ngày tạo"
+        test_count: "Số bài test"
       question:
         subject: "Chủ đề"
         content: "Nội dung"
@@ -274,3 +275,4 @@ vi:
   remaining_test_time: "Thời gian còn lại"
   correct: "Đúng"
   wrong: "Sai"
+  view_tests: "Xem test"

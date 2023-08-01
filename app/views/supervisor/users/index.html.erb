@@ -24,9 +24,10 @@
   <tr class="info">
     <th class="col-md-2"><%= sort_link @query, :created_at %></th>
     <th class="col-md-2"><%= sort_link @query, :name %></th>
-    <th class="col-md-4"><%= sort_link @query, :email %></th>
-    <th class="col-md-2"><%= sort_link @query, :activated  %></th>
-    <th class="col-md-1 center"><%= t "actions" %></th>
+    <th class="col-md-2"><%= sort_link @query, :email %></th>
+    <th class="col-md-1 center"><%= sort_link @query, :activated  %></th>
+    <th class="col-md-1 center"><%= User.human_attribute_name("test_count") %></th>
+    <th class="col-md-2 center"><%= t "actions" %></th>
   </tr>
   </thead>
   <tbody>

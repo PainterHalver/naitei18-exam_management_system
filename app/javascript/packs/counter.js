@@ -5,9 +5,9 @@ const timer = setInterval(() => {
   if (timeLeft <= 0) {
     clearInterval(timer);
     document.getElementById("timer").innerText = "00:00:00";
-    alert("Time's up! Test is finished.");
+    //alert("Time's up! Test is finished.");
     // Xử lý khi hết giờ, ví dụ: submit form để gửi kết quả
-    const submitButton = document.querySelector("input[type=submit]");
+    const submitButton = document.querySelector("#submit-test");
     submitButton.click();
   } else {
     const hours = Math.floor(timeLeft / 3600);

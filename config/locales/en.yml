@@ -108,6 +108,8 @@ en:
       answer_error: "Can not update your answers"
       post_error: "Can not handle your data"
       submit: "Submit"
+      save: "Save"
+      at_least_one: "Must do at least one question"
     show:
       not_authorized: "You are not authorized to see this test"
       score: "Score"

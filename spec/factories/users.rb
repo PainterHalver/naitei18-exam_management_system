@@ -7,4 +7,13 @@ FactoryBot.define do
     activated {true}
     activated_at {Time.zone.now}
   end
+
+  factory :supervisor do
+    name {Faker::Name.name}
+    email {Faker::Internet.email}
+    password {Faker::Internet.password}
+    is_supervisor {true}
+    activated {true}
+    activated_at {Time.zone.now}
+  end
 end

@@ -94,3 +94,20 @@
 .bg-green-light {
   background-color: rgba(92, 184, 92, 0.5);
 }
+
+.btn-disabled {
+  background-color: gray;
+  color: white;
+
+  &:hover {
+    cursor: not-allowed;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:active {
+    outline: none;
+  }
+}

@@ -171,7 +171,7 @@ vi:
     activated: "Kích hoạt tài khoản thành công!"
     invalid: "Kích hoạt tài khoản thất bại: Invalid link!"
     failed: "Có lỗi khi kích hoạt tài khoản."
-    deactivated: "Hủy kích hoạt tài khoản thành công."
+    deactivated: "Khóa tài khoản thành công."
     deactivation_failed: "Có lỗi xảy ra khi hủy kích hoạt tài khoản."
   login:
     title: "Đăng nhập"
@@ -261,7 +261,7 @@ vi:
       present: "tồn tại"
       blank: "là rỗng"
       'null': "là null"
-  deactivate: "Hủy kích hoạt"
+  deactivate: "Khóa tài khoản"
   user:
     error: "Không tìm thấy người dùng"
   toggle_filter: "Tắt mở bộ lọc"
@@ -276,3 +276,4 @@ vi:
   correct: "Đúng"
   wrong: "Sai"
   view_tests: "Xem test"
+  has_ongoing_test: "Vẫn còn bài kiểm tra đang làm nên chưa được xóa."

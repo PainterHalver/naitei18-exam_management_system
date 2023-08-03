@@ -253,3 +253,4 @@ en:
   correct: "Correct"
   wrong: "Wrong"
   view_tests: "View tests"
+  has_ongoing_test: "There are still ongoing test(s) for this subject."

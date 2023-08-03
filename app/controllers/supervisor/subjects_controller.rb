@@ -1,8 +1,9 @@
 class Supervisor::SubjectsController < Supervisor::SupervisorController
+  include Supervisor::SubjectsHelper
   before_action :load_subject_by_id, only: %i(show edit update destroy)
 
   def index
-    @q = Subject.newest.ransack(params[:q])
+    @q = Subject.newest.includes(:tests).ransack(params[:q])
     @pagy, @subjects = pagy @q.result,
                             items: Settings.pagination.per_page_10
   end
@@ -38,7 +39,15 @@ class Supervisor::SubjectsController < Supervisor::SupervisorController
   end
 
   def destroy
-    if @subject.destroy
+    if has_ongoing_test? @subject
+      flash[:danger] = t "has_ongoing_test"
+      redirect_to supervisor_subjects_path
+    end
+
+    flag =
+      has_no_question?(@subject) ? @subject.destroy_fully! : @subject.destroy
+
+    if flag
       flash[:success] = t "supervisor.subjects.destroy_success"
     else
       flash[:danger] = t "supervisor.subjects.destroy_fail"

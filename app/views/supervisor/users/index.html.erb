@@ -1,14 +1,7 @@
 <% provide :title, t(".title") %>
 <h3><%= t ".title" %></h3>
 
-<div class="my-1">
-  <a class="f-md search_collapse" href="#collapseSearch" data-toggle="collapse">
-    <span class="glyphicon glyphicon-chevron-down"></span>
-    <%= t "toggle_search" %>
-  </a>
-</div>
-
-<div class="collapse mb-2 mt-1" id="collapseSearch">
+<div class="mb-2 mt-1">
   <%= search_form_for @query, url: supervisor_users_path do |f| %>
     <%= f.label :name_or_email_cont %>
     <div class="d-flex" >
@@ -19,20 +12,23 @@
   <% end %>
 </div>
 
-<table class="table mt-1">
-  <thead>
-  <tr class="info">
-    <th class="col-md-2"><%= sort_link @query, :created_at %></th>
-    <th class="col-md-2"><%= sort_link @query, :name %></th>
-    <th class="col-md-2"><%= sort_link @query, :email %></th>
-    <th class="col-md-1 center"><%= sort_link @query, :activated  %></th>
-    <th class="col-md-1 center"><%= User.human_attribute_name("test_count") %></th>
-    <th class="col-md-2 center"><%= t "actions" %></th>
-  </tr>
-  </thead>
-  <tbody>
-    <%= render partial: "user_row", collection: @users, as: :user %>
-  </tbody>
-</table>
-
-<%= render "shared/pagy_component" %>
+<% if @users.size > 0 %>
+  <table class="table mt-1">
+    <thead>
+    <tr class="info">
+      <th class="col-md-2"><%= sort_link @query, :created_at %></th>
+      <th class="col-md-2"><%= sort_link @query, :name %></th>
+      <th class="col-md-2"><%= sort_link @query, :email %></th>
+      <th class="col-md-1 center"><%= sort_link @query, :activated  %></th>
+      <th class="col-md-1 center"><%= User.human_attribute_name("test_count") %></th>
+      <th class="col-md-2 center"><%= t "actions" %></th>
+    </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "user_row", collection: @users, as: :user %>
+    </tbody>
+  </table>
+  <%= render "shared/pagy_component" %>
+<% else %>
+  <%== pagy_info @pagy %>
+<% end %>

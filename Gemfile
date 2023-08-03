@@ -11,7 +11,6 @@ gem "cocoon"
 gem "config"
 gem "faker", ">= 3.2.0"
 gem "figaro"
-gem "groupdate"
 gem "image_processing", "1.12.2"
 gem "jbuilder", "~> 2.7"
 gem "mini_magick", "4.9.5"
@@ -31,6 +30,8 @@ group :development, :test do
   gem "rubocop", "~> 1.26", require: false
   gem "rubocop-checkstyle_formatter", require: false
   gem "rubocop-rails", "~> 2.14.0", require: false
+  gem "simplecov-rcov"
+  gem "simplecov"
 end
 
 group :development do

@@ -23,6 +23,7 @@ gem "ransack"
 gem "sass-rails", ">= 6"
 gem "turbolinks", "~> 5"
 gem "webpacker", "~> 5.0"
+gem "groupdate"
 
 group :development, :test do
   gem "byebug", platform: :mri
@@ -33,6 +34,8 @@ group :development, :test do
   gem "rubocop-rails", "~> 2.14.0", require: false
   gem "simplecov"
   gem "simplecov-rcov"
+  gem "database_cleaner"
+  gem "factory_bot_rails"
 end
 
 group :development do

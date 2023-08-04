@@ -25,8 +25,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       # Handle a successful update.
       flash[:success] = t "users.edit.saved"
-      # redirect_to @user
-      redirect_to subjects_path
+      redirect_to @user
     else
       render :edit
     end

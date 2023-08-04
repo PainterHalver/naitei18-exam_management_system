@@ -22,18 +22,18 @@ RSpec.shared_examples "user not found" do
   end
 end
 
-RSpec.shared_examples "requires supervisor" do |action|
+RSpec.shared_examples "requires supervisor" do |action, params = {}|
   let!(:user) {FactoryBot.create :user}
   let!(:supervisor) {FactoryBot.create :supervisor}
 
   context "when user is not logged in" do
     it "redirects to login page" do
-      get action
+      get action, params: params
       expect(response).to redirect_to login_path
     end
 
     it "show not login error" do
-      get action
+      get action, params: params
       expect(flash[:danger]).to eq(I18n.t "require_login")
     end
   end
@@ -41,7 +41,7 @@ RSpec.shared_examples "requires supervisor" do |action|
   context "when user is logged in" do
     before do
       log_in user
-      get action
+      get action, params: params
     end
 
     it "does not redirect to login page" do
@@ -56,7 +56,7 @@ RSpec.shared_examples "requires supervisor" do |action|
   context "when user is not supervisor" do
     before do
       log_in user
-      get action
+      get action, params: params
     end
 
     it "redirects to home page" do
@@ -71,7 +71,7 @@ RSpec.shared_examples "requires supervisor" do |action|
   context "when user is supervisor" do
     before do
       log_in supervisor
-      get action
+      get action, params: params
     end
 
     it "does not redirect to root_path" do

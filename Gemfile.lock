@@ -132,6 +132,11 @@ GEM
       zeitwerk (~> 2.6)
     erubi (1.12.0)
     execjs (2.8.1)
+    factory_bot (6.2.1)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.2.0)
+      factory_bot (~> 6.2.0)
+      railties (>= 5.0.0)
     faker (3.2.0)
       i18n (>= 1.8.11, < 2)
     ffi (1.15.5)
@@ -139,8 +144,6 @@ GEM
       thor (>= 0.14.0, < 2)
     globalid (1.1.0)
       activesupport (>= 5.0)
-    groupdate (6.3.0)
-      activesupport (>= 6.1)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.2)
@@ -218,6 +221,10 @@ GEM
       bundler (>= 1.15.0)
       railties (= 6.1.7.4)
       sprockets-rails (>= 2.0.0)
+    rails-controller-testing (1.0.5)
+      actionpack (>= 5.0.1.rc1)
+      actionview (>= 5.0.1.rc1)
+      activesupport (>= 5.0.1.rc1)
     rails-dom-testing (2.1.1)
       activesupport (>= 5.0.0)
       minitest
@@ -360,9 +367,9 @@ DEPENDENCIES
   chartkick
   cocoon
   config
+  factory_bot_rails
   faker (>= 3.2.0)
   figaro
-  groupdate
   image_processing (= 1.12.2)
   jbuilder (~> 2.7)
   listen (~> 3.3)
@@ -374,6 +381,7 @@ DEPENDENCIES
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.7, >= 6.1.7.4)
+  rails-controller-testing
   rails-i18n (~> 6.0)
   ransack
   rspec-rails (~> 4.0.1)

@@ -13,7 +13,7 @@ RSpec.describe "Subjects", type: :request do
 
     it "should have all subjects if total <= 10" do
       get "/subjects"
-      expect(assigns[:subjects].length).to eq(2)
+      expect(assigns[:subjects].length).to eq(Subject.all.size)
     end
 
     it "should have 10 subjects if total > 10" do

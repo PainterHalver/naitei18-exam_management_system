@@ -27,7 +27,6 @@ RSpec.describe PasswordResetsController, type: :controller do
     end
 
     context "fail with user not found by email" do
-
       before do
         post :create, params: {password_reset: {email: "abcdefgh@gmail.com"}}
       end

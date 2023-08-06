@@ -83,3 +83,17 @@ RSpec.shared_examples "requires supervisor" do |method, action, params = {}|
     end
   end
 end
+
+RSpec.shared_examples "back to users management page" do
+  it "show user not supervisor" do
+    expect(response).to redirect_to supervisor_users_path
+  end
+end
+
+RSpec.shared_examples "invalid role for supervisor" do
+  it "show user not supervisor" do
+    expect(flash[:danger]).to eq(I18n.t "no_permission")
+  end
+
+  it_behaves_like "back to home"
+end

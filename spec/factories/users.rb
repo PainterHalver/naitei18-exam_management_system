@@ -6,22 +6,13 @@ FactoryBot.define do
     is_supervisor {false}
     activated {true}
     activated_at {Time.zone.now}
-  end
 
-  factory :supervisor, class: User do
-    name {Faker::Name.name}
-    email {Faker::Internet.email}
-    password {Faker::Internet.password}
-    is_supervisor {true}
-    activated {true}
-    activated_at {Time.zone.now}
-  end
+    factory :supervisor, class: User do
+      is_supervisor {true}
+    end
 
-  factory :deactivated, class: User do
-    name {Faker::Name.name}
-    email {Faker::Internet.email}
-    password {Faker::Internet.password}
-    is_supervisor {false}
-    activated {false}
+    factory :deactivated, class: User do
+      activated {false}
+    end
   end
 end

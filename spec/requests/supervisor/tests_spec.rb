@@ -4,7 +4,7 @@ include SessionsHelper
 
 RSpec.describe Supervisor::TestsController, type: :controller do
   describe "GET index" do
-    include_examples "requires supervisor", :index, {user_id: 1}
+    include_examples "requires supervisor", :get, :index, {user_id: 1}
     let!(:user) {create :user}
     let!(:supervisor) {create :supervisor}
     let!(:test) {create :finished_test, user: user}

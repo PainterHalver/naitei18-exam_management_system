@@ -23,4 +23,11 @@ FactoryBot.define do
     start_time {Faker::Time.between(from: DateTime.now - 1, to: DateTime.now)}
     end_time {start_time + subject.test_duration.minutes}
   end
+
+  factory :ongoing_test, class: Test do
+    user
+    subject
+    start_time {Faker::Time.between(from: DateTime.now - 1, to: DateTime.now)}
+    status {Test.statuses[:doing]}
+  end
 end

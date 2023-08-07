@@ -333,6 +333,7 @@ GEM
       sprockets (>= 3.0.0)
     thor (1.2.2)
     tilt (2.2.0)
+    timecop (0.9.6)
     timeout (0.4.0)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
@@ -403,6 +404,7 @@ DEPENDENCIES
   simplecov
   simplecov-rcov
   spring
+  timecop
   turbolinks (~> 5)
   tzinfo-data
   web-console (>= 4.1.0)

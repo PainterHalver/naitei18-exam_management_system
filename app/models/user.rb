@@ -40,11 +40,11 @@ class User < ApplicationRecord
       SecureRandom.urlsafe_base64
     end
 
-    def ransackable_attributes _auth_object
+    def ransackable_attributes _auth_object = nil
       %w(id name email activated created_at)
     end
 
-    def ransackable_associations _auth_object
+    def ransackable_associations _auth_object = nil
       []
     end
   end

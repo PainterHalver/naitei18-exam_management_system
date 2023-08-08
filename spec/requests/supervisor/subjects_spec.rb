@@ -1,11 +1,12 @@
 require "rails_helper"
 require "shared_examples"
+require "test_prof/recipes/rspec/let_it_be"
 include SessionsHelper
 
 RSpec.describe "Supervisor::Subjects", type: :request do
-  let(:supervisor) { create(:supervisor) }
-  let(:subject1) { create(:subject) }
-  let(:subject2) { create(:subject) }
+  let_it_be(:supervisor) { create(:supervisor) }
+  let_it_be(:subject1) { create(:subject) }
+  let_it_be(:subject2) { create(:subject) }
   before do
     post login_path, params: {session: {email: supervisor.email,
                                         password: supervisor.password}}

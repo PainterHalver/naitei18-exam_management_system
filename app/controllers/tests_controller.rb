@@ -1,12 +1,13 @@
 class TestsController < ApplicationController
   before_action :require_login
-  before_action :load_test, :post_data_handle, :true_answers, only: [:update]
-  before_action :load_test_show, only: [:edit, :show]
-  before_action :has_authorization_with_test?, only: [:show]
-  before_action :require_doing_test, only: [:edit, :update]
-  before_action :require_finished_test, only: [:show]
-  before_action :post_data_handle, only: [:update]
-  before_action :test_available?, only: [:create]
+  before_action :load_test, :post_data_handle, :true_answers, only: :update
+  before_action :load_test_show, only: %i(edit show)
+  before_action :has_authorization_with_test_show, only: :show
+  before_action :has_authorization_with_test_modification,
+                :require_doing_test, only: %i(edit update)
+  before_action :require_finished_test, only: :show
+  before_action :post_data_handle, only: :update
+  before_action :test_available?, only: :create
 
   def create
     @test = current_user.tests.build(test_params)
@@ -86,9 +87,6 @@ class TestsController < ApplicationController
     else
       create_detail_answers detail_answers
     end
-  rescue ActiveRecord::Rollback
-    flash[:danger] = t "tests.do.answer_error"
-    redirect_to request.referer
   end
 
   def create_detail_answers detail_answers
@@ -106,7 +104,7 @@ class TestsController < ApplicationController
     end
     return if @answers && @test_questions_ids
 
-    flash[:danger] = "tests.do.post_error"
+    flash[:danger] = t "tests.do.post_error"
     redirect_to request.referer
   end
 
@@ -214,9 +212,16 @@ class TestsController < ApplicationController
     params.permit :subject_id
   end
 
-  def has_authorization_with_test?
+  def has_authorization_with_test_show
     return if current_user.is_supervisor? ||
               current_user.id == @test.user_id
+
+    flash[:danger] = t "tests.show.not_authorized"
+    redirect_back fallback_location: root_path
+  end
+
+  def has_authorization_with_test_modification
+    return if current_user.id == @test.user_id
 
     flash[:danger] = t "tests.show.not_authorized"
     redirect_back fallback_location: root_path

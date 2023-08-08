@@ -97,3 +97,65 @@ RSpec.shared_examples "invalid role for supervisor" do
 
   it_behaves_like "back to home"
 end
+
+RSpec.shared_examples "not found test" do
+  it "inform test not found" do
+    expect(flash[:danger]).to eq(I18n.t "tests.errors.not_found")
+  end
+
+  it_behaves_like "back to home"
+end
+
+RSpec.shared_examples "unauthorization for test" do
+  it "inform unauthorized" do
+    expect(flash[:danger]).to eq(I18n.t "tests.show.not_authorized")
+  end
+
+  it_behaves_like "back to home"
+end
+
+RSpec.shared_examples "handle not login error" do |method, action, params = {}|
+  describe "execute a request without login" do
+    before do
+      send method, action, params: params
+    end
+
+    it_behaves_like "not login error"
+
+    it_behaves_like "back to login"
+  end
+end
+
+RSpec.shared_examples "handle unauthorization error" do |method, action, params = {}|
+  describe "inform that user are not authorized" do
+    let(:another_user) {create(:user)}
+    let(:user) {create(:user)}
+    before do
+      test = create(:test, user: user)
+
+      log_in another_user
+      send method, action, params: {id: test.id}
+    end
+
+    it "inform unauthorized" do
+      expect(flash[:danger]).to eq(I18n.t "tests.show.not_authorized")
+    end
+  end
+end
+
+RSpec.shared_examples "handle test completed error" do |method, action, params = {}|
+  describe "inform that test has been completed" do
+    before do
+      user = create(:user)
+      log_in user
+      test = create(:finished_test, user: user)
+      send method, action, params: {id: test.id}
+    end
+
+    it "inform the test was completed" do
+      expect(flash[:danger]).to eq (I18n.t "tests.has_finished")
+    end
+
+    it_behaves_like "back to home"
+  end
+end

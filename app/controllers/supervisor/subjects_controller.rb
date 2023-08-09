@@ -1,6 +1,7 @@
 class Supervisor::SubjectsController < Supervisor::SupervisorController
   include Supervisor::SubjectsHelper
   before_action :load_subject_by_id, only: %i(show edit update destroy)
+  before_action :require_no_ongoing_test, only: :destroy
 
   def index
     @q = Subject.newest.includes(:tests).ransack(params[:q])
@@ -39,11 +40,6 @@ class Supervisor::SubjectsController < Supervisor::SupervisorController
   end
 
   def destroy
-    if has_ongoing_test? @subject
-      flash[:danger] = t "has_ongoing_test"
-      redirect_to supervisor_subjects_path
-    end
-
     flag =
       has_no_question?(@subject) ? @subject.destroy_fully! : @subject.destroy
 
@@ -61,6 +57,13 @@ class Supervisor::SubjectsController < Supervisor::SupervisorController
     return if @subject
 
     flash[:danger] = t "subjects.show.not_found"
+    redirect_to supervisor_subjects_path
+  end
+
+  def require_no_ongoing_test
+    return unless has_ongoing_test? @subject
+
+    flash[:danger] = t "has_ongoing_test"
     redirect_to supervisor_subjects_path
   end
 

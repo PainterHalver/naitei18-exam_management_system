@@ -331,6 +331,7 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    test-prof (1.2.2)
     thor (1.2.2)
     tilt (2.2.0)
     timecop (0.9.6)
@@ -404,6 +405,7 @@ DEPENDENCIES
   simplecov
   simplecov-rcov
   spring
+  test-prof (~> 1.0)
   timecop
   turbolinks (~> 5)
   tzinfo-data

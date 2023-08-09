@@ -51,6 +51,7 @@ group :test do
   gem "capybara", ">= 3.26"
   gem "rails-controller-testing"
   gem "selenium-webdriver", ">= 4.0.0.rc1"
+  gem "test-prof", "~> 1.0"
   gem "webdrivers"
 end
 

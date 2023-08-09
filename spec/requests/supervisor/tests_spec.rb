@@ -1,13 +1,14 @@
 require "rails_helper"
 require "shared_examples"
+require "test_prof/recipes/rspec/let_it_be"
 include SessionsHelper
 
 RSpec.describe Supervisor::TestsController, type: :controller do
   describe "GET index" do
     include_examples "requires supervisor", :get, :index, {user_id: 1}
-    let!(:user) {create :user}
-    let!(:supervisor) {create :supervisor}
-    let!(:test) {create :finished_test, user: user}
+    let_it_be(:user) {create :user}
+    let_it_be(:supervisor) {create :supervisor}
+    let_it_be(:test) {create :finished_test, user: user}
 
     context "when user not exist" do
       before do

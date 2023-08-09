@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :subject do
-    user
+    user {FactoryBot.create(:supervisor)}
     name {Faker::Name.name}
     description {Faker::Lorem.sentence(word_count: 20)}
     question_amount {Faker::Number.between(from: 2, to: 30)}

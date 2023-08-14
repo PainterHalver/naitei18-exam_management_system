@@ -23,5 +23,7 @@ Rails.application.routes.draw do
         resources :tests, only: :index
       end
     end
+
+    mount API::Base, at: "/"
   end
 end

@@ -2,8 +2,8 @@ class TestsController < ApplicationController
   before_action :require_login
   before_action :load_test, :post_data_handle, :true_answers, only: :update
   before_action :load_test_show, only: %i(edit show)
-  before_action :has_authorization_with_test_show, only: :show
-  before_action :has_authorization_with_test_modification,
+  before_action :require_authorization_with_test_show, only: :show
+  before_action :require_authorization_with_test_modification,
                 :require_doing_test, only: %i(edit update)
   before_action :require_finished_test, only: :show
   before_action :post_data_handle, only: :update
@@ -212,7 +212,7 @@ class TestsController < ApplicationController
     params.permit :subject_id
   end
 
-  def has_authorization_with_test_show
+  def require_authorization_with_test_show
     return if current_user.is_supervisor? ||
               current_user.id == @test.user_id
 
@@ -220,7 +220,7 @@ class TestsController < ApplicationController
     redirect_back fallback_location: root_path
   end
 
-  def has_authorization_with_test_modification
+  def require_authorization_with_test_modification
     return if current_user.id == @test.user_id
 
     flash[:danger] = t "tests.show.not_authorized"

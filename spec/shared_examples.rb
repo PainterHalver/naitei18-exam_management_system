@@ -159,3 +159,15 @@ RSpec.shared_examples "handle test completed error" do |method, action, params =
     it_behaves_like "back to home"
   end
 end
+
+RSpec.shared_examples "status code 200" do
+  it "returns status code 200" do
+    expect(response).to have_http_status(200)
+  end
+end
+
+RSpec.shared_examples "status success" do
+  it "returns status success" do
+    expect(JSON.parse(response.body)["status"]).to eq("success")
+  end
+end

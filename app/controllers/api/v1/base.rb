@@ -7,6 +7,7 @@ module API
       mount API::V1::Subjects
       mount API::V1::Tests
       mount API::V1::Auth
+      mount API::V1::Users
       add_swagger_documentation(
         api_version: "v1",
         hide_documentation_path: true,

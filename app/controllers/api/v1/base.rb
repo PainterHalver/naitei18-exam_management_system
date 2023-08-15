@@ -5,6 +5,8 @@ module API
     class Base < Grape::API
       mount API::V1::HealthCheck
       mount API::V1::Subjects
+      mount API::V1::Tests
+      mount API::V1::Auth
       add_swagger_documentation(
         api_version: "v1",
         hide_documentation_path: true,

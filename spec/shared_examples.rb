@@ -166,8 +166,20 @@ RSpec.shared_examples "status code 200" do
   end
 end
 
+RSpec.shared_examples "status code 201" do
+  it "returns status code 201" do
+    expect(response).to have_http_status(201)
+  end
+end
+
 RSpec.shared_examples "status success" do
   it "returns status success" do
     expect(JSON.parse(response.body)["status"]).to eq("success")
+  end
+end
+
+RSpec.shared_examples "status error" do
+  it "returns status fail" do
+    expect(JSON.parse(response.body)["status"]).to eq("error")
   end
 end

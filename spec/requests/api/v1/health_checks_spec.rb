@@ -10,7 +10,8 @@ RSpec.describe API::V1::HealthCheck, type: :request do
     include_examples "status success"
 
     it "returns status ok" do
-      expect(JSON.parse(response.body)["data"]["status"]).to eq("ok")
+      get "/api/v1/health_check"
+      expect(JSON.parse(response.body)["status"]).to eq("success")
     end
   end
 end

@@ -14,6 +14,7 @@ module API
       expose :created_at
       expose :updated_at
       expose :deleted_at, expose_nil: false
+      unexpose :user_id
     end
   end
 end

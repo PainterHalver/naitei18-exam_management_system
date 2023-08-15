@@ -69,4 +69,5 @@ Rails.application.configure do
     authentication: :cram_md5,
     enable_starttls_auto: true
   }
+  config.active_job.queue_adapter = :test
 end

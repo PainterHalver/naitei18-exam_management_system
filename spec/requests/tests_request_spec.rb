@@ -1,5 +1,6 @@
 require 'rails_helper'
 require "shared_examples"
+require "test_prof/recipes/rspec/let_it_be"
 include SessionsHelper
 
 RSpec.shared_examples "handle test not found error" do |method, action|
@@ -45,11 +46,11 @@ RSpec.shared_examples "handle transaction fail" do |commit|
 end
 
 RSpec.describe TestsController, type: :controller do
-  let(:user) {create(:user)}
-  let(:subject) {create(:subject)}
-  let(:time) {(subject.test_duration + 0.1).minutes}
-  let!(:single_choice_list) {create_list(:single_choice_question, 20, subject: subject)}
-  let!(:multiple_choice_list) {create_list(:multiple_choice_question, 20, subject: subject)}
+  let_it_be(:user) {create(:user)}
+  let_it_be(:subject) {create(:subject)}
+  let_it_be(:time) {(subject.test_duration + 0.1).minutes}
+  let_it_be(:single_choice_list) {create_list(:single_choice_question, 20, subject: subject)}
+  let_it_be(:multiple_choice_list) {create_list(:multiple_choice_question, 20, subject: subject)}
 
   describe "POST /create" do
     context "post created success" do

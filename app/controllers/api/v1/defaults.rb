@@ -9,6 +9,8 @@ module API
         default_format :json
         format :json
 
+        include API::V1::RescueFrom
+
         helpers do
           def validate_authentication
             token = request.headers["Authorization"]&.split(" ")&.[](1)
@@ -29,29 +31,34 @@ module API
             error!("You are not authorized to do this", :forbidden)
           end
         end
+      end
+    end
 
+    module RescueFrom
+      extend ActiveSupport::Concern
+      included do
         rescue_from ActiveRecord::RecordNotFound do |e|
           raise e if Rails.env.development?
 
-          error!(message: e.message, status: 404)
+          error!(e.message, 404)
         end
 
         rescue_from ActiveRecord::StatementInvalid do |e|
           raise e if Rails.env.development?
 
-          error!(message: "Invalid parameters", status: 400)
+          error!("Invalid parameters", 400)
         end
 
         rescue_from Grape::Exceptions::ValidationErrors do |e|
           raise e if Rails.env.development?
 
-          error!(message: e.message, status: 400)
+          error!(e.message, 400)
         end
 
         rescue_from :all do |e|
           raise e if Rails.env.development?
 
-          error!(message: "Internal server error", status: 500)
+          error!("Internal server error", 500)
         end
       end
     end

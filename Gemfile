@@ -24,6 +24,7 @@ gem "ransack"
 gem "sass-rails", ">= 6"
 gem "turbolinks", "~> 5"
 gem "webpacker", "~> 5.0"
+gem "jwt"
 
 group :development, :test do
   gem "byebug", platform: :mri

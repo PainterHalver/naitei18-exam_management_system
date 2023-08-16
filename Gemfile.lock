@@ -175,6 +175,7 @@ GEM
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
     json (2.6.3)
+    jwt (2.7.1)
     language_server-protocol (3.17.0.3)
     listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -410,6 +411,7 @@ DEPENDENCIES
   groupdate
   image_processing (= 1.12.2)
   jbuilder (~> 2.7)
+  jwt
   listen (~> 3.3)
   mini_magick (= 4.9.5)
   mysql2 (~> 0.5)

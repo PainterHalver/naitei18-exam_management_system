@@ -23,7 +23,7 @@ module API
               @current_user = User.find_by id: user_id
             end
             error!("You need to log in", 401) unless @current_user
-          rescue JWT::ExpiredSignature
+          rescue JWT::ExpiredSignature, JWT::VerificationError
             error!("Your session has ended", 401)
           end
 

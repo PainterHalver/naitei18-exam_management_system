@@ -1,6 +1,7 @@
 require "rails_helper"
 require "shared_examples"
 require "jwt"
+require "test_prof/recipes/rspec/let_it_be"
 
 RSpec.describe API::V1::Users, type: :request do
   describe "PATCH /api/v1/users" do
@@ -58,6 +59,98 @@ RSpec.describe API::V1::Users, type: :request do
 
       it "inform an array of errors" do
         expect(JSON.parse(response.body)["message"]).to be_an_instance_of(Array)
+      end
+    end
+  end
+
+  describe "GET /api/v1/users/:id/tests" do
+    let_it_be(:user) {create(:user)}
+    let_it_be(:user_token) {JWT.encode({id: user.id}, ENV["hmac_secret"], "HS256")}
+    let_it_be(:supervisor) {create(:supervisor)}
+    let_it_be(:supervisor_token) {JWT.encode({id: supervisor.id}, ENV["hmac_secret"], "HS256")}
+    let_it_be(:user_tests) {
+      list = create_list(:test, 5, user: user) << create_list(:finished_test, 5, user: user)
+      list.flatten
+    }
+
+    context "show success" do
+      before do
+        get "/api/v1/users/#{user.id}/tests", headers: {Authorization: "Bearer #{supervisor_token}"}
+      end
+
+      include_examples "status success"
+      include_examples "status code 200"
+
+      it "show user's history" do
+        expect(JSON.parse(response.body)["data"].size).to eq(10)
+      end
+
+      it "order desc created_at" do
+        expect(JSON.parse(response.body)["data"].pluck(:id).sort {|a, b| b <=> a}).to eq(JSON.parse(response.body)["data"].pluck(:id))
+      end
+    end
+
+    context "failed with unauthorized" do
+      before do
+        other_user = create(:user)
+        get "/api/v1/users/#{other_user.id}/tests", headers: {Authorization: "Bearer #{user_token}"}
+      end
+
+      include_examples "status error"
+
+      it "inform access denied" do
+        expect(JSON.parse(response.body)["message"]).to eq("You can not access history")
+      end
+    end
+
+    context "failed with not login" do
+      before do
+        get "/api/v1/users/#{user.id}/tests"
+      end
+
+      include_examples "status error"
+      include_examples "api error not login"
+    end
+
+    context "failed with user not_found" do
+      before do
+        get "/api/v1/users/#{-1}/tests", headers: {Authorization: "Bearer #{user_token}"}
+      end
+
+      include_examples "status error"
+
+      it "inform user not found" do
+        expect(JSON.parse(response.body)["message"]).to eq("User not found")
+      end
+    end
+
+    context "failed with invalid params" do
+      context "negative page or per_page" do
+        before do
+          get "/api/v1/users/#{user.id}/tests", params: {page: 1, per_page: -1}, headers: {Authorization: "Bearer #{user_token}"}
+        end
+
+        it "returns status 400" do
+          expect(response).to have_http_status(400)
+        end
+
+        it "returns error message" do
+          expect(JSON.parse(response.body)["message"]).to eq("One or more parameters are invalid")
+        end
+      end
+
+      context "page or per_page is not a number" do
+        before do
+          get "/api/v1/users/#{user.id}/tests", params: {page: "a", per_page: 10}, headers: {Authorization: "Bearer #{user_token}"}
+        end
+
+        it "returns status 400" do
+          expect(response).to have_http_status(400)
+        end
+
+        it "returns error message" do
+          expect(JSON.parse(response.body)["message"]).to eq("One or more parameters are invalid")
+        end
       end
     end
   end

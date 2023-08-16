@@ -1,3 +1,5 @@
+require "jwt"
+
 module API
   module V1
     module Defaults
@@ -40,19 +42,14 @@ module API
         rescue_from ActiveRecord::RecordNotFound do |e|
           raise e if Rails.env.development?
 
-          error!(e.message, 404)
+          error!("No records found", 404)
         end
 
-        rescue_from ActiveRecord::StatementInvalid do |e|
+        rescue_from ActiveRecord::StatementInvalid,
+                    Grape::Exceptions::ValidationErrors do |e|
           raise e if Rails.env.development?
 
-          error!("Invalid parameters", 400)
-        end
-
-        rescue_from Grape::Exceptions::ValidationErrors do |e|
-          raise e if Rails.env.development?
-
-          error!(e.message, 400)
+          error!("One or more parameters are invalid", 400)
         end
 
         rescue_from :all do |e|

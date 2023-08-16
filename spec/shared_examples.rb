@@ -189,3 +189,9 @@ RSpec.shared_examples "api error not login" do
     expect(JSON.parse(response.body)["message"]).to eq("You need to log in")
   end
 end
+
+RSpec.shared_examples "status code" do |code|
+  it "returns status code #{code}" do
+    expect(response).to have_http_status(code)
+  end
+end

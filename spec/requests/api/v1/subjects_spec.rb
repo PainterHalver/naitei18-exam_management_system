@@ -1,6 +1,7 @@
 require "rails_helper"
 require "test_prof/recipes/rspec/let_it_be"
 require "shared_examples"
+require "jwt"
 
 RSpec.describe API::V1::Subjects, type: :request do
   describe "GET /api/v1/subjects" do
@@ -11,7 +12,7 @@ RSpec.describe API::V1::Subjects, type: :request do
         get "/api/v1/subjects"
       end
 
-      include_examples "status code 200"
+      include_examples "status code", 200
       include_examples "status success"
 
       it "returns all subjects" do
@@ -25,7 +26,7 @@ RSpec.describe API::V1::Subjects, type: :request do
           get "/api/v1/subjects", params: {page: 1, per_page: 10}
         end
 
-        include_examples "status code 200"
+        include_examples "status code", 200
         include_examples "status success"
 
         it "returns subjects" do
@@ -38,7 +39,7 @@ RSpec.describe API::V1::Subjects, type: :request do
           get "/api/v1/subjects", params: {page: 200, per_page: 10}
         end
 
-        include_examples "status code 200"
+        include_examples "status code", 200
         include_examples "status success"
 
         it "returns subjects" do
@@ -58,7 +59,7 @@ RSpec.describe API::V1::Subjects, type: :request do
         end
 
         it "returns error message" do
-          expect(JSON.parse(response.body)["message"]).to eq("Invalid parameters")
+          expect(JSON.parse(response.body)["message"]).to eq("One or more parameters are invalid")
         end
       end
 
@@ -72,7 +73,7 @@ RSpec.describe API::V1::Subjects, type: :request do
         end
 
         it "returns error message" do
-          expect(JSON.parse(response.body)["message"]).to eq("page is invalid")
+          expect(JSON.parse(response.body)["message"]).to eq("One or more parameters are invalid")
         end
       end
     end
@@ -86,7 +87,7 @@ RSpec.describe API::V1::Subjects, type: :request do
         get "/api/v1/subjects/#{subject.id}"
       end
 
-      include_examples "status code 200"
+      include_examples "status code", 200
       include_examples "status success"
 
       it "returns subject" do
@@ -102,7 +103,217 @@ RSpec.describe API::V1::Subjects, type: :request do
 
       it "returns error message" do
         get "/api/v1/subjects/0"
-        expect(JSON.parse(response.body)["message"]).to start_with("Couldn't find Subject with")
+        expect(JSON.parse(response.body)["message"]).to eq("Subject not found")
+      end
+    end
+  end
+
+  describe "POST /api/v1/subjects" do
+    let_it_be(:user) { create(:user) }
+    let_it_be(:supervisor) { create(:supervisor) }
+    let_it_be(:user_token) { JWT.encode({id: user.id}, ENV["hmac_secret"], "HS256") }
+    let_it_be(:supervisor_token) { JWT.encode({id: supervisor.id}, ENV["hmac_secret"], "HS256") }
+
+    context "token not exist" do
+      before :all do
+        subject = build_stubbed(:subject)
+        post "/api/v1/subjects", params: subject.attributes
+      end
+
+      include_examples "status code", 401
+    end
+
+    context "token exist and not supervisor" do
+      before :all do
+        subject = build_stubbed(:subject)
+        post "/api/v1/subjects", params: subject.attributes, headers: {Authorization: "Bearer #{user_token}"}
+      end
+
+      include_examples "status code", 403
+    end
+
+    context "token exist and supervisor" do
+      let_it_be(:subject) { build_stubbed(:subject) }
+
+      context "with valid params" do
+        before :all do
+          post "/api/v1/subjects", params: subject.attributes, headers: {Authorization: "Bearer #{supervisor_token}"}
+        end
+
+        include_examples "status code", 201
+
+        it "returns subject" do
+          expect(JSON.parse(response.body)["data"]["name"]).to eq(subject.name)
+        end
+
+        it "should create subject" do
+          expect(Subject.find_by(name: subject.name)).to be_truthy
+        end
+      end
+
+      context "with invalid params" do
+        before :all do
+          subject.name = ""
+          post "/api/v1/subjects", params: subject.attributes, headers: {Authorization: "Bearer #{supervisor_token}"}
+        end
+
+        include_examples "status code", 422
+
+        it "returns error message" do
+          expect(JSON.parse(response.body)["message"]).to eq(["Name can't be blank"])
+        end
+
+        it "should not create subject" do
+          expect(Subject.find_by(name: subject.name)).to be_falsey
+        end
+      end
+    end
+  end
+  
+  describe "PATCH /api/v1/subjects/:id" do
+    let_it_be(:user) { create(:user) }
+    let_it_be(:supervisor) { create(:supervisor) }
+    let_it_be(:subject) { create(:subject) }
+    let_it_be(:user_token) { JWT.encode({id: user.id}, ENV["hmac_secret"], "HS256") }
+    let_it_be(:supervisor_token) { JWT.encode({id: supervisor.id}, ENV["hmac_secret"], "HS256") }
+
+    context "token not exist" do
+      before :all do
+        patch "/api/v1/subjects/#{subject.id}", params: subject.attributes
+      end
+
+      include_examples "status code", 401
+    end
+
+    context "token exist and not supervisor" do
+      before :all do
+        patch "/api/v1/subjects/#{subject.id}", params: subject.attributes, headers: {Authorization: "Bearer #{user_token}"}
+      end
+
+      include_examples "status code", 403
+    end
+
+    context "token exist and supervisor" do
+      context "with valid params" do
+        before :all do
+          subject.name = "new name"
+          patch "/api/v1/subjects/#{subject.id}", params: subject.attributes, headers: {Authorization: "Bearer #{supervisor_token}"}
+        end
+
+        include_examples "status code", 200
+
+        it "returns subject" do
+          expect(JSON.parse(response.body)["data"]["name"]).to eq(subject.name)
+        end
+
+        it "should update subject" do
+          expect(Subject.find_by(name: subject.name)).to be_truthy
+        end
+      end
+
+      context "with invalid params" do
+        before :all do
+          subject.name = ""
+          patch "/api/v1/subjects/#{subject.id}", params: subject.attributes, headers: {Authorization: "Bearer #{supervisor_token}"}
+        end
+
+        include_examples "status code", 422
+
+        it "returns error message" do
+          expect(JSON.parse(response.body)["message"]).to eq(["Name can't be blank"])
+        end
+
+        it "should not update subject" do
+          expect(Subject.find_by(name: subject.name)).to be_falsey
+        end
+      end
+    end
+  end
+
+  describe "DELETE /api/v1/subjects/:id" do
+    let_it_be(:user) { create(:user) }
+    let_it_be(:supervisor) { create(:supervisor) }
+    let_it_be(:subject) { create(:subject) }
+    let_it_be(:user_token) { JWT.encode({id: user.id}, ENV["hmac_secret"], "HS256") }
+    let_it_be(:supervisor_token) { JWT.encode({id: supervisor.id}, ENV["hmac_secret"], "HS256") }
+
+    context "token not exist" do
+      before :all do
+        delete "/api/v1/subjects/#{subject.id}"
+      end
+
+      include_examples "status code", 401
+
+      it "should not delete subject" do
+        s = Subject.find_by(id: subject.id)
+        expect(s).to be_truthy
+        expect(s.deleted_at).to be_nil
+      end
+    end
+
+    context "token exist and not supervisor" do
+      before :all do
+        delete "/api/v1/subjects/#{subject.id}", headers: {Authorization: "Bearer #{user_token}"}
+      end
+
+      include_examples "status code", 403
+    end
+
+    context "token exist and supervisor" do
+      context "subject id not exist" do
+        before :all do
+          delete "/api/v1/subjects/0", headers: {Authorization: "Bearer #{supervisor_token}"}
+        end
+
+        include_examples "status code", 404
+      end
+    end
+
+    context "subject id exist" do
+      let_it_be(:delete_subject) { create(:subject) }
+      let_it_be(:question) { create(:single_choice_question, subject: delete_subject) }
+
+      context "subject has no questions" do
+        before :all do
+          delete "/api/v1/subjects/#{subject.id}", headers: {Authorization: "Bearer #{supervisor_token}"}
+        end
+
+        include_examples "status code", 204
+
+        it "should hard delete subject" do
+          expect(Subject.with_deleted.find_by(id: subject.id)).to be_falsey
+        end
+      end
+
+      context "subject has questions" do
+        context "soft delete fail" do
+          before do
+            allow_any_instance_of(Subject).to receive(:destroy).and_return(false)
+            delete "/api/v1/subjects/#{delete_subject.id}", headers: {Authorization: "Bearer #{supervisor_token}"}
+          end
+
+          include_examples "status code", 500
+
+          it "should not delete subject" do
+            s = Subject.with_deleted.find_by(id: delete_subject.id)
+            expect(s).to be_truthy
+            expect(s.deleted_at).to be_nil
+          end
+        end
+
+        context "soft delete success" do
+          before :all do
+            delete "/api/v1/subjects/#{delete_subject.id}", headers: {Authorization: "Bearer #{supervisor_token}"}
+          end
+
+          include_examples "status code", 204
+
+          it "should soft delete subject" do
+            s = Subject.with_deleted.find_by(id: delete_subject.id)
+            expect(s).to be_truthy
+            expect(s.deleted_at).not_to be_nil
+          end
+        end
       end
     end
   end

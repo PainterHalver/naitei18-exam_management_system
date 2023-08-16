@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 require "shared_examples"
 require "test_prof/recipes/rspec/let_it_be"
 include SessionsHelper

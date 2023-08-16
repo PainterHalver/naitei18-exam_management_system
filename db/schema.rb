@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 2023_07_28_094216) do
 
   create_table "subjects", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
-    t.string "description"
+    t.text "description"
     t.integer "question_amount"
     t.float "pass_score"
     t.integer "test_duration"

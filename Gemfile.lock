@@ -411,7 +411,7 @@ DEPENDENCIES
   groupdate
   image_processing (= 1.12.2)
   jbuilder (~> 2.7)
-  jwt
+  jwt (~> 2.7)
   listen (~> 3.3)
   mini_magick (= 4.9.5)
   mysql2 (~> 0.5)

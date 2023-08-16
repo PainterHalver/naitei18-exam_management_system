@@ -24,7 +24,6 @@ gem "ransack"
 gem "sass-rails", ">= 6"
 gem "turbolinks", "~> 5"
 gem "webpacker", "~> 5.0"
-gem "jwt"
 
 group :development, :test do
   gem "byebug", platform: :mri
@@ -62,3 +61,4 @@ gem "grape", "~> 1.7"
 gem "grape-entity"
 gem "grape_on_rails_routes", "~> 0.3.2"
 gem "grape-swagger"
+gem "jwt", "~> 2.7"

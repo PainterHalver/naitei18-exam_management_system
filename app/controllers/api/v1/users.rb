@@ -10,6 +10,30 @@ module API
         validate_authentication
       end
 
+      helpers do
+        def load_user_by_id user_id
+          user = User.find_by id: user_id
+          return user unless user.nil?
+
+          error!("User not found", 404)
+        end
+
+        def error_inform_for_account_management user, action
+          if user.id == @current_user.id
+            error!("can not #{action} your self", :forbidden)
+          end
+          if user.activated? && action == "activate"
+            error!("can not activate an active user", :forbidden)
+          end
+          if !user.activated? && action == "deactivate"
+            error!("can not deactivate an inactive user", :forbidden)
+          end
+          return unless user.is_supervisor?
+
+          error!("can not #{action} a supervisor", :forbidden)
+        end
+      end
+
       resources :users do
         desc "Edit profile"
         params do
@@ -40,8 +64,7 @@ module API
         end
         route_param :id do
           get "tests" do
-            user = User.find_by id: params[:id]
-            error!("User not found", 404) unless user
+            user = load_user_by_id params[:id]
 
             tests = Test.where(user_id: params[:id]).newest
             tests = paginate tests
@@ -50,6 +73,50 @@ module API
               present tests
             else
               error!("You can not access history", :forbidden)
+            end
+          end
+        end
+      end
+
+      resources :users do
+        before do
+          require_supervisor
+        end
+        desc "activate user"
+        params do
+          requires :id, desc: "the ID of user"
+        end
+        route_param :id do
+          patch "activate" do
+            user = load_user_by_id params[:id]
+            error_inform_for_account_management(user, "activate")
+
+            if user.update(activated: true, activated_at: Time.zone.now)
+              present(user: user, message: "account activated")
+            else
+              error!(@current_user.errors.full_messages, 422)
+            end
+          end
+        end
+      end
+
+      resources :users do
+        before do
+          require_supervisor
+        end
+        desc "deactivate user"
+        params do
+          requires :id, desc: "the ID of user"
+        end
+        route_param :id do
+          patch "deactivate" do
+            user = load_user_by_id params[:id]
+            error_inform_for_account_management(user, "deactivate")
+
+            if user.update(activated: false)
+              present(user: user, message: "account deactivated")
+            else
+              error!(@current_user.errors.full_messages, 422)
             end
           end
         end

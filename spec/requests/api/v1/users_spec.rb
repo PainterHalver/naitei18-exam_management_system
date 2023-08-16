@@ -154,4 +154,177 @@ RSpec.describe API::V1::Users, type: :request do
       end
     end
   end
+
+  describe "PATCH /api/v1/users/:id/activate" do
+    let_it_be(:user) {create(:user)}
+    let_it_be(:user_token) {JWT.encode({id: user.id}, ENV["hmac_secret"], "HS256")}
+    let_it_be(:supervisor) {create(:supervisor)}
+    let_it_be(:supervisor_token) {JWT.encode({id: supervisor.id}, ENV["hmac_secret"], "HS256")}
+
+    context "activate success" do
+      before do
+        inactive_user = create(:deactivated)
+        patch "/api/v1/users/#{inactive_user.id}/activate", headers: {Authorization: "Bearer #{supervisor_token}"}
+      end
+
+      include_examples "status success"
+      include_examples "status code 200"
+
+      it "should return user with activaed true" do
+        expect(JSON.parse(response.body)["data"]["user"]["activated"]).to be_truthy
+      end
+    end
+
+    context "failed with not login" do
+      before do
+        inactive_user = create(:deactivated)
+        patch "/api/v1/users/#{inactive_user.id}/activate"
+      end
+
+      include_examples "status error"
+
+      include_examples "api error not login"
+    end
+
+    context "failed with activate your self" do
+      before do
+        patch "/api/v1/users/#{supervisor.id}/activate", headers: {Authorization: "Bearer #{supervisor_token}"}
+      end
+
+      include_examples "status code", 403
+
+      include_examples "error message", "can not activate your self"
+    end
+
+    context "failed with activate a supervisor" do
+      before do
+        another_supervisor = create(:supervisor)
+        allow_any_instance_of(User).to receive(:activated?).and_return(false)
+        patch "/api/v1/users/#{another_supervisor.id}/activate", headers: {Authorization: "Bearer #{supervisor_token}"}
+      end
+
+      include_examples "status code", 403
+
+      include_examples "error message", "can not activate a supervisor"
+    end
+
+    context "failed with activate an active user" do
+      before do
+        patch "/api/v1/users/#{user.id}/activate", headers: {Authorization: "Bearer #{supervisor_token}"}
+      end
+
+      include_examples "status code", 403
+
+      include_examples "error message", "can not activate an active user"
+    end
+
+    context "failed with unauthorization" do
+      before do
+        patch "/api/v1/users/#{user.id}/activate", headers: {Authorization: "Bearer #{user_token}"}
+      end
+
+      include_examples "status code", 403
+
+      include_examples "error message", "You are not authorized to do this"
+    end
+
+    context "failed with can not update" do
+      before do
+        inactive_user = create(:deactivated)
+        allow_any_instance_of(User).to receive(:update).and_return(false)
+        patch "/api/v1/users/#{inactive_user.id}/activate", headers: {Authorization: "Bearer #{supervisor_token}"}
+      end
+
+      include_examples "status code", 422
+
+      it "inform errors trying to update" do
+        expect(JSON.parse(response.body)["message"]).to be_an_instance_of(Array)
+      end
+    end
+  end
+
+  describe "PATCH /api/v1/users/:id/deactivate" do
+    let_it_be(:user) {create(:user)}
+    let_it_be(:user_token) {JWT.encode({id: user.id}, ENV["hmac_secret"], "HS256")}
+    let_it_be(:supervisor) {create(:supervisor)}
+    let_it_be(:supervisor_token) {JWT.encode({id: supervisor.id}, ENV["hmac_secret"], "HS256")}
+
+    context "deactivate success" do
+      before do
+        patch "/api/v1/users/#{user.id}/deactivate", headers: {Authorization: "Bearer #{supervisor_token}"}
+      end
+
+      include_examples "status success"
+      include_examples "status code 200"
+
+      it "should return user with activaed true" do
+        expect(JSON.parse(response.body)["data"]["user"]["activated"]).to be_falsy
+      end
+    end
+
+    context "failed with not login" do
+      before do
+        patch "/api/v1/users/#{user.id}/deactivate"
+      end
+
+      include_examples "status error"
+
+      include_examples "api error not login"
+    end
+
+    context "failed with deactivate your self" do
+      before do
+        patch "/api/v1/users/#{supervisor.id}/deactivate", headers: {Authorization: "Bearer #{supervisor_token}"}
+      end
+
+      include_examples "status code", 403
+
+      include_examples "error message", "can not deactivate your self"
+    end
+
+    context "failed with deactivate a supervisor" do
+      before do
+        another_supervisor = create(:supervisor)
+        patch "/api/v1/users/#{another_supervisor.id}/deactivate", headers: {Authorization: "Bearer #{supervisor_token}"}
+      end
+
+      include_examples "status code", 403
+
+      include_examples "error message", "can not deactivate a supervisor"
+    end
+
+    context "failed with deactivate an inactive user" do
+      before do
+        inactive_user = create(:deactivated)
+        patch "/api/v1/users/#{inactive_user.id}/deactivate", headers: {Authorization: "Bearer #{supervisor_token}"}
+      end
+
+      include_examples "status code", 403
+
+      include_examples "error message", "can not deactivate an inactive user"
+    end
+
+    context "failed with unauthorization" do
+      before do
+        patch "/api/v1/users/#{user.id}/deactivate", headers: {Authorization: "Bearer #{user_token}"}
+      end
+
+      include_examples "status code", 403
+
+      include_examples "error message", "You are not authorized to do this"
+    end
+
+    context "failed with can not update" do
+      before do
+        allow_any_instance_of(User).to receive(:update).and_return(false)
+        patch "/api/v1/users/#{user.id}/deactivate", headers: {Authorization: "Bearer #{supervisor_token}"}
+      end
+
+      include_examples "status code", 422
+
+      it "inform errors trying to update" do
+        expect(JSON.parse(response.body)["message"]).to be_an_instance_of(Array)
+      end
+    end
+  end
 end

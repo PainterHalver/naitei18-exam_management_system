@@ -296,8 +296,8 @@ RSpec.describe API::V1::Questions, type: :request do
       end
 
       context "has ongoing test" do
-        let_it_be(:test) { create(:ongoing_test, subject: subject, user: user) }
         before do
+          allow_any_instance_of(Supervisor::SubjectsHelper).to receive(:has_ongoing_test?).and_return(true)
           patch "/api/v1/questions/#{question.id}", params: valid_params,
                                                      headers: {"Authorization": "Bearer #{supervisor_token}"}
         end
@@ -344,8 +344,8 @@ RSpec.describe API::V1::Questions, type: :request do
 
       context "question exists" do
         context "has ongoing test" do
-          let_it_be(:test) { create(:ongoing_test, subject: subject, user: user) }
           before do
+            allow_any_instance_of(Supervisor::SubjectsHelper).to receive(:has_ongoing_test?).and_return(true)
             delete "/api/v1/questions/#{question.id}",
                    headers: {"Authorization": "Bearer #{supervisor_token}"}
           end

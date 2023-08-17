@@ -227,6 +227,24 @@ RSpec.describe API::V1::Subjects, type: :request do
           expect(Subject.find_by(name: subject.name)).to be_falsey
         end
       end
+
+      context "has onging test" do
+        let_it_be(:test) { create(:ongoing_test, subject: subject) }
+        let_it_be(:new_subject) {build_stubbed(:subject)}
+        before :all do
+          patch "/api/v1/subjects/#{subject.id}", params: new_subject.attributes, headers: {Authorization: "Bearer #{supervisor_token}"}
+        end
+
+        include_examples "status code", 400
+
+        it "returns error message" do
+          expect(JSON.parse(response.body)["message"]).to eq("Subject has ongoing test")
+        end
+
+        it "should not update subject" do
+          expect(Subject.find_by(name: new_subject.name)).to be_falsey
+        end
+      end
     end
   end
 
@@ -293,6 +311,25 @@ RSpec.describe API::V1::Subjects, type: :request do
           end
 
           include_examples "status code", 500
+
+          it "should not delete subject" do
+            s = Subject.with_deleted.find_by(id: delete_subject.id)
+            expect(s).to be_truthy
+            expect(s.deleted_at).to be_nil
+          end
+        end
+
+        context "subject has ongoing test" do
+          let_it_be(:test) { create(:ongoing_test, subject: delete_subject) }
+          before :all do
+            delete "/api/v1/subjects/#{delete_subject.id}", headers: {Authorization: "Bearer #{supervisor_token}"}
+          end
+
+          include_examples "status code", 400
+
+          it "returns error message" do
+            expect(JSON.parse(response.body)["message"]).to eq("Subject has ongoing test")
+          end
 
           it "should not delete subject" do
             s = Subject.with_deleted.find_by(id: delete_subject.id)

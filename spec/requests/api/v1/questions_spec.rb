@@ -147,4 +147,228 @@ RSpec.describe API::V1::Questions, type: :request do
       end
     end
   end
+
+  describe "POST /api/v1/questions" do
+    let_it_be(:question) { build_stubbed(:single_choice_question, subject: subject, creator: supervisor) }
+    let_it_be(:valid_params) { {
+      content: question.content,
+      question_type: 0,
+      subject_id: subject.id,
+      answers_attributes: [
+        {content: "answer 1", is_correct: true},
+        {content: "answer 2", is_correct: false}
+      ]
+    } }
+
+    context "without supervisor authentication" do
+      before do
+        post "/api/v1/questions", params: valid_params
+      end
+
+      include_examples "status code", 401
+      include_examples "error message", "You need to log in"
+    end
+
+    context "with supervisor authentication" do
+      context "with valid params" do
+        before do
+          post "/api/v1/questions", params: valid_params,
+                                     headers: {"Authorization": "Bearer #{supervisor_token}"}
+        end
+
+        include_examples "status code", 201
+        include_examples "status success"
+
+        it "returns question" do
+          expect(JSON.parse(response.body)["data"]["content"]).to eq(question.content)
+        end
+
+        it "creates question" do
+          q = Question.find_by(content: question.content)
+          expect(q).to be_truthy
+          expect(q.answers.size).to eq(2)
+        end
+      end
+
+      context "with invalid params" do
+        before do
+          post "/api/v1/questions", params: {content: "content"},
+                                     headers: {"Authorization": "Bearer #{supervisor_token}"}
+        end
+
+        include_examples "status code", 400
+        include_examples "error message", "One or more parameters are invalid"
+      end
+
+      context "model validation failed" do
+        before do
+          post "/api/v1/questions", params: valid_params.merge(content: nil),
+                                     headers: {"Authorization": "Bearer #{supervisor_token}"}
+        end
+
+        include_examples "status code", 422
+      end
+    end
+  end
+
+  describe "PATCH /api/v1/questions/:id" do
+    let_it_be(:question) { create(:single_choice_question, subject: subject, creator: supervisor) }
+    let_it_be(:valid_params) { {
+      content: question.content,
+      question_type: 0,
+      subject_id: subject.id,
+      answers_attributes: [
+        {content: "answer 1", is_correct: true},
+        {content: "answer 2", is_correct: false}
+      ]
+    } }
+
+    context "without supervisor authentication" do
+      before do
+        patch "/api/v1/questions/#{question.id}", params: valid_params
+      end
+
+      include_examples "status code", 401
+      include_examples "error message", "You need to log in"
+    end
+
+    context "with supervisor authentication" do
+      context "question exists" do
+        context "with valid params" do
+          before do
+            patch "/api/v1/questions/#{question.id}", params: valid_params,
+                                                       headers: {"Authorization": "Bearer #{supervisor_token}"}
+          end
+
+          include_examples "status code", 200
+          include_examples "status success"
+
+          it "returns question" do
+            expect(JSON.parse(response.body)["data"]["content"]).to eq(question.content)
+          end
+
+          it "updates question" do
+            q = Question.find_by(content: question.content)
+            expect(q).to be_truthy
+            expect(q.answers.size).to eq(2)
+          end
+        end
+      end
+
+      context "question does not exist" do
+        before do
+          patch "/api/v1/questions/0", params: valid_params,
+                                         headers: {"Authorization": "Bearer #{supervisor_token}"}
+        end
+
+        include_examples "status code", 404
+        include_examples "error message", "Question not found"
+      end
+
+      context "with invalid params" do
+        before do
+          patch "/api/v1/questions/#{question.id}", params: {question_type: "non_exist"},
+                                                     headers: {"Authorization": "Bearer #{supervisor_token}"}
+        end
+
+        include_examples "status code", 400
+        include_examples "error message", "One or more parameters are invalid"
+      end
+
+      context "model validation failed" do
+        before do
+          patch "/api/v1/questions/#{question.id}", params: valid_params.merge(content: nil),
+                                                     headers: {"Authorization": "Bearer #{supervisor_token}"}
+        end
+
+        include_examples "status code", 422
+      end
+
+      context "rolled back" do
+        before do
+          allow(ActiveRecord::Base).to receive(:transaction).and_raise(ActiveRecord::Rollback)
+          patch "/api/v1/questions/#{question.id}", params: valid_params,
+                                                     headers: {"Authorization": "Bearer #{supervisor_token}"}
+        end
+
+        include_examples "status code", 500
+        include_examples "error message", "Question update failed"
+      end
+
+      context "has ongoing test" do
+        let_it_be(:test) { create(:ongoing_test, subject: subject, user: user) }
+        before do
+          patch "/api/v1/questions/#{question.id}", params: valid_params,
+                                                     headers: {"Authorization": "Bearer #{supervisor_token}"}
+        end
+
+        include_examples "status code", 400
+        include_examples "error message", "Subject containing the question still has ongoing test"
+      end
+    end
+  end
+
+  context "DELETE /api/v1/questions/:id" do
+    let_it_be(:question) { create(:single_choice_question, subject: subject, creator: supervisor) }
+
+    context "without supervisor authentication" do
+      before do
+        delete "/api/v1/questions/#{question.id}"
+      end
+
+      include_examples "status code", 401
+      include_examples "error message", "You need to log in"
+    end
+
+    context "with supervisor authentication" do
+      context "question does not exist" do
+        before do
+          delete "/api/v1/questions/0",
+                 headers: {"Authorization": "Bearer #{supervisor_token}"}
+        end
+
+        include_examples "status code", 404
+        include_examples "error message", "Question not found"
+      end
+
+      context "delete fails" do
+        before do
+          allow_any_instance_of(Question).to receive(:destroy).and_return(false)
+          delete "/api/v1/questions/#{question.id}",
+                 headers: {"Authorization": "Bearer #{supervisor_token}"}
+        end
+
+        include_examples "status code", 500
+        include_examples "error message", "Delete question failed"
+      end
+
+      context "question exists" do
+        context "has ongoing test" do
+          let_it_be(:test) { create(:ongoing_test, subject: subject, user: user) }
+          before do
+            delete "/api/v1/questions/#{question.id}",
+                   headers: {"Authorization": "Bearer #{supervisor_token}"}
+          end
+
+          include_examples "status code", 400
+          include_examples "error message", "Subject containing the question still has ongoing test"
+        end
+
+        context "delete successfully" do
+          before :all do
+            delete "/api/v1/questions/#{question.id}",
+                   headers: {"Authorization": "Bearer #{supervisor_token}"}
+          end
+
+          include_examples "status code", 204
+
+          it "soft deletes question" do
+            q = Question.with_deleted.find_by(id: question.id)
+            expect(q).to be_truthy
+            expect(q.deleted_at).not_to eq(nil)
+          end
+        end
+      end
+    end
+  end
 end

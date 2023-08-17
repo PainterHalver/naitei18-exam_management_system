@@ -55,6 +55,7 @@ module API
           validate_authentication
           require_supervisor
           load_subject_from_id
+          require_no_ongoing_test
         end
         desc "Update a subject"
         params do
@@ -81,6 +82,7 @@ module API
           validate_authentication
           require_supervisor
           load_subject_from_id
+          require_no_ongoing_test
         end
         desc "Delete a subject"
         params do
@@ -107,6 +109,12 @@ module API
           return if @subject
 
           error!("Subject not found", 404)
+        end
+
+        def require_no_ongoing_test
+          return unless has_ongoing_test? @subject
+
+          error!("Subject has ongoing test", 400)
         end
       end
     end

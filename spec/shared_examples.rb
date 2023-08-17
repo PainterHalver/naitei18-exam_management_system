@@ -202,3 +202,9 @@ RSpec.shared_examples "status code" do |code|
     expect(response).to have_http_status(code)
   end
 end
+
+RSpec.shared_examples "error message" do |content|
+  it "inform with error message" do
+    expect(JSON.parse(response.body)["message"]).to eq(content)
+  end
+end

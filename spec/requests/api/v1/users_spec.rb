@@ -327,4 +327,144 @@ RSpec.describe API::V1::Users, type: :request do
       end
     end
   end
+
+  describe "GET /api/v1/users" do
+    let_it_be(:supervisor) {create(:supervisor)}
+    let_it_be(:supervisor_token) {JWT.encode({id: supervisor.id}, ENV["hmac_secret"], "HS256")}
+    let_it_be(:user) {create(:user)}
+    let_it_be(:user_token) {JWT.encode({id: user.id}, ENV["hmac_secret"], "HS256")}
+    let_it_be(:users) {create_list(:user, 10)}
+
+    context "get all users success" do
+      before do
+        get "/api/v1/users", headers: {Authorization: "Bearer #{supervisor_token}"}
+      end
+
+      it "should return all users" do
+        expect(JSON.parse(response.body)["data"].size).to eq(12)
+      end
+
+      it "should be order desc by created_at" do
+        array = users.pluck(:id) << supervisor.id << user.id
+        expect(JSON.parse(response.body)["data"].pluck("id")).to eq(array.sort {|a, b| b <=> a})
+      end
+    end
+
+    context "no users exists" do
+      before do
+        allow(User).to receive(:newest).and_return([])
+        get "/api/v1/users", headers: {Authorization: "Bearer #{supervisor_token}"}
+      end
+
+      it "should inform if no user exists" do
+        expect(JSON.parse(response.body)["data"]["message"]).to eq("no user exists")
+      end
+    end
+
+    context "get all users success with params" do
+      before do
+        get "/api/v1/users?page=1&per_page=5", headers: {Authorization: "Bearer #{supervisor_token}"}
+      end
+
+      it "should return 5 users" do
+        expect(JSON.parse(response.body)["data"].size).to eq(5)
+      end
+
+      it "should be order desc by created_at" do
+        sub_array = users.pluck(:id).sort {|a, b| b <=> a}
+        expect(JSON.parse(response.body)["data"].pluck("id")).to eq(sub_array.slice(0, 5))
+      end
+    end
+
+    context "failed with not login" do
+      before do
+        get "/api/v1/users?page=1&per_page=5"
+      end
+
+      include_examples "api error not login"
+    end
+
+    context "failed with unauthorization" do
+      before do
+        get "/api/v1/users?page=1&per_page=5", headers: {Authorization: "Bearer #{user_token}"}
+      end
+
+      include_examples "api error unauthorized"
+    end
+  end
+
+  describe "GET /api/v1/users/:id" do
+    let_it_be(:user) {create(:user)}
+    let_it_be(:user_token) {JWT.encode({id: user.id}, ENV["hmac_secret"], "HS256")}
+    let_it_be(:supervisor) {create(:supervisor)}
+    let_it_be(:supervisor_token) {JWT.encode({id: supervisor.id}, ENV["hmac_secret"], "HS256")}
+    let_it_be(:tests) {
+      doing = create_list(:test, 5, user: user)
+      passed = create_list(:finished_test, 5, user: user)
+      failed = create_list(:failed_test, 5, user: user)
+      total = doing << passed << failed
+      total.flatten
+    }
+
+    context "get detail success" do
+      before do
+        get "/api/v1/users/#{user.id}", headers: {Authorization: "Bearer #{user_token}"}
+      end
+
+      include_examples "status success"
+      include_examples "status code 200"
+
+      it "shouldn't container password_digest" do
+        expect(JSON.parse(response.body)["data"]["user"]["password_digest"]).to be_nil
+      end
+
+      it "return true user data" do
+        expect(JSON.parse(response.body)["data"]["user"]).to include("email" => user.email, "id" => user.id, "name" => user.name)
+      end
+
+      it "return bonus data" do
+        expect(JSON.parse(response.body)["data"]["detail"]).to include("tests_status" => {"failed" => 5, "passed" => 5, "doing" => 5},
+                                                                       "tests_in_progress" => 5, "tests_done" => 10,
+                                                                      "tests_in_month" => be_a(Hash), "attened_subjects" => be_a(Hash))
+      end
+    end
+
+    context "failed with not login" do
+      before do
+        get "/api/v1/users/#{user.id}"
+      end
+      include_examples "api error not login"
+    end
+
+    context "failed with unauthorization" do
+      before do
+        another_user = create(:user)
+        get "/api/v1/users/#{another_user.id}", headers: {Authorization: "Bearer #{user_token}"}
+      end
+
+      include_examples "status code", 403
+      include_examples "api error unauthorized"
+    end
+
+    context "failed with supervisor profile" do
+      before do
+        get "/api/v1/users/#{supervisor.id}", headers: {Authorization: "Bearer #{user_token}"}
+      end
+
+      include_examples "status code", 403
+
+      include_examples "error message", "Can not access supervisor's profile"
+    end
+
+    context "failed with inactive profile" do
+      before do
+        inactive_user = create(:deactivated)
+        get "/api/v1/users/#{inactive_user.id}", headers: {Authorization: "Bearer #{supervisor_token}"}
+      end
+
+      include_examples "status code", 403
+
+      include_examples "error message", "Can only see profile of the actives"
+    end
+  end
 end

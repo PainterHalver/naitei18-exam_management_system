@@ -229,9 +229,9 @@ RSpec.describe API::V1::Subjects, type: :request do
       end
 
       context "has onging test" do
-        let_it_be(:test) { create(:ongoing_test, subject: subject) }
         let_it_be(:new_subject) {build_stubbed(:subject)}
-        before :all do
+        before do
+          allow_any_instance_of(Supervisor::SubjectsHelper).to receive(:has_ongoing_test?).and_return(true)
           patch "/api/v1/subjects/#{subject.id}", params: new_subject.attributes, headers: {Authorization: "Bearer #{supervisor_token}"}
         end
 
@@ -320,8 +320,8 @@ RSpec.describe API::V1::Subjects, type: :request do
         end
 
         context "subject has ongoing test" do
-          let_it_be(:test) { create(:ongoing_test, subject: delete_subject) }
-          before :all do
+          before do
+            allow_any_instance_of(Supervisor::SubjectsHelper).to receive(:has_ongoing_test?).and_return(true)
             delete "/api/v1/subjects/#{delete_subject.id}", headers: {Authorization: "Bearer #{supervisor_token}"}
           end
 

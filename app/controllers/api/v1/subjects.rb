@@ -8,13 +8,24 @@ module API
         desc "Return all subjects"
         params do
           use :pagination
+          optional :name_cont, type: String, desc: "Name containing"
+          %w(eq gteq lteq).each do |key|
+            optional "question_amount_#{key}", type: Integer,
+                     desc: "Amount of questions #{key}"
+            optional "pass_score_#{key}", type: Float,
+                     desc: "Pass score #{key}"
+            optional "test_duration_#{key}", type: Integer,
+                     desc: "Duration of the test in minutes #{key}"
+          end
         end
         get "", root: :subjects do
-          subjects = Subject.newest.includes(:questions)
-          subjects = paginate subjects
+          query = Subject.newest.includes(:questions).ransack declared(params)
+          subjects = paginate query.result
           present subjects, with: API::Entities::Subject
         end
+      end
 
+      resource :subjects do
         desc "Return a subject"
         params do
           requires :id, type: String, desc: "ID of the subject"

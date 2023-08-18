@@ -6,6 +6,13 @@ class Supervisor::QuestionsController < Supervisor::SupervisorController
     @query = Question.newest.ransack params[:q]
     @pagy, @questions = pagy @query.result,
                              items: Settings.digit.length_10
+    respond_to do |format|
+      format.html
+      format.xlsx do
+        p = QuestionsExporter.new(Question.newest.includes(:answers)).call
+        send_data p.to_stream.read, filename: "questions.xlsx"
+      end
+    end
   end
 
   def new

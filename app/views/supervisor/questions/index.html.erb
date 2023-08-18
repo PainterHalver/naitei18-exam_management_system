@@ -1,7 +1,12 @@
 <% provide :title, t(".title") %>
 <div class="vertical-center my-1 d-flex justify-between">
   <h3 style="display: inline-block;"><%= t ".question_list" %></h3>
-  <%= link_to t(".create_question"), new_supervisor_question_path, class: "btn btn-primary" %>
+  <div>
+    <%= link_to t(".create_question"), new_supervisor_question_path, class: "btn btn-primary" %>
+    <%= link_to raw("<span class='glyphicon glyphicon-open'></span> #{t(".export_all_questions")}"),
+                supervisor_questions_path(format: :xlsx),
+                class: "btn btn-success" %>
+  </div>
 </div>
 
 <%= render "questions_filter" %>

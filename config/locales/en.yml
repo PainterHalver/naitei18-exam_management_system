@@ -198,6 +198,7 @@ en:
         create_question: "Create new question"
         show_questions_with_deleted_subject: "Show questions with deleted subject"
         show_questions_without_deleted_subject: "Show only questions with available subject"
+        export_all_questions: "Export all questions"
       delete_success: "Successfully deleted question"
       delete_failed: "Error occured while trying to delete question."
     subjects:

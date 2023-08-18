@@ -84,3 +84,5 @@ config/environments/*.local.yml
 .framgia-ci-result.temp.yml
 
 .idea/
+
+/config/master.key

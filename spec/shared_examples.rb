@@ -208,3 +208,8 @@ RSpec.shared_examples "error message" do |content|
     expect(JSON.parse(response.body)["message"]).to eq(content)
   end
 end
+
+RSpec.shared_examples "api error unauthorized" do
+  include_examples "status code", 403
+  include_examples "error message", "You are not authorized to do this"
+end

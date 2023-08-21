@@ -64,3 +64,6 @@ gem "grape-swagger"
 gem "jwt", "~> 2.7"
 gem "rack-attack"
 gem "rack-cors", "~> 2.0"
+gem "caxlsx", "~> 3.4"
+gem "caxlsx_rails", "~> 0.6.3"
+

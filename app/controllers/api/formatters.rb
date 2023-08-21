@@ -8,11 +8,7 @@ module API
 
     module ErrorFormatter
       def self.call message, _backtrace, _options, _env, _original_exception
-        if message.is_a?(Hash)
-          {status: "fail", data: message}.to_json
-        else
-          {status: "error", message: message}.to_json
-        end
+        {status: "error", message: message}.to_json
       end
     end
   end

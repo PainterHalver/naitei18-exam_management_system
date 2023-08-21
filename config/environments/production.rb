@@ -20,7 +20,7 @@ Rails.application.configure do
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
   # config.require_master_key = true
 
-  # Disable serving static files from the `/public` folder by default since
+  # Disable serving static files from the /public folder by default since
   # Apache or NGINX already handles this.
   # config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
   config.public_file_server.enabled = true
@@ -99,14 +99,14 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Inserts middleware to perform automatic connection switching.
-  # The `database_selector` hash is used to pass options to the DatabaseSelector
-  # middleware. The `delay` is used to determine how long to wait after a write
+  # The database_selector hash is used to pass options to the DatabaseSelector
+  # middleware. The delay is used to determine how long to wait after a write
   # to send a subsequent read to the primary.
   #
-  # The `database_resolver` class is used by the middleware to determine which
+  # The database_resolver class is used by the middleware to determine which
   # database is appropriate to use based on the time delay.
   #
-  # The `database_resolver_context` class is used by the middleware to set
+  # The database_resolver_context class is used by the middleware to set
   # timestamps for the last write to the primary. The resolver uses the context
   # class timestamps to determine how long to wait before reading from the
   # replica.

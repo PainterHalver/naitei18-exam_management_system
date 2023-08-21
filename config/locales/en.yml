@@ -88,6 +88,7 @@ en:
       amount: "%{amount} questions"
       duration: "%{duration}"
     show:
+      not_enough_questions: "Not enough questions for test"
       not_found: "Subject not found"
       content: "This subject includes:"
       amount: "Question amount: %{amount} questions"

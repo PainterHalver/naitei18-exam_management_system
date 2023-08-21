@@ -16,9 +16,9 @@
   <% end %>
 </div>
 
-<script type="text/javascript">
+<%= javascript_tag nonce: true do -%>
   const serverTimeLeft = Math.round(<%= get_time_left_in_second %>);
   const startClientTime = Math.floor(Date.now() / 1000);
-</script>
+<% end -%>
 
 <%= javascript_pack_tag "counter" if @test.doing? %>

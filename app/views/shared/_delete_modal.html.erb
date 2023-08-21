@@ -16,11 +16,11 @@
   </div>
 </div>
 
-<script type="text/javascript" charset="utf-8">
+<%= javascript_tag nonce: true do -%>
   $('#confirmDeleteModal').on('show.bs.modal', function (event) {
     const button = $(event.relatedTarget)
     const path = button.data('path')
     const modal = $(this)
     modal.find('.delete-link').attr('href', path)
   });
-</script>
+<% end -%>

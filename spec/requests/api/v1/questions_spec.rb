@@ -95,13 +95,18 @@ RSpec.describe API::V1::Questions, type: :request do
           end
         end
 
-        context "invalid question type" do
+        context "question type not exist" do
           before do
             get "/api/v1/questions", params: {question_type_eq: 100},
                 headers: {"Authorization": "Bearer #{supervisor_token}"}
           end
 
-          include_examples "status code", 400
+          include_examples "status code", 200
+          include_examples "status success"
+
+          it "should return empty array" do
+            expect(JSON.parse(response.body)["data"].size).to eq(0)
+          end
         end
       end
     end

@@ -61,6 +61,6 @@
 
 <%= render "shared/delete_modal", object_name: Subject.model_name.human.downcase %>
 
-<script type="text/javascript" charset="utf-8">
+<% javascript_tag nonce: true do -%>
     $('body').tooltip({ selector: '[data-toggle=tooltip]' });
-</script>
+<% end -%>

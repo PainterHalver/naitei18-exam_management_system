@@ -16,16 +16,9 @@ module API
         params do
           use :pagination
           optional :content_cont, type: String, desc: "Content containing"
-          optional :question_type_eq, type: Integer, desc: "Question type",
-                    values: {value: Question.question_types.values,
-                             message: "must be in
-                             #{Question.question_types.values}"}
-          optional :subject_id_eq, type: Integer, desc: "Subject ID",
-                    values: {value: Subject.pluck(:id),
-                             message: "Subject does not exist"}
-          optional :user_id_eq, type: Integer, desc: "Supervisor ID",
-                    values: {value: User.supervisors.pluck(:id),
-                             message: "Supervisor does not exist"}
+          optional :question_type_eq, type: Integer, desc: "Question type"
+          optional :subject_id_eq, type: Integer, desc: "Subject ID"
+          optional :user_id_eq, type: Integer, desc: "Supervisor ID"
         end
         get "", root: :questions do
           query = Question.newest.includes(:answers).ransack declared(params)
@@ -48,10 +41,8 @@ module API
       helpers do
         params :create_question do
           requires :content, type: String, desc: "Content of the question"
-          requires :question_type, type: Integer, desc: "Question type",
-                   values: {value: Question.question_types.values,
-                            message: "must be in
-                             #{Question.question_types.values}"}
+          requires :question_type, type: Integer,
+                   desc: "Question type, 0 for single or 1 for multiple"
           requires :subject_id, type: Integer, desc: "Subject ID"
           requires :answers_attributes, type: Array do
             requires :content, type: String, desc: "Content of the answer"
@@ -62,10 +53,8 @@ module API
         params :update_question do
           requires :id, type: String, desc: "ID of the question"
           optional :content, type: String, desc: "Content of the question"
-          optional :question_type, type: Integer, desc: "Question type",
-                   values: {value: Question.question_types.values,
-                            message: "must be in
-                             #{Question.question_types.values}"}
+          optional :question_type, type: Integer,
+                   desc: "Question type, 0 for single or 1 for multiple"
           optional :subject_id, type: Integer, desc: "Subject ID"
           optional :answers_attributes, type: Array do
             requires :content, type: String, desc: "Content of the answer"

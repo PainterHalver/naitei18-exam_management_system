@@ -20,6 +20,7 @@ module API
           optional :subject_id_eq, type: Integer, desc: "Subject ID"
           optional :user_id_eq, type: Integer, desc: "Supervisor ID"
         end
+
         get "", root: :questions do
           query = Question.newest.includes(:answers).ransack declared(params)
           questions = paginate query.result

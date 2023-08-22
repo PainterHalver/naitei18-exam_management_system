@@ -88,6 +88,7 @@ vi:
       amount: "%{amount} câu"
       duration: "%{duration}"
     show:
+      not_enough_questions: "Không đủ câu hỏi để tạo test"
       not_found: "Không tìm thấy chủ đề này"
       content: "Chủ đề này bao gồm:"
       amount: "Số câu hỏi: %{amount} câu"

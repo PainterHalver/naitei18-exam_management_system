@@ -22,8 +22,10 @@
             <%= t("subjects.show.requirement",requirement: @subject.pass_score) %>
           </div>
           <div><%= hidden_field_tag :subject_id, @subject.id %></div>
-          <% if current_user.present? %>
+          <% if current_user.present? && @subject.question_amount <= @subject.questions.count %>
             <%= f.submit t("subjects.show.button"), class: "btn btn-primary create-test" %>
+          <% elsif @subject.question_amount > @subject.questions.count %>
+            <%= t "subjects.show.not_enough_questions" %>
           <% end %>
         <% end %>
       </div>

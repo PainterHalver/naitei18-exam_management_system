@@ -10,6 +10,7 @@ RSpec.describe API::V1::Questions, type: :request do
   let_it_be(:questions) { create_list(:single_choice_question, 15, subject: subject, creator: supervisor) }
   let_it_be(:user_token) { JWT.encode({id: user.id}, ENV["hmac_secret"], "HS256") }
   let_it_be(:supervisor_token) { JWT.encode({id: supervisor.id}, ENV["hmac_secret"], "HS256") }
+  let_it_be(:expired_token) { JWT.encode({id: supervisor.id, exp: 0}, ENV["hmac_secret"], "HS256") }
 
   describe "GET /api/v1/questions" do
     context "without supevisor authentication" do
@@ -19,6 +20,26 @@ RSpec.describe API::V1::Questions, type: :request do
 
       include_examples "status code", 401
       include_examples "error message", "You need to log in"
+    end
+
+    context "with false token authentication" do
+      before do
+        get "/api/v1/questions",
+            headers: {"Authorization": "Bearer #{expired_token}"}
+      end
+
+      include_examples "status code", 401
+      include_examples "error message", "Your session has ended"
+    end
+
+    context "with user authentication" do
+      before do
+        get "/api/v1/questions",
+            headers: {"Authorization": "Bearer #{user_token}"}
+      end
+
+      include_examples "status code", 403
+      include_examples "error message", "You are not authorized to do this"
     end
 
     context "with supervisor authentication" do
@@ -149,6 +170,28 @@ RSpec.describe API::V1::Questions, type: :request do
 
         include_examples "status code", 404
         include_examples "error message", "Question not found"
+      end
+
+      context "fallback rescue_from ActiveRecord::RecordNotFound" do
+        before do
+          allow(Question).to receive(:find_by).and_raise(ActiveRecord::RecordNotFound)
+          get "/api/v1/questions/100",
+              headers: {"Authorization": "Bearer #{supervisor_token}"}
+        end
+
+        include_examples "status code", 404
+        include_examples "error message", "No records found"
+      end
+
+      context "fallback rescue_from unknown" do
+        before do
+          allow(Question).to receive(:find_by).and_raise("Unknown error")
+          get "/api/v1/questions/100",
+              headers: {"Authorization": "Bearer #{supervisor_token}"}
+        end
+
+        include_examples "status code", 500
+        include_examples "error message", "Internal server error"
       end
     end
   end

@@ -18,8 +18,7 @@ class CalculateScoreOvertimeJob < ApplicationJob
       update_test test, score, corrected
     end
   rescue ActiveRecord::Rollback
-    flash[:danger] = t "tests.do.answer_error"
-    redirect_to root_path
+    Rails.logger.error "Job error when calculate score for test id: #{test_id}"
   end
 
   private

@@ -134,7 +134,7 @@ class TestsController < ApplicationController
       next if answer == "" || (answer.is_a?(Array) &&
              (answer.size == 1 || answer.size - 1 != @true_answers[index].size))
 
-      if check_true_false(answer, @true_answers[index]) == 1
+      if is_correct_answer?(answer, @true_answers[index])
         score += 1
         corrected << @test_questions_ids[index]
       end
@@ -142,20 +142,11 @@ class TestsController < ApplicationController
     score
   end
 
-  def check_true_false answer, true_answer
-    if answer.is_a?(String)
-      return 1 if true_answer.include? answer.to_i
-    else
-      check = true
-      answer[1..].each do |i|
-        unless true_answer.include? i.to_i
-          check = false
-          break
-        end
-      end
-      return 1 if check
-    end
-    0
+  def is_correct_answer? answer, true_answer
+    return true_answer.include?(answer.to_i) if answer.is_a?(String)
+    return false unless answer.is_a?(Array)
+
+    answer[1..].all?{|i| true_answer.include?(i.to_i)}
   end
 
   def create_relations detail_answers

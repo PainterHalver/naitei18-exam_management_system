@@ -78,6 +78,13 @@ RSpec.describe User, type: :model do
       expect(user.authenticated?("reset", user.reset_token)).to be_truthy
     end
 
+    describe "#send_activation_email" do
+      it "send an email to activate" do
+        message = user.send_activation_email
+        expect(message).to be_a Mail::Message
+      end
+    end
+
     describe "#send_password_reset_email" do
       it "send an email to reset password" do
         message = user.send_password_reset_email

@@ -28,6 +28,13 @@ RSpec.describe "Supervisor::Questions", type: :request do
       get supervisor_questions_path
       expect(assigns(:questions).length).to eq(Settings.pagination.per_page_10)
     end
+
+    context "xlsx format" do
+      it "should export all questions" do
+        get supervisor_questions_path(format: :xlsx)
+        expect(response.headers["Content-Disposition"]).to start_with("attachment; filename=\"questions.xlsx\"")
+      end
+    end
   end
 
   describe "GET /supervisor/questions/new" do

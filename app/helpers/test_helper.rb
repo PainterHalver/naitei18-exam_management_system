@@ -47,9 +47,8 @@ module TestHelper
       answered_ids = test_question.answers.pluck(:id)
       correct_ids = test_question.question.answers.select(&:is_correct?)
                                  .pluck(:id)
-      return false if answered_ids.size != correct_ids.size
-
-      answered_ids.sort == correct_ids.sort
+      answered_ids.size == correct_ids.size &&
+        answered_ids.sort == correct_ids.sort
     end
   end
 

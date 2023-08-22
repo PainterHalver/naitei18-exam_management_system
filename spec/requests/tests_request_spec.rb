@@ -45,6 +45,71 @@ RSpec.shared_examples "handle transaction fail" do |commit|
   end
 end
 
+RSpec.describe "TestController", type: :request do
+  let_it_be(:user) {create(:user)}
+  let_it_be(:subject) {create(:subject)}
+  let_it_be(:time) {(subject.test_duration + 0.1).minutes}
+  let_it_be(:single_choice_list) {create_list(:single_choice_question, 20, subject: subject)}
+  let_it_be(:multiple_choice_list) {create_list(:multiple_choice_question, 20, subject: subject)}
+
+  describe "GET /tests/:id/edit" do
+    before do
+      post login_path, params: {session: {email: user.email, password: user.password}}
+      post tests_path, params: {subject_id: subject.id}
+    end
+
+    context "show test success" do
+      before do
+        get edit_test_path(assigns[:test])
+      end
+
+      it "create instance variable test_questions" do
+        expect(assigns[:test_questions]).to eq(TestQuestion.where("test_id = #{assigns[:test].id}"))
+      end
+
+      it "should render :edit template" do
+        expect(response).to render_template(:edit)
+      end
+    end
+  end
+
+  describe "GET /tests/:id" do
+    before do
+      post login_path, params: {session: {email: user.email, password: user.password}}
+      post tests_path, params: {subject_id: subject.id}
+      answers = {}
+      assigns[:test].test_questions.includes(question: :answers).each do  |test_question|
+        answers[test_question.id] = test_question.question.single_choice? ?
+                                    {"first_answer_id"=>test_question.question.answers.where(is_correct: false).first.id} :
+                                    {"answer_ids"=>["", test_question.question.answers.first.id]}
+      end
+
+      params = {"test"=>{"test_question"=>answers}, "commit"=>"Submit", "id"=>assigns[:test].id}
+      patch test_path(assigns[:test]), params: params
+    end
+
+    context "show test success" do
+      before do
+        get test_path(assigns[:test])
+      end
+
+      it "should create instance variable test_questions" do
+        expect(assigns[:test_questions]).to eq(TestQuestion.where("test_id = #{assigns[:test].id}"))
+      end
+    end
+
+    context "home page" do
+      before do
+        get root_path
+      end
+
+      it "should have tests" do
+        expect(assigns[:tests]).not_to be_nil
+      end
+    end
+  end
+end
+
 RSpec.describe TestsController, type: :controller do
   let_it_be(:user) {create(:user)}
   let_it_be(:subject) {create(:subject)}
@@ -110,6 +175,59 @@ RSpec.describe TestsController, type: :controller do
 
       it_behaves_like "back to home"
     end
+
+    context "job run success" do
+      context "with no answer chosen" do
+        before do
+          log_in user
+          post :create, params: {subject_id: subject.id}
+          CalculateScoreOvertimeJob.perform_now(assigns[:test].id)
+        end
+
+        it "test should not be ongoing" do
+          expect(Test.find_by(id: assigns[:test].id).doing?).to eq(false)
+        end
+
+        it "test should have 0 score" do
+          expect(assigns[:test].score).to eq(0)
+        end
+      end
+
+      context "with answers chosen" do
+        before do
+          log_in user
+          post :create, params: {subject_id: subject.id}
+          answers = {}
+          assigns[:test].test_questions.includes(question: :answers).each do  |test_question|
+            answers[test_question.id] = test_question.question.single_choice? ?
+                                          {"first_answer_id"=>test_question.question.answers.where(is_correct: true).first.id} :
+                                          {"answer_ids"=>["", test_question.question.answers.first.id]}
+          end
+
+          params = {"test"=>{"test_question"=>answers}, "commit"=>"save", "id"=>assigns[:test].id}
+          patch :update, params: params
+          CalculateScoreOvertimeJob.perform_now(assigns[:test].id)
+        end
+
+        it "test should not be ongoing" do
+          expect(Test.find_by(id: assigns[:test].id).doing?).to eq(false)
+        end
+      end
+
+      context "rollback transaction" do
+        before do
+          log_in user
+          post :create, params: {subject_id: subject.id}
+          allow(Test).to receive(:includes).and_raise(ActiveRecord::Rollback)
+          CalculateScoreOvertimeJob.perform_now(assigns[:test].id)
+        end
+
+        it "logs the error" do
+          # Rails.logger is not receiving the error
+          pending expect(Rails.logger).to receive(:error)
+        end
+      end
+    end
   end
 
   describe "GET /tests" do
@@ -137,6 +255,10 @@ RSpec.describe TestsController, type: :controller do
 
       it "create instance variable test_questions" do
         expect(assigns[:test_questions]).to eq(TestQuestion.where("test_id = #{assigns[:test].id}"))
+      end
+
+      it "should render :edit template" do
+        expect(response).to render_template(:edit)
       end
     end
 

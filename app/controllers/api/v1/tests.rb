@@ -14,7 +14,7 @@ module API
           return if @test.update({score: 0, status: :failed,
                                   end_time: Time.zone.now})
 
-          error!(test.errors.full_messages, 500)
+          error!("Internal server error", 500)
         end
 
         def validation_for_submit
@@ -84,7 +84,7 @@ module API
           enqueue_job
           present @test, with: API::Entities::Test
         rescue ActiveRecord::Rollback
-          error!(test.errors.full_messages, 500)
+          error!("Internal server error", 500)
         end
       end
 
@@ -110,6 +110,8 @@ module API
               end
             end
             present @test, with: API::Entities::Test
+          rescue ActiveRecord::Rollback
+            error!("Internal server error", 500)
           end
         end
       end

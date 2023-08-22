@@ -33,8 +33,6 @@ module API::V1::Helpers::TestHelper
             raise ActiveRecord::Rollback if result != corrected.size
           end
         end
-      rescue ActiveRecord::Rollback
-        error!(test.errors.full_messages, 500)
       end
 
       def update_saved_test
@@ -46,9 +44,6 @@ module API::V1::Helpers::TestHelper
       def save_answers detail_answers
         ActiveRecord::Base.transaction do
           DetailAnswer.by_test_question_ids(@test_questions_ids).delete_all
-          unless DetailAnswer.by_test_question_ids(@test_questions_ids).empty?
-            raise ActiveRecord::Rollback
-          end
 
           @answers.each_with_index do |answer, index|
             next if check_invalid_answer answer
@@ -61,8 +56,6 @@ module API::V1::Helpers::TestHelper
             create_detail_answers detail_answers
           end
         end
-      rescue ActiveRecord::Rollback
-        error!(test.errors.full_messages, 500)
       end
 
       def create_detail_answers detail_answers
@@ -72,8 +65,6 @@ module API::V1::Helpers::TestHelper
         ActiveRecord::Base.transaction do
           update_saved_test
         end
-      rescue ActiveRecord::Rollback
-        error!(test.errors.full_messages, 500)
       end
 
       def update_test score

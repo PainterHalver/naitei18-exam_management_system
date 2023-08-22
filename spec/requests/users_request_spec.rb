@@ -3,6 +3,19 @@ require 'shared_examples'
 include SessionsHelper
 
 RSpec.describe "Users", type: :request do
+  describe "GET /users/:id" do
+    let(:user) {create(:user)}
+    before do
+      create_list(:finished_test, 15, user: user)
+      post login_path, params: {session: {email: user.email, password: user.password}}
+      get "/users/#{user.id}"
+    end
+
+    it "get all user's tests" do
+      expect(assigns(:tests).length).to eq(15)
+    end
+  end
+
   describe "GET /new" do
     before do
       get "/signup"

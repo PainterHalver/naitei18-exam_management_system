@@ -57,6 +57,8 @@ end
 
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+gem "caxlsx", "~> 3.4"
+gem "caxlsx_rails", "~> 0.6.3"
 gem "grape", "~> 1.7"
 gem "grape-entity"
 gem "grape_on_rails_routes", "~> 0.3.2"
@@ -64,6 +66,4 @@ gem "grape-swagger"
 gem "jwt", "~> 2.7"
 gem "rack-attack"
 gem "rack-cors", "~> 2.0"
-gem "caxlsx", "~> 3.4"
-gem "caxlsx_rails", "~> 0.6.3"
 
